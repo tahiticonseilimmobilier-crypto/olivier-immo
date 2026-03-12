@@ -717,16 +717,62 @@ header{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--noir);he
 function submitHeroForm(){
   var nom = document.getElementById('hf-nom').value.trim();
   var tel = document.getElementById('hf-tel').value.trim();
+  var commune = document.getElementById('hf-commune').value;
+  var projet = document.getElementById('hf-projet').value;
   if(!nom || !tel){ alert('Merci de renseigner votre nom et téléphone.'); return; }
-  document.getElementById('hero-form').style.display='none';
-  document.getElementById('hero-success').style.display='block';
+  var btn = document.querySelector('.btn-submit');
+  btn.disabled = true; btn.textContent = 'Envoi en cours...';
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+    body: JSON.stringify({
+      access_key: 'b30c3522-dd13-4675-aedd-a6f6f14a15d0',
+      subject: 'Nouvelle demande estimation – ' + nom,
+      from_name: 'Site Olivier BLAISE',
+      nom: nom, telephone: tel, commune: commune, projet: projet
+    })
+  }).then(function(r){ return r.json(); }).then(function(d){
+    if(d.success){
+      document.getElementById('hero-form').style.display='none';
+      document.getElementById('hero-success').style.display='block';
+    } else {
+      btn.disabled=false; btn.textContent='📅 Demande d\'estimation — Réponse sous 24h';
+      alert('Erreur d\'envoi. Appelez le 89 22 56 43.');
+    }
+  }).catch(function(){
+    btn.disabled=false; btn.textContent='📅 Demande d\'estimation — Réponse sous 24h';
+    alert('Erreur réseau. Appelez le 89 22 56 43.');
+  });
 }
 function submitContactForm(){
   var nom = document.getElementById('cf-nom').value.trim();
   var tel = document.getElementById('cf-tel').value.trim();
+  var email = document.getElementById('cf-email') ? document.getElementById('cf-email').value.trim() : '';
+  var msg = document.getElementById('cf-msg') ? document.getElementById('cf-msg').value.trim() : '';
   if(!nom || !tel){ alert('Merci de renseigner votre nom et téléphone.'); return; }
-  document.getElementById('contact-fields').style.display='none';
-  document.getElementById('contact-success').style.display='block';
+  var btn = document.querySelector('.btn-contact');
+  btn.disabled = true; btn.textContent = 'Envoi en cours...';
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+    body: JSON.stringify({
+      access_key: 'b30c3522-dd13-4675-aedd-a6f6f14a15d0',
+      subject: 'Message de contact – ' + nom,
+      from_name: 'Site Olivier BLAISE',
+      nom: nom, telephone: tel, email: email, message: msg
+    })
+  }).then(function(r){ return r.json(); }).then(function(d){
+    if(d.success){
+      document.getElementById('contact-fields').style.display='none';
+      document.getElementById('contact-success').style.display='block';
+    } else {
+      btn.disabled=false; btn.textContent='Envoyer';
+      alert('Erreur d\'envoi. Appelez le 89 22 56 43.');
+    }
+  }).catch(function(){
+    btn.disabled=false; btn.textContent='Envoyer';
+    alert('Erreur réseau. Appelez le 89 22 56 43.');
+  });
 }
 function toggleFaq(el){
   var item = el.parentElement;
