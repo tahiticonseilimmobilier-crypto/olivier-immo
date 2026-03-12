@@ -216,6 +216,8 @@ footer{background:#060810;padding:32px 40px;display:flex;align-items:center;just
   .container{padding:0 20px}
   section{padding:64px 0}
   .h-nav{display:none}
+  .burger{display:flex}
+  .h-cta{display:none}
 }
 @media(max-width:600px){
   .fr{grid-template-columns:1fr}
@@ -223,6 +225,17 @@ footer{background:#060810;padding:32px 40px;display:flex;align-items:center;just
   .poly-strip{grid-template-columns:1fr;height:auto}
   .ps-img{height:160px}
 }
+
+/* BURGER MENU MOBILE */
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+.burger span{display:block;width:22px;height:2px;background:white;transition:all .3s}
+.burger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-nav{display:none;position:fixed;top:60px;left:0;right:0;background:var(--noir);border-top:1px solid rgba(255,255,255,.08);z-index:99;flex-direction:column;padding:16px 0}
+.mobile-nav.open{display:flex}
+.mobile-nav a{color:rgba(255,255,255,.55);font-size:.88rem;padding:14px 32px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05);transition:color .2s}
+.mobile-nav a:hover,.mobile-nav a.active{color:white}
 </style>
 </head>
 <body>
@@ -238,10 +251,24 @@ footer{background:#060810;padding:32px 40px;display:flex;align-items:center;just
     <a href="/louer">Louer</a>
     <a href="/acheter" class="active">Acheter</a>
     <a href="/blog">Blog</a>
+    <a href="/a-propos">À propos</a>
     <a href="https://tahiticonseilimmobilier.com/olivier-blaise" target="_blank">Mes annonces</a>
   </nav>
   <a href="#contact" class="h-cta">Nous contacter</a>
+  <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<nav class="mobile-nav" id="mobile-nav">
+    <a href="https://www.olivierimmopolynesie.com/">Estimation</a>
+    <a href="/vendre">Vendre</a>
+    <a href="/louer">Louer</a>
+    <a href="/acheter" class="active">Acheter</a>
+    <a href="/blog">Blog</a>
+    <a href="/a-propos">À propos</a>
+    <a href="https://tahiticonseilimmobilier.com/olivier-blaise" target="_blank">Mes annonces</a>
+</nav>
 
 <!-- HERO -->
 <section class="hero" id="accueil">
@@ -549,4 +576,17 @@ const obs=new IntersectionObserver((entries)=>{
     if(el.isIntersecting){el.target.style.opacity='1';el.target.style.transform='translateY(0)';}
   });
 },{threshold:0.1});
-document.qu
+document.querySelectorAll('.av,.step,.ch,.temo,.card-f').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity .5s ease, transform .5s ease';
+  obs.observe(el);
+});
+
+function toggleMenu(){
+  document.getElementById('burger').classList.toggle('open');
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+</script>
+</body>
+</html>
