@@ -222,10 +222,16 @@ footer{background:var(--noir);color:white;padding:52px 40px 32px}
 
 /* RESPONSIVE */
 @media(max-width:900px){
+  .hero{overflow-x:hidden}
   .hero{grid-template-columns:1fr}
   .hero-r{display:none}
-  .hero-l{padding:60px 28px}
-  .kpis{max-width:100%}
+  .hero-l{padding:80px 18px 40px 18px;overflow:hidden;width:100%;box-sizing:border-box}
+  .hero-sub{max-width:100%;word-break:break-word}
+  .kpis{max-width:100%;width:100%;grid-template-columns:repeat(2,1fr)}
+  .btn-main,.btn-tel{width:100%;justify-content:center;box-sizing:border-box}
+  .kpi{border-right:none;border-bottom:1px solid rgba(255,255,255,.07)}
+  .hero-btns{flex-direction:column}
+  .btn-main,.btn-tel{width:100%;justify-content:center}
   .tarifs-grid,.services-grid,.etapes-grid,.zones-grid{grid-template-columns:1fr}
   .contact-inner{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr}
