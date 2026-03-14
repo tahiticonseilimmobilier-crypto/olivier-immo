@@ -1,57 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Pages principales -->
   <url>
     <loc>https://www.olivierimmopolynesie.com/</loc>
-    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.olivierimmopolynesie.com/vendre</loc>
-    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.olivierimmopolynesie.com/louer</loc>
-    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.olivierimmopolynesie.com/acheter</loc>
-    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.olivierimmopolynesie.com/blog</loc>
-    <lastmod>2026-03-11</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.olivierimmopolynesie.com/a-propos</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.olivierimmopolynesie.com/a-propos</loc>
-    <lastmod>2026-03-11</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://www.olivierimmopolynesie.com/calculateur</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.olivierimmopolynesie.com/estimation-interactive</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://www.olivierimmopolynesie.com/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.olivierimmopolynesie.com/blog/prix-terrain-tahiti-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.olivierimmopolynesie.com/blog/frais-notaire-polynesie-francaise</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.olivierimmopolynesie.com/blog/comment-vendre-bien-tahiti</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.olivierimmopolynesie.com/blog/marche-immobilier-tahiti-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.olivierimmopolynesie.com/blog/erreurs-vendre-tahiti</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.olivierimmopolynesie.com/blog/acheter-polynesie-metropole</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Pages légales -->
+  <url>
     <loc>https://www.olivierimmopolynesie.com/mentions-legales</loc>
-    <lastmod>2026-03-11</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.olivierimmopolynesie.com/politique-de-confidentialite</loc>
-    <lastmod>2026-03-11</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.olivierimmopolynesie.com/conditions-generales</loc>
-    <lastmod>2026-03-11</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <priority>0.3</priority>
   </url>
+
 </urlset>

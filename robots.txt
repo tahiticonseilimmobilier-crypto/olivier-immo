@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Pages privées — ne pas indexer
+Disallow: /calculateur-interne
+Disallow: /calculateur-levy
+
 Sitemap: https://www.olivierimmopolynesie.com/sitemap.xml
