@@ -125,7 +125,7 @@ footer{background:#080b10;padding:32px 40px;display:flex;align-items:center;just
       <p>Estimation officielle, vente, achat ou location — je vous accompagne sur Tahiti, Moorea et toute la Polynésie française.</p>
       <a href="/" class="cta-btn">Demander mon estimation →</a>
       <a href="https://wa.me/68987225643" target="_blank" class="cta-btn outline">💬 WhatsApp</a>
-      <div class="cta-tel">📞 89 22 56 43 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f6999a9f809f9384b69a93808f82979e9f829fd895999b">[email&#160;protected]</a></div>
+      <div class="cta-tel">📞 89 22 56 43 · olivier@levytahiti.com</div>
     </div>
   </div>
 </div>
@@ -139,10 +139,77 @@ footer{background:#080b10;padding:32px 40px;display:flex;align-items:center;just
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/articles.js"></script>
 <script>
 (function(){
-  if(!window.ARTICLES||!ARTICLES.length) return;
+  const ARTICLES = [
+    {
+      slug: "prix-terrain-tahiti-2026",
+      titre: "Prix au m² des terrains à Tahiti en 2026 — Guide par commune",
+      cat: "Terrains · Prix",
+      date: "Mars 2026",
+      lecture: "8 min",
+      extrait: "Fourchettes de prix réelles commune par commune, critères de valorisation, viabilisation EDT et eau, PPR et PGA expliqués. La référence terrain pour Tahiti et Moorea.",
+      tags: ["Terrains", "Prix 2026", "Tahiti", "Moorea"],
+      img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+      imgCard: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
+    },
+    {
+      slug: "frais-notaire-polynesie-francaise",
+      titre: "Frais de notaire en Polynésie française — Guide complet 2026",
+      cat: "Achat · Notaire",
+      date: "Mars 2026",
+      lecture: "6 min",
+      extrait: "Barèmes exacts, calcul pas à pas, différence résidence principale et investissement, spécificités PF. Tout ce qu'il faut savoir avant d'acheter à Tahiti.",
+      tags: ["Notaire", "Frais", "Achat"],
+      img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
+      imgCard: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80"
+    },
+    {
+      slug: "comment-vendre-bien-tahiti",
+      titre: "Comment vendre son bien immobilier à Tahiti — Guide complet",
+      cat: "Vendre",
+      date: "Mars 2026",
+      lecture: "7 min",
+      extrait: "Estimation, mandat, photos, annonce, visites, négociation, compromis, notaire — le guide complet pour vendre au bon prix en Polynésie française.",
+      tags: ["Vendre", "Guide", "Tahiti"],
+      img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80",
+      imgCard: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80"
+    },
+    {
+      slug: "marche-immobilier-tahiti-2026",
+      titre: "Marché immobilier à Tahiti en 2026 : ce qu'il faut savoir",
+      cat: "Marché",
+      date: "Janvier 2026",
+      lecture: "6 min",
+      extrait: "Offre limitée, prix stables, demande locative soutenue — mon analyse terrain du marché polynésien pour 2026.",
+      tags: ["Marché 2026", "Prix", "Investissement"],
+      img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+      imgCard: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80"
+    },
+    {
+      slug: "erreurs-vendre-tahiti",
+      titre: "5 erreurs à éviter quand on vend son bien à Tahiti",
+      cat: "Vendre",
+      date: "Décembre 2025",
+      lecture: "4 min",
+      extrait: "Prix surestimé, mauvaises photos, refus du mandat exclusif... Les erreurs les plus fréquentes des vendeurs polynésiens.",
+      tags: ["Vendre", "Conseils"],
+      img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80",
+      imgCard: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80"
+    },
+    {
+      slug: "acheter-polynesie-metropole",
+      titre: "Acheter en Polynésie française depuis la métropole : mode d'emploi",
+      cat: "Acheter",
+      date: "Novembre 2025",
+      lecture: "5 min",
+      extrait: "Visites en visio, financement, spécificités juridiques locales, délai de rétractation... Tout ce qu'il faut savoir pour acheter à distance.",
+      tags: ["Acheter", "Métropole", "Guide"],
+      img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+      imgCard: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80"
+    }
+  ];
+
   const feat=ARTICLES[0];
   document.getElementById('featured-inner').innerHTML=`
     <a href="/blog/${feat.slug}" class="feat-img" style="background-image:url('${feat.img}')">
@@ -161,4 +228,13 @@ footer{background:#080b10;padding:32px 40px;display:flex;align-items:center;just
         <div class="card-cat">${a.cat}</div>
       </div>
       <div class="card-body">
-        <div class="card-d
+        <div class="card-date">${a.date} · ${a.lecture}</div>
+        <h3 class="card-title">${a.titre}</h3>
+        <p class="card-excerpt">${a.extrait}</p>
+        <span class="card-link">Lire →</span>
+      </div>
+    </a>`).join('');
+})();
+</script>
+</body>
+</html>
