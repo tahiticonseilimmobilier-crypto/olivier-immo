@@ -138,6 +138,7 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
   <div class="tab" onclick="showTab('appart',this)">🏢 Appartement</div>
   <div class="tab" onclick="showTab('locpro',this)">🏭 Locaux Pro</div>
   <div class="tab" onclick="showTab('fdc',this)">🏪 Fonds de Commerce</div>
+  <div class="tab" onclick="showTab('bail',this)">📝 Bail / DAB / PdP</div>
   <div class="tab" onclick="showTab('methodo',this)">📖 Méthode</div>
 </div>
 
@@ -563,6 +564,37 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
 </div>
 
 <!-- Résultat maison -->
+<div id="m-rapport-card" class="card" style="display:none">
+  <div class="card-title"><span class="icon">🏘️</span> Immeuble de rapport — Valorisation par rendement</div>
+  <div style="font-size:.75rem;color:rgba(255,255,255,.35);margin-bottom:14px">Si le bien génère des loyers, la méthode par capitalisation donne une valorisation complémentaire à croiser avec la valeur vénale.</div>
+  <div class="g3">
+    <div class="field"><label>Loyer mensuel total (XPF)</label>
+      <input type="number" id="m-loyer-tot" value="0" min="0" step="10000" oninput="calcMaisonRapport()">
+    </div>
+    <div class="field"><label>Taux de rendement attendu</label>
+      <select id="m-taux-rdt" onchange="calcMaisonRapport()">
+        <option value="0.06">6% — Emplacement prime / Papeete</option>
+        <option value="0.07" selected>7% — Standard Tahiti</option>
+        <option value="0.08">8% — Communes éloignées</option>
+        <option value="0.09">9% — Moorea / périphérie</option>
+        <option value="0.10">10% — Îles éloignées</option>
+      </select>
+    </div>
+    <div class="field"><label>Valeur par capitalisation</label>
+      <input type="text" id="m-val-rdt" readonly style="background:#111;color:var(--gold);font-weight:700;font-size:.95rem">
+    </div>
+  </div>
+  <div id="m-rapport-compare" style="display:none;margin-top:12px;padding:14px 18px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:8px">
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.7);margin-bottom:8px">Croisement méthodes</div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap">
+      <div><span style="font-size:.72rem;color:rgba(255,255,255,.35)">Valeur vénale</span><br><span id="m-cross-venal" style="font-size:1rem;font-weight:700;color:white">—</span></div>
+      <div style="font-size:1.2rem;color:rgba(255,255,255,.2);align-self:center">vs</div>
+      <div><span style="font-size:.72rem;color:rgba(255,255,255,.35)">Capitalisation loyers</span><br><span id="m-cross-rdt" style="font-size:1rem;font-weight:700;color:#c9a84c">—</span></div>
+      <div id="m-cross-ecart" style="font-size:.78rem;color:rgba(255,255,255,.4);align-self:center"></div>
+    </div>
+  </div>
+</div>
+
 <div class="result-card" id="m-result" style="display:none">
   <div class="result-title">Estimation maison — Résultat</div>
   <div class="result-grid">
@@ -736,12 +768,14 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
   <div class="g3" style="margin-top:14px">
     <div class="field"><label>Emplacement</label>
       <select id="lp-empl" onchange="calcLocPro()">
-        <option value="0.07">Centre Papeete N°1 (bd Pomare, Vaima)</option>
-        <option value="0.08">Papeete standard</option>
-        <option value="0.085">Punaauia / zone commerciale</option>
-        <option value="0.09">Communes (Faaa, Mahina, Taravao…)</option>
-        <option value="0.10">Zone industrielle / périphérie</option>
-        <option value="0.095">Moorea</option>
+        <option value="0.065">Centre Papeete N°1 — bd Pomare, Vaima, rue piétonne</option>
+        <option value="0.07">Papeete centre standard</option>
+        <option value="0.075">Punaauia / Faaa / zone commerciale</option>
+        <option value="0.085">Communes (Mahina, Paea, Papara…)</option>
+        <option value="0.09">Taravao / presqu'île</option>
+        <option value="0.10">Zone industrielle / Fare Ute / périphérie</option>
+        <option value="0.075">Moorea — zone touristique</option>
+        <option value="0.085">Moorea — autres zones</option>
       </select>
     </div>
     <div class="field"><label>Bail restant</label>
@@ -751,6 +785,14 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
         <option value="0">2 à 4 ans</option>
         <option value="-0.10">Moins de 2 ans</option>
         <option value="-0.05">Pas de bail / verbal</option>
+      </select>
+    </div>
+    <div class="field"><label>Nombre de niveaux</label>
+      <select id="lp-niveaux" onchange="calcLocPro()">
+        <option value="0">RDC seul</option>
+        <option value="0.20">RDC + R+1 (2 niveaux)</option>
+        <option value="0.35">RDC + R+1 + R+2 (3 niveaux)</option>
+        <option value="-0.10">Sous-sol seul ou partiel</option>
       </select>
     </div>
     <div class="field"><label>État du local</label>
@@ -791,6 +833,14 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
   <div class="result-range" id="lp-range">Fourchette : —</div>
   <div class="detail-line" id="lp-detail">—</div>
   <div class="note">Méthode par capitalisation du loyer · Taux de rendement brut attendu Tahiti · Estimation indicative</div>
+  <div style="margin-top:12px;padding:12px 16px;background:rgba(255,255,255,.03);border-radius:8px">
+    <div style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px">Références vente murs — Cabinet LEVY 2026</div>
+    <div style="font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.8">
+      · Local 87 m² Papeete centre → 32 MF (368 000 XPF/m²) · Local 117 m² → 34 MF (291 000 XPF/m²)<br>
+      · Local 116 m² → 36,6 MF (316 000 XPF/m²) · Bureaux 320 m² → 99,5 MF (311 000 XPF/m²)<br>
+      · Fourchette murs commerciaux Papeete centre : <strong style="color:rgba(255,255,255,.6)">280 000 – 380 000 XPF/m²</strong>
+    </div>
+  </div>
 </div>
 
 </div><!-- /tab-locpro -->
@@ -889,6 +939,36 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
   </div>
 </div>
 
+<div class="card">
+  <div class="card-title"><span class="icon">📈</span> Méthode EBE — Croisement de valorisation</div>
+  <div style="font-size:.75rem;color:rgba(255,255,255,.35);margin-bottom:14px">L'EBE (Excédent Brut d'Exploitation) = CA − charges exploitation (salaires, loyer, fournisseurs, énergie) <strong style="color:rgba(255,255,255,.5)">avant impôts et amortissements</strong>. Issu du compte de résultat du vendeur.</div>
+  <div class="g3">
+    <div class="field"><label>EBE Année N-2 (XPF)</label>
+      <input type="number" id="fdc-ebe1" value="0" min="0" step="100000" oninput="calcFdc()">
+    </div>
+    <div class="field"><label>EBE Année N-1 (XPF)</label>
+      <input type="number" id="fdc-ebe2" value="0" min="0" step="100000" oninput="calcFdc()">
+    </div>
+    <div class="field"><label>EBE Année N (XPF)</label>
+      <input type="number" id="fdc-ebe3" value="0" min="0" step="100000" oninput="calcFdc()">
+    </div>
+  </div>
+  <div class="g2" style="margin-top:14px">
+    <div class="field"><label>Multiple EBE à appliquer</label>
+      <select id="fdc-multiple" onchange="calcFdc()">
+        <option value="2">× 2 — Activité risquée / déclinante</option>
+        <option value="3" selected>× 3 — Standard commerce</option>
+        <option value="4">× 4 — Activité stable / bonne rentabilité</option>
+        <option value="5">× 5 — Activité premium / forte croissance</option>
+        <option value="6">× 6 — Secteur porteur / monopole local</option>
+      </select>
+    </div>
+    <div class="field"><label>Valeur EBE calculée</label>
+      <input type="text" id="fdc-ebe-result" readonly style="background:#111;color:var(--gold);font-weight:700;font-size:.95rem">
+    </div>
+  </div>
+</div>
+
 <div class="result-card" id="fdc-result" style="display:none">
   <div class="result-title">Valeur fonds de commerce — Résultat</div>
   <div class="result-grid">
@@ -897,12 +977,243 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
     <div class="stat-box"><div class="lbl">Stock séparé</div><div class="val" id="fdc-stock-val" style="color:#4caf7a">—</div></div>
   </div>
   <div class="result-main" id="fdc-total">—</div>
-  <div class="result-range" id="fdc-range">Fourchette : —</div>
+  <div class="result-range" id="fdc-range">Fourchette méthode CA : —</div>
+  <div id="fdc-ebe-compare" style="display:none;margin-top:12px;padding:14px 18px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:8px">
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.7);margin-bottom:8px">Croisement méthode EBE</div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap">
+      <div><span style="font-size:.72rem;color:rgba(255,255,255,.35)">Méthode % CA</span><br><span id="fdc-cross-ca" style="font-size:1rem;font-weight:700;color:white">—</span></div>
+      <div style="font-size:1.2rem;color:rgba(255,255,255,.2);align-self:center">vs</div>
+      <div><span style="font-size:.72rem;color:rgba(255,255,255,.35)">Méthode EBE</span><br><span id="fdc-cross-ebe" style="font-size:1rem;font-weight:700;color:#c9a84c">—</span></div>
+      <div id="fdc-cross-ecart" style="font-size:.78rem;color:rgba(255,255,255,.4);align-self:center"></div>
+    </div>
+  </div>
   <div class="detail-line" id="fdc-detail">—</div>
   <div class="note">Méthode % CA annuel TTC · Barème indicatif professionnel · Stock à valoriser séparément · Matériel inclus dans le % · Droit au bail inclus</div>
 </div>
 
 </div><!-- /tab-fdc -->
+
+
+<!-- ==================== BAIL / DAB / PDP ==================== -->
+<div id="tab-bail" class="tab-content">
+
+<div class="card">
+  <div class="card-title"><span class="icon">📋</span> Type de bail & transaction</div>
+  <div class="g3">
+    <div class="field"><label>Type de bail</label>
+      <select id="b-type" onchange="calcBail()">
+        <option value="precaire">Bail précaire local (max 2 ans) — loyer seul</option>
+        <option value="commercial">Bail commercial local (9 ans) — loyer + DAB ou PdP</option>
+        <option value="professionnel">Bail professionnel (6 ans) — loyer + DAB ou PdP</option>
+        <option value="terrain_precaire">Location terrain — Bail précaire (max 2 ans)</option>
+        <option value="terrain_commercial">Location terrain — Bail commercial (9 ans)</option>
+      </select>
+    </div>
+    <div class="field"><label>Type de transaction</label>
+      <select id="b-transaction" onchange="calcBail()">
+        <option value="dab">Droit au bail (locataire → locataire)</option>
+        <option value="pdp">Pas de porte (entrant → bailleur)</option>
+        <option value="loyer">Loyer seul (sans cession)</option>
+      </select>
+    </div>
+    <div class="field"><label>Surface (m²)</label>
+      <input type="number" id="b-surf" value="50" min="5" oninput="calcBail()">
+    </div>
+  </div>
+  <div id="b-terrain-card" class="card" style="display:none">
+  <div class="card-title"><span class="icon">🏕️</span> Location terrain — Paramètres</div>
+  <div style="font-size:.75rem;color:rgba(255,255,255,.35);margin-bottom:14px">
+    Le loyer d'un terrain se calcule en % de sa valeur vénale annuelle. Bail précaire : redevance libre 4–6%/an · Bail commercial terrain nu : 3–5%/an avec indexation.
+  </div>
+  <div class="g3">
+    <div class="field"><label>Commune</label>
+      <select id="bt-commune" onchange="calcBailTerrain()">
+        <optgroup label="TAHITI · Agglo">
+          <option value="35000,40000,45000">Papeete</option>
+          <option value="30000,35000,40000">Pirae / Punaauia</option>
+          <option value="22500,27500,32500">Faaa</option>
+          <option value="25000,30000,35000">Arue</option>
+          <option value="20000,25000,30000">Paea</option>
+          <option value="15000,20000,25000">Mahina</option>
+        </optgroup>
+        <optgroup label="TAHITI · Sud">
+          <option value="15000,20000,25000">Papara / Taravao</option>
+          <option value="12500,17500,22500">Mataiea / Toahotu</option>
+          <option value="10000,15000,20000">Vairao / Côte Est</option>
+        </optgroup>
+        <optgroup label="MOOREA">
+          <option value="25000,30000,35000">Moorea – Maharepa</option>
+          <option value="20000,25000,30000">Moorea – Haapiti</option>
+          <option value="15000,20000,25000">Moorea – Afareaitu</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="field"><label>Superficie (m²)</label>
+      <input type="number" id="bt-surf" value="500" min="50" oninput="calcBailTerrain()">
+    </div>
+    <div class="field"><label>Usage terrain</label>
+      <select id="bt-usage" onchange="calcBailTerrain()">
+        <option value="1.0">Résidentiel viabilisé</option>
+        <option value="1.3">Commercial / axe passant</option>
+        <option value="1.5">Commercial N°1 / centre Papeete</option>
+        <option value="1.8">Touristique / hôtelier</option>
+        <option value="0.6">Agricole / naturel</option>
+      </select>
+    </div>
+  </div>
+  <div class="g2" style="margin-top:14px">
+    <div class="field"><label>Taux annuel (%/an valeur vénale)</label>
+      <select id="bt-taux" onchange="calcBailTerrain()">
+        <option value="0.06">6% — Bail précaire / redevance libre</option>
+        <option value="0.05">5% — Bail commercial standard</option>
+        <option value="0.04">4% — Bail commercial long terme / terrain nu</option>
+        <option value="0.03">3% — Bail emphytéotique / très long terme</option>
+        <option value="0.08">8% — Terrain commercial très prisé / rare</option>
+      </select>
+    </div>
+    <div class="field"><label>Valeur vénale estimée du terrain</label>
+      <input type="text" id="bt-valeur-venale" readonly style="background:#111;color:var(--gold)">
+    </div>
+  </div>
+  <hr class="sep">
+  <div class="section-label">Critères de valorisation / décote du loyer</div>
+  <div class="crit-grid">
+    <label class="crit-item pos"><input type="checkbox" class="bt-crit" value="0.25" onchange="calcBailTerrain()"><span class="crit-txt">Bord de mer / lagon</span><span class="crit-pct">+25%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="bt-crit" value="0.20" onchange="calcBailTerrain()"><span class="crit-txt">Vue mer panoramique</span><span class="crit-pct">+20%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="bt-crit" value="0.30" onchange="calcBailTerrain()"><span class="crit-txt">Emplacement commercial ultra-passant</span><span class="crit-pct">+30%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="bt-crit" value="0.15" onchange="calcBailTerrain()"><span class="crit-txt">R+3 ou plus autorisé</span><span class="crit-pct">+15%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="bt-crit" value="0.10" onchange="calcBailTerrain()"><span class="crit-txt">Terrain plat / viabilisé</span><span class="crit-pct">+10%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="bt-dec" value="0.15" onchange="calcBailTerrain()"><span class="crit-txt">Forte pente</span><span class="crit-pct">−15%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="bt-dec" value="0.10" onchange="calcBailTerrain()"><span class="crit-txt">Accès difficile</span><span class="crit-pct">−10%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="bt-dec" value="0.20" onchange="calcBailTerrain()"><span class="crit-txt">Zone PPR bleue / rouge</span><span class="crit-pct">−20%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="bt-dec" value="0.15" onchange="calcBailTerrain()"><span class="crit-txt">Terrain en indivision</span><span class="crit-pct">−15%</span></label>
+  </div>
+
+  <div class="result-card" id="bt-result" style="margin-top:16px">
+    <div class="result-title">Location terrain — Résultat</div>
+    <div class="result-grid">
+      <div class="stat-box"><div class="lbl">Valeur vénale centrale</div><div class="val" id="bt-res-venale" style="color:var(--gold)">—</div></div>
+      <div class="stat-box" style="border:1px solid rgba(192,83,58,.3)"><div class="lbl">Loyer annuel</div><div class="val" id="bt-res-an" style="color:var(--coral)">—</div></div>
+      <div class="stat-box"><div class="lbl">Loyer mensuel</div><div class="val" id="bt-res-mois">—</div></div>
+    </div>
+    <div class="result-range" id="bt-res-range">—</div>
+    <div class="detail-line" id="bt-res-detail">—</div>
+    <div class="note">Loyer terrain = % valeur vénale annuelle · Taux indicatif marché polynésien · Ne constitue pas une estimation officielle</div>
+  </div>
+</div>
+
+<div id="b-precaire-note" style="display:none;margin-top:10px;padding:10px 14px;background:rgba(192,83,58,.08);border:1px solid rgba(192,83,58,.2);border-radius:8px;font-size:.78rem;color:rgba(255,255,255,.55)">
+    ℹ️ Bail précaire (max 2 ans en PF) — pas de droit au bail ni de pas de porte. Loyer libre, pas de droit au renouvellement, pas d'indemnité d'éviction.
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">📍</span> Loyer de marché</div>
+  <div class="g3">
+    <div class="field"><label>Emplacement</label>
+      <select id="b-empl" onchange="calcBail()">
+        <option value="5500">N°1 Papeete — bd Pomare, Vaima, rue piétonne touristique</option>
+        <option value="4800">Face bateaux / gare maritime / quais touristiques</option>
+        <option value="4200">Papeete centre standard</option>
+        <option value="3500">Zone commerciale Punaauia / Faaa / Pirae</option>
+        <option value="2800">Communes (Mahina, Paea, Papara…)</option>
+        <option value="2500">Taravao / presqu'île</option>
+        <option value="3800">Moorea — zone touristique</option>
+        <option value="2500">Moorea — autres zones</option>
+      </select>
+    </div>
+    <div class="field"><label>Usage prévu / activité</label>
+      <select id="b-usage-type" onchange="calcBail()">
+        <option value="1.0">Commerce standard / boutique</option>
+        <option value="1.3">Restauration / snack / bar</option>
+        <option value="1.4">Boutique luxe / joaillerie / prêt-à-porter haut de gamme</option>
+        <option value="1.2">Tourisme / souvenirs / services touristiques</option>
+        <option value="0.9">Bureau / professions libérales</option>
+        <option value="0.8">Entrepôt / stockage</option>
+        <option value="1.1">Pharmacie / médical</option>
+      </select>
+    </div>
+    <div class="field"><label>Loyer en cours (si connu, XPF/mois)</label>
+      <input type="number" id="b-loyer-actuel" value="0" min="0" step="10000" oninput="calcBail()" placeholder="0 = calculé auto">
+    </div>
+  </div>
+  <div class="g2" style="margin-top:14px">
+    <div class="field"><label>Loyer recommandé (calculé)</label>
+      <input type="text" id="b-loyer-reco" readonly style="background:#111;color:var(--gold);font-weight:700">
+    </div>
+    <div class="field"><label>XPF / m² / mois</label>
+      <input type="text" id="b-loyer-pm2" readonly style="background:#111;color:rgba(255,255,255,.5)">
+    </div>
+  </div>
+</div>
+
+<div id="b-cession-card" class="card">
+  <div class="card-title"><span class="icon">💰</span> <span id="b-cession-title">Droit au bail / Pas de porte</span></div>
+  <div style="font-size:.75rem;color:rgba(255,255,255,.35);margin-bottom:14px" id="b-cession-desc">—</div>
+  
+  <div class="g2">
+    <div class="field"><label>État du local</label>
+      <select id="b-etat" onchange="calcBail()">
+        <option value="1.30">Excellent / entièrement rénové par locataire sortant</option>
+        <option value="1.10">Bon état / travaux légers effectués</option>
+        <option value="1.0">État standard</option>
+        <option value="0.85">À rafraîchir / aménagements à prévoir</option>
+        <option value="0.70">Mauvais état / travaux importants</option>
+      </select>
+    </div>
+    <div class="field"><label>Bail restant</label>
+      <select id="b-bail-reste" onchange="calcBail()">
+        <option value="1.20">Plus de 6 ans restants</option>
+        <option value="1.10">4 à 6 ans restants</option>
+        <option value="1.0">2 à 4 ans restants</option>
+        <option value="0.75">Moins de 2 ans restants</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:14px">Critères de valorisation spécifiques</div>
+  <div class="crit-grid">
+    <label class="crit-item pos"><input type="checkbox" class="b-crit" value="0.30" onchange="calcBail()"><span class="crit-txt">Emplacement touristique rare / monopole</span><span class="crit-pct">+30%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="b-crit" value="0.25" onchange="calcBail()"><span class="crit-txt">Licence restaurant / alcool incluse</span><span class="crit-pct">+25%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="b-crit" value="0.20" onchange="calcBail()"><span class="crit-txt">Installation cuisine pro / hottes (restauration)</span><span class="crit-pct">+20%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="b-crit" value="0.15" onchange="calcBail()"><span class="crit-txt">Vitrine large sur artère ultra-passante</span><span class="crit-pct">+15%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="b-crit" value="0.15" onchange="calcBail()"><span class="crit-txt">Travaux importants faits par locataire sortant</span><span class="crit-pct">+15%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="b-crit" value="0.10" onchange="calcBail()"><span class="crit-txt">Loyer sous le marché (DAB = écart capitalisé)</span><span class="crit-pct">+10%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="b-crit" value="0.10" onchange="calcBail()"><span class="crit-txt">Parking client inclus / accessible</span><span class="crit-pct">+10%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="b-dec" value="0.20" onchange="calcBail()"><span class="crit-txt">Activité interdite / restrictions usage</span><span class="crit-pct">−20%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="b-dec" value="0.15" onchange="calcBail()"><span class="crit-txt">Loyer au-dessus du marché</span><span class="crit-pct">−15%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="b-dec" value="0.10" onchange="calcBail()"><span class="crit-txt">Faible visibilité / local en retrait</span><span class="crit-pct">−10%</span></label>
+  </div>
+</div>
+
+<div class="result-card" id="b-result" style="display:none">
+  <div class="result-title" id="b-result-title">Estimation — Résultat</div>
+  <div class="result-grid">
+    <div class="stat-box"><div class="lbl">Loyer recommandé/mois</div><div class="val" id="b-res-loyer" style="color:var(--gold)">—</div></div>
+    <div class="stat-box"><div class="lbl" id="b-res-dab-label">DAB / PdP estimé</div><div class="val" id="b-res-dab" style="color:var(--coral)">—</div></div>
+    <div class="stat-box"><div class="lbl">Ratio mois de loyer</div><div class="val" id="b-res-ratio">—</div></div>
+  </div>
+  <div class="result-main" id="b-res-total">—</div>
+  <div class="result-range" id="b-res-range">—</div>
+  <div id="b-ref-box" style="margin-top:14px;padding:12px 16px;background:rgba(255,255,255,.03);border-radius:8px">
+    <div style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px">Références marché Cabinet LEVY</div>
+    <div style="font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.8">
+      <strong style="color:rgba(255,255,255,.6)">DAB / PdP :</strong><br>
+      · 35 m² Papeete centre rénové — DAB <strong style="color:#c9a84c">6,9 MF</strong> · Loyer 171 000/mois · ratio 3,4× loyer mensuel<br>
+      · 70 m² face bateaux touristiques — PdP <strong style="color:#c9a84c">11,5 MF</strong> · Loyer 325 000/mois · ratio 2,95× loyer mensuel<br>
+      <strong style="color:rgba(255,255,255,.6)">Murs commerciaux Papeete centre (vente) :</strong><br>
+      · Local 87 m² → <strong style="color:#c9a84c">32 MF</strong> (368 000 XPF/m²)<br>
+      · Local 117 m² → <strong style="color:#c9a84c">34 MF</strong> (291 000 XPF/m²)<br>
+      · Local 116 m² → <strong style="color:#c9a84c">36,6 MF</strong> (316 000 XPF/m²)<br>
+      · Bureaux 320 m² → <strong style="color:#c9a84c">99,5 MF</strong> (311 000 XPF/m²)<br>
+      <span style="color:rgba(255,255,255,.3)">Source : annonces Cabinet LEVY mars 2026</span>
+    </div>
+  </div>
+  <div class="detail-line" id="b-res-detail">—</div>
+  <div class="note">Estimation indicative basée sur données marché Cabinet LEVY · Usage interne uniquement</div>
+</div>
+
+</div><!-- /tab-bail -->
 
 <!-- ==================== MÉTHODOLOGIE ==================== -->
 <div id="tab-methodo" class="tab-content">
@@ -948,7 +1259,7 @@ function checkPwd(){
 
 // ---- TABS ----
 function showTab(n,b){
-  ['terrain','maison','appart','locpro','fdc','methodo'].forEach(t=>{
+  ['terrain','maison','appart','locpro','fdc','bail','methodo'].forEach(t=>{
     const el=$('tab-'+t);if(el)el.classList.remove('active');
   });
   const el=$('tab-'+n);if(el)el.classList.add('active');
@@ -1028,6 +1339,10 @@ function calcMaison(){
   document.querySelectorAll('.m-bonus').forEach(cb=>{if(cb.checked)bonus+=parseFloat(cb.value)||0;});
   const niveau=parseFloat($('m-niveau')?.value)||0;
   const mUsage=parseFloat($('m-usage')?.value)||0;
+  // Afficher carte rapport si usage = locatif
+  const isRapport=mUsage>0;
+  const rapportCard=$('m-rapport-card');
+  if(rapportCard) rapportCard.style.display=isRapport?'block':'none';
   const coeff=(1+constr+toit+etat+bonus+risk+niveau+mUsage)*(1-vet);
   const vConstN=Math.round(surf*pn*coeff);
   const vConstX=Math.round(surf*px*coeff);
@@ -1131,13 +1446,14 @@ function calcLocPro(){
   const taux=parseFloat($('lp-empl').value)||0.09;
   const bail=parseFloat($('lp-bail').value)||0;
   const etat=parseFloat($('lp-etat').value)||0;
+  const niveaux=parseFloat($('lp-niveaux')?.value)||0;
   let crit=0,dec=0;
   document.querySelectorAll('.lp-crit').forEach(cb=>{if(cb.checked)crit+=parseFloat(cb.value)||0;});
   document.querySelectorAll('.lp-dec').forEach(cb=>{if(cb.checked)dec+=parseFloat(cb.value)||0;});
   const loyerAn=loyer*12;
   const tauxFinal=Math.max(0.05,taux*(1-bail)*(1-etat));
   const valBase=loyerAn/taux;
-  const valCorr=Math.round(valBase*(1+bail+etat+crit-dec));
+  const valCorr=Math.round(valBase*(1+bail+etat+crit-dec+niveaux));
   const surf=parseFloat($('lp-surf').value)||100;
   $('lp-loyer-an').textContent=fmtMF(loyerAn);
   $('lp-taux').textContent=(taux*100).toFixed(1)+'%';
@@ -1244,16 +1560,149 @@ function calcFdc(){
   $('fdc-pct-val').textContent=pct&&!pct.startsWith('SPEC')?pct.replace(',','% – ')+'%':'Méthode spécifique';
   $('fdc-stock-val').textContent=stock>0?fmtMF(stock):'Non inclus';
   $('fdc-total').textContent=valMoy>0?fmtMF(valMoy+materiel):'Méthode spécifique';
-  $('fdc-range').textContent=valBas>0?'Fourchette FDC seul : '+fmtMF(valBas)+' — '+fmtMF(valHau):'';
+  $('fdc-range').textContent=valBas>0?'Fourchette méthode CA : '+fmtMF(valBas)+' — '+fmtMF(valHau):'';
   $('fdc-detail').textContent=`CA moyen: ${fmtMF(caMoy)} · Correctifs: ${Math.round((corrTotal-1)*100)}% · Matériel: ${fmtMF(materiel)} · Stock séparé: ${fmtMF(stock)}`;
   $('fdc-result').style.display='block';
+  // EBE
+  const ebe1=parseFloat($('fdc-ebe1')?.value)||0;
+  const ebe2=parseFloat($('fdc-ebe2')?.value)||0;
+  const ebe3=parseFloat($('fdc-ebe3')?.value)||0;
+  const ebeCount=[ebe1,ebe2,ebe3].filter(x=>x>0).length;
+  const ebeMoy=ebeCount>0?(ebe1+ebe2+ebe3)/ebeCount:0;
+  const mult=parseFloat($('fdc-multiple')?.value)||3;
+  const valEbe=Math.round(ebeMoy*mult);
+  if($("fdc-ebe-result")) $("fdc-ebe-result").value=valEbe>0?fmtMF(valEbe):"Renseignez l'EBE";
+  // Croisement CA vs EBE
+  const crossDiv=$('fdc-ebe-compare');
+  if(crossDiv&&valEbe>0&&valMoy>0){
+    crossDiv.style.display='block';
+    $('fdc-cross-ca').textContent=fmtMF(valMoy);
+    $('fdc-cross-ebe').textContent=fmtMF(valEbe);
+    const ecart=Math.round((valEbe/valMoy-1)*100);
+    $('fdc-cross-ecart').textContent=ecart>0?`EBE supérieur de +${ecart}%`:`EBE inférieur de ${ecart}%`;
+  } else if(crossDiv) crossDiv.style.display='none';
 }
 
 // ---- SCROLL TOP ----
 window.addEventListener('scroll',()=>{$('scrollTop').classList.toggle('visible',window.scrollY>300);});
 
+// ---- BAIL / DAB / PDP ----
+function calcBail(){
+  const bType=$('b-type').value;
+  const bTrans=$('b-transaction').value;
+  const surf=parseFloat($('b-surf').value)||50;
+  const empl=parseFloat($('b-empl').value)||4000;
+  const usageCoef=parseFloat($('b-usage-type').value)||1.0;
+  
+  // Note bail précaire
+  const isTerrainBail=bType==='terrain_precaire'||bType==='terrain_commercial';
+  $('b-precaire-note').style.display=bType==='precaire'?'block':'none';
+  $('b-cession-card').style.display=(bType==='precaire'||isTerrainBail)?'none':'block';
+  $('b-terrain-card').style.display=isTerrainBail?'block':'none';
+  if(isTerrainBail){calcBailTerrain();return;}
+  
+  // Loyer recommandé = XPF/m²/mois × usage × surface
+  const loyerPm2=empl*usageCoef;
+  const loyerReco=Math.round(loyerPm2*surf);
+  $('b-loyer-reco').value=loyerReco.toLocaleString('fr-FR')+' XPF/mois';
+  $('b-loyer-pm2').value=Math.round(loyerPm2).toLocaleString('fr-FR')+' XPF/m²/mois';
+  
+  const loyerUsed=parseFloat($('b-loyer-actuel').value)||loyerReco;
+  
+  if(bType==='precaire'){
+    $('b-res-loyer').textContent=loyerReco.toLocaleString('fr-FR')+' XPF';
+    $('b-res-dab').textContent='N/A — bail précaire';
+    $('b-res-ratio').textContent='—';
+    $('b-res-total').textContent='Loyer : '+fmtMF(loyerReco)+'/mois';
+    $('b-res-range').textContent='Loyer annuel : '+fmtMF(loyerReco*12);
+    $('b-result-title').textContent='Bail précaire — Loyer recommandé';
+    $('b-result').style.display='block';
+    return;
+  }
+  
+  // Titre selon transaction
+  const isDab=bTrans==='dab';
+  $('b-cession-title').textContent=isDab?'Droit au bail':'Pas de porte';
+  $('b-cession-desc').textContent=isDab
+    ? "Valeur que le locataire sortant cède à l'entrant — valorise emplacement, travaux réalisés, et écart loyer en cours vs marché."
+    : "Somme versée au bailleur pour entrer dans les lieux — valorise la rareté et la qualité de l'emplacement.";
+  $('b-res-dab-label').textContent=isDab?'Droit au bail':'Pas de porte';
+  
+  // Calcul base : multiple de loyer annuel selon emplacement
+  // Base : 3 mois loyer annuel (données réelles Cabinet LEVY)
+  // Ajustements selon critères
+  const etat=parseFloat($('b-etat').value)||1.0;
+  const bailReste=parseFloat($('b-bail-reste').value)||1.0;
+  let crit=0,dec=0;
+  document.querySelectorAll('.b-crit').forEach(cb=>{if(cb.checked)crit+=parseFloat(cb.value)||0;});
+  document.querySelectorAll('.b-dec').forEach(cb=>{if(cb.checked)dec+=parseFloat(cb.value)||0;});
+  
+  // Base = 3 mois de loyer annuel (=36 mois total / 12 = 3 ans de loyer mensuel)
+  // Calibré sur: 35m² 171k/mois → DAB 6,9MF (ratio 3,4) et 70m² 325k/mois → PdP 11,5MF (ratio 2,95)
+  const baseRatio = isDab ? 3.4 : 3.0;
+  const loyerAnnuel=loyerUsed*12;
+  const valBase=loyerAnnuel*baseRatio;
+  const valFinale=Math.round(valBase*etat*bailReste*(1+crit-dec));
+  const valBas=Math.round(valFinale*0.85);
+  const valHau=Math.round(valFinale*1.15);
+  const ratioMois=(valFinale/loyerUsed).toFixed(1);
+  
+  $('b-res-loyer').textContent=loyerUsed.toLocaleString('fr-FR')+' XPF';
+  $('b-res-dab').textContent=fmtMF(valFinale);
+  $('b-res-ratio').textContent=ratioMois+' mois de loyer';
+  $('b-res-total').textContent=fmtMF(valFinale);
+  $('b-res-range').textContent='Fourchette : '+fmtMF(valBas)+' — '+fmtMF(valHau);
+  $('b-res-detail').textContent=`${surf}m² · Loyer ${loyerUsed.toLocaleString('fr-FR')} XPF/mois · ${isDab?'DAB':'PdP'} = ${ratioMois}× loyer mensuel · État ×${etat} · Bail ×${bailReste}`;
+  $('b-result-title').textContent=(isDab?'Droit au bail':'Pas de porte')+' — Résultat';
+  $('b-result').style.display='block';
+}
+
+// ---- BAIL TERRAIN ----
+function calcBailTerrain(){
+  const cv=($('bt-commune')?.value||'15000,20000,25000').split(',').map(Number);
+  const typ=parseFloat($('bt-usage')?.value)||1.0;
+  const surf=parseFloat($('bt-surf')?.value)||500;
+  let crit=0,dec=0;
+  document.querySelectorAll('.bt-crit').forEach(cb=>{if(cb.checked)crit+=parseFloat(cb.value)||0;});
+  document.querySelectorAll('.bt-dec').forEach(cb=>{if(cb.checked)dec+=parseFloat(cb.value)||0;});
+  const delta=crit-dec;
+  const vBas=Math.round(cv[0]*typ*(1+delta)*surf);
+  const vCen=Math.round(cv[1]*typ*(1+delta)*surf);
+  const vHau=Math.round(cv[2]*typ*(1+delta)*surf);
+  const taux=parseFloat($('bt-taux')?.value)||0.05;
+  const loyerAnCen=Math.round(vCen*taux);
+  const loyerAnBas=Math.round(vBas*taux);
+  const loyerAnHau=Math.round(vHau*taux);
+  if($('bt-valeur-venale')) $('bt-valeur-venale').value=fmtMF(vCen);
+  if($('bt-res-venale')) $('bt-res-venale').textContent=fmtMF(vCen);
+  if($('bt-res-an')) $('bt-res-an').textContent=fmtMF(loyerAnCen);
+  if($('bt-res-mois')) $('bt-res-mois').textContent=fmtMF(Math.round(loyerAnCen/12));
+  if($('bt-res-range')) $('bt-res-range').textContent='Fourchette loyer annuel : '+fmtMF(loyerAnBas)+' – '+fmtMF(loyerAnHau);
+  const bType=$('b-type')?.value||'';
+  if($('bt-res-detail')) $('bt-res-detail').textContent=`${surf}m² · Valeur vénale ${fmtMF(vCen)} · Taux ${(taux*100).toFixed(0)}%/an · ${bType==='terrain_precaire'?'Bail précaire':'Bail commercial'} · Correctif marché ${delta>0?'+':''}${Math.round(delta*100)}%`;
+}
+
+// ---- MAISON RAPPORT ----
+function calcMaisonRapport(){
+  const loyer=parseFloat($('m-loyer-tot')?.value)||0;
+  const taux=parseFloat($('m-taux-rdt')?.value)||0.07;
+  const valRdt=loyer>0?Math.round(loyer*12/taux):0;
+  if($('m-val-rdt')) $('m-val-rdt').value=valRdt>0?fmtMF(valRdt):'Renseignez le loyer';
+  // Croisement avec valeur vénale
+  const mTotalEl=$('m-total-bien');
+  const mTotal=mTotalEl?parseFloat(mTotalEl.textContent.replace(/[^0-9,.]/g,'').replace(',','.'))*1000000:0;
+  const compareDiv=$('m-rapport-compare');
+  if(compareDiv&&valRdt>0&&mTotal>0){
+    compareDiv.style.display='block';
+    $('m-cross-venal').textContent=fmtMF(mTotal);
+    $('m-cross-rdt').textContent=fmtMF(valRdt);
+    const ecart=Math.round((valRdt/mTotal-1)*100);
+    $('m-cross-ecart').textContent=ecart>0?`Rapport +${ecart}% vs vénale`:`Rapport ${ecart}% vs vénale`;
+  } else if(compareDiv) compareDiv.style.display='none';
+}
+
 // ---- INIT ----
-fdcUpdateActivite();
+fdcUpdateActivite();calcBail();calcBailTerrain();
 calcTerrain();calcMaison();calcAppart();calcLocPro();
 </script>
 </body>
