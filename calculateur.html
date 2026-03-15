@@ -223,7 +223,7 @@ optgroup{font-style:normal}
   <h3>Estimation officielle de votre terrain</h3>
   <p>Valeur vénale certifiée pour vente, achat, succession ou banque — rapport remis sous 48h.</p>
   <a href="/" class="cta-btn">Demander mon estimation →</a>
-  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a> · <a href="/cdn-cgi/l/email-protection#9af5f6f3ecf3ffe8daf6ffece3eefbf2f3eef3b4f9f5f7" class="cta-tel" style="text-decoration:none"><span class="__cf_email__" data-cfemail="f49b989d829d9186b49891828d80959c9d809dda979b99">[email&#160;protected]</span></a>
+  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a>
 </div>
 </div>
 
@@ -338,7 +338,7 @@ optgroup{font-style:normal}
   <h3>Valeur vénale certifiée</h3>
   <p>Valeur vénale : 35 000 XPF · Valeur locative : 15 000 XPF<br>Rapport remis sous 48h · Tahiti, Moorea, îles sur demande</p>
   <a href="/" class="cta-btn">Demander mon estimation →</a>
-  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a> · <a href="/cdn-cgi/l/email-protection#b9d6d5d0cfd0dccbf9d5dccfc0cdd8d1d0cdd097dad6d4" class="cta-tel" style="text-decoration:none"><span class="__cf_email__" data-cfemail="86e9eaeff0efe3f4c6eae3f0fff2e7eeeff2efa8e5e9eb">[email&#160;protected]</span></a>
+  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a>
 </div>
 </div>
 
@@ -421,7 +421,7 @@ optgroup{font-style:normal}
   <h3>Besoin d'une valeur certifiée ?</h3>
   <p>Achat, vente, crédit, succession — rapport certifié sous 48h sur toute la Polynésie.</p>
   <a href="/" class="cta-btn">Demander mon estimation →</a>
-  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a> · <a href="/cdn-cgi/l/email-protection#85eae9ecf3ece0f7c5e9e0f3fcf1e4edecf1ecabe6eae8" class="cta-tel" style="text-decoration:none"><span class="__cf_email__" data-cfemail="84ebe8edf2ede1f6c4e8e1f2fdf0e5ecedf0edaae7ebe9">[email&#160;protected]</span></a>
+  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a>
 </div>
 </div>
 
@@ -444,7 +444,7 @@ optgroup{font-style:normal}
   <h3>Estimation officielle — Olivier BLAISE</h3>
   <p>Valeur vénale : 35 000 XPF · Valeur locative : 15 000 XPF<br>Tahiti et Moorea : visite sur place · Îles éloignées : sur dossier</p>
   <a href="/" class="cta-btn">Demander mon estimation →</a>
-  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a> · <a href="/cdn-cgi/l/email-protection#80efece9f6e9e5f2c0ece5f6f9f4e1e8e9f4e9aee3efed" class="cta-tel" style="text-decoration:none"><span class="__cf_email__" data-cfemail="84ebe8edf2ede1f6c4e8e1f2fdf0e5ecedf0edaae7ebe9">[email&#160;protected]</span></a>
+  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a>
 </div>
 </div>
 
@@ -585,4 +585,12 @@ function calcAppart(){
   const vp=np*1750000;
   const mn=s*pn*cf+vc+vp, mx=s*px*cf+vc+vp;
   $('a-pm2').textContent=fmt(Math.round(pn*cf))+' – '+fmt(Math.round(px*cf))+' XPF/m²';
-  $('a-vpark').textCont
+  $('a-vpark').textContent=np>0?fmtMF(vp):'—';
+  $('a-vcuis').textContent=cu?fmtMF(vc):'—';
+  $('a-total').textContent=fmtMF(mn)+' – '+fmtMF(mx);
+  $('a-detail').textContent=(etCoef!==0?'Étage '+(etCoef>0?'+':'')+Math.round(etCoef*100)+'% · ':'')+(np>0?np+' parking(s) · ':'')+(cu?'Cuisine incluse':'');
+}
+buildEQ();tCommuneChange();calcMaison();calcAppart();
+</script>
+</body>
+</html>
