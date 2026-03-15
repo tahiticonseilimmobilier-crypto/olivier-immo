@@ -132,6 +132,32 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
   <div class="h-badge">🔒 Usage interne uniquement</div>
 </header>
 
+<!-- PANNEAU INFLATION -->
+<div id="infla-panel" style="background:#0f1117;border-bottom:1px solid rgba(201,168,76,.2);padding:10px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+  <div style="font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(201,168,76,.7);white-space:nowrap">📈 Inflation auto</div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <label style="font-size:.72rem;color:rgba(255,255,255,.4)">Année réf.</label>
+    <input type="number" id="infla-annee-ref" value="2026" min="2024" max="2035" style="width:64px;background:#1a1d24;border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:4px 8px;color:white;font-size:.78rem;outline:none" onchange="applyInflation()">
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <label style="font-size:.72rem;color:rgba(255,255,255,.4)">Marché immo</label>
+    <input type="number" id="infla-immo" value="4.0" min="0" max="15" step="0.5" style="width:56px;background:#1a1d24;border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:4px 8px;color:#c9a84c;font-size:.78rem;outline:none" onchange="applyInflation()">
+    <span style="font-size:.7rem;color:rgba(255,255,255,.3)">%/an</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <label style="font-size:.72rem;color:rgba(255,255,255,.4)">Construction</label>
+    <input type="number" id="infla-const" value="3.0" min="0" max="15" step="0.5" style="width:56px;background:#1a1d24;border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:4px 8px;color:#c9a84c;font-size:.78rem;outline:none" onchange="applyInflation()">
+    <span style="font-size:.7rem;color:rgba(255,255,255,.3)">%/an (BTP)</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <label style="font-size:.72rem;color:rgba(255,255,255,.4)">Loyers (IRL)</label>
+    <input type="number" id="infla-loyer" value="1.5" min="0" max="10" step="0.5" style="width:56px;background:#1a1d24;border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:4px 8px;color:#c9a84c;font-size:.78rem;outline:none" onchange="applyInflation()">
+    <span style="font-size:.7rem;color:rgba(255,255,255,.3)">%/an (IPC PF)</span>
+  </div>
+  <div style="font-size:.7rem;color:rgba(255,255,255,.25)" id="infla-status">Année 2026 — données de base</div>
+  <div style="font-size:.68rem;color:rgba(255,255,255,.2)">Sources : ISPF BTP (+0,5%/an officiel · +3% réel) · IPC PF +1,4%/an · Marché immo Tahiti estimé +3,5-5%/an</div>
+</div>
+
 <div class="tabs" id="main-tabs">
   <div class="tab active" onclick="showTab('terrain',this)">🏕️ Terrain</div>
   <div class="tab" onclick="showTab('maison',this)">🏠 Maison</div>
@@ -597,6 +623,10 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
 
 <div class="result-card" id="m-result" style="display:none">
   <div class="result-title">Estimation maison — Résultat</div>
+  <div class="subtab-bar">
+    <div class="subtab active" id="m-tab-vente" onclick="mSwitchTab('vente')">🏷️ Valeur vénale</div>
+    <div class="subtab" id="m-tab-location" onclick="mSwitchTab('location')">📋 Valeur locative</div>
+  </div>
   <div class="result-grid">
     <div class="stat-box"><div class="lbl">Construction nette</div><div class="val" id="m-const-val">—</div><div class="sub" id="m-pm2">—/m²</div></div>
     <div class="stat-box"><div class="lbl">Équipements</div><div class="val" id="m-eq-val" style="color:#4caf7a">—</div></div>
@@ -606,6 +636,18 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
   <div class="result-range" id="m-range-bien">—</div>
   <div class="detail-line" id="m-detail">—</div>
   <div class="note">Construction + terrain valeur centrale · Vétusté sur construction · Ne constitue pas une estimation officielle</div>
+
+  <!-- Section location maison -->
+  <div id="m-section-location" style="display:none;margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)">
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px">Valeur locative estimée</div>
+    <div class="result-grid">
+      <div class="stat-box" style="border:1px solid rgba(201,168,76,.3)"><div class="lbl">Loyer mensuel</div><div class="val" id="m-loyer-mois" style="color:var(--gold)">—</div><div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:3px" id="m-loyer-pm2-txt">—</div></div>
+      <div class="stat-box"><div class="lbl">Loyer annuel</div><div class="val" id="m-loyer-an">—</div></div>
+      <div class="stat-box"><div class="lbl">Rendement brut</div><div class="val" id="m-rendement" style="color:#4caf7a">—</div></div>
+    </div>
+    <div class="result-range" id="m-loyer-range">—</div>
+    <div style="font-size:.72rem;color:rgba(255,255,255,.3);margin-top:8px">Loyers calibrés sur données Cabinet LEVY mars 2026 · Hors meublé</div>
+  </div>
 </div>
 
 </div><!-- /tab-maison -->
@@ -728,6 +770,10 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
 <!-- Résultat appart -->
 <div class="result-card" id="a-result" style="display:none">
   <div class="result-title">Estimation appartement — Résultat</div>
+  <div class="subtab-bar">
+    <div class="subtab active" id="a-tab-vente" onclick="aSwitchTab('vente')">🏷️ Valeur vénale</div>
+    <div class="subtab" id="a-tab-location" onclick="aSwitchTab('location')">📋 Valeur locative</div>
+  </div>
   <div class="result-grid">
     <div class="stat-box"><div class="lbl">Prix au m²</div><div class="val" id="a-pm2">—</div></div>
     <div class="stat-box" style="border:1px solid rgba(192,83,58,.3)"><div class="lbl">Valeur totale</div><div class="val" id="a-total" style="color:var(--coral)">—</div></div>
@@ -735,6 +781,18 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
   </div>
   <div class="detail-line" id="a-detail">—</div>
   <div class="note">Estimation indicative · Données marché Tahiti 2026 · Ne constitue pas une expertise officielle</div>
+
+  <!-- Section location appartement -->
+  <div id="a-section-location" style="display:none;margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)">
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px">Valeur locative estimée</div>
+    <div class="result-grid">
+      <div class="stat-box" style="border:1px solid rgba(201,168,76,.3)"><div class="lbl">Loyer mensuel</div><div class="val" id="a-loyer-mois" style="color:var(--gold)">—</div><div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:3px" id="a-loyer-pm2-txt">—</div></div>
+      <div class="stat-box"><div class="lbl">Loyer annuel</div><div class="val" id="a-loyer-an">—</div></div>
+      <div class="stat-box"><div class="lbl">Rendement brut</div><div class="val" id="a-rendement" style="color:#4caf7a">—</div></div>
+    </div>
+    <div class="result-range" id="a-loyer-range">—</div>
+    <div style="font-size:.72rem;color:rgba(255,255,255,.3);margin-top:8px">Calibré sur données Cabinet LEVY & immobilier.pf mars 2026 · Loyer non meublé</div>
+  </div>
 </div>
 
 <div id="a-iles" style="display:none;padding:20px;background:rgba(192,83,58,.08);border:1px solid rgba(192,83,58,.2);border-radius:10px;color:rgba(255,255,255,.6);font-size:.85rem">
@@ -749,20 +807,35 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
 <div class="card">
   <div class="card-title"><span class="icon">🏭</span> Informations locaux professionnels</div>
   <div class="g3">
+    <div class="field"><label>Type de transaction</label>
+      <select id="lp-transaction" onchange="calcLocPro()">
+        <option value="location">📋 Location — Loyer recommandé</option>
+        <option value="vente">🏷️ Vente murs — Valeur par capitalisation</option>
+      </select>
+    </div>
     <div class="field"><label>Type de local</label>
       <select id="lp-type" onchange="calcLocPro()">
+        <option value="commerce">Commerce / boutique RDC</option>
+        <option value="restaurant">Restaurant / snack / bar</option>
         <option value="bureau">Bureau / open space</option>
-        <option value="commerce">Commerce / boutique</option>
-        <option value="restaurant">Restaurant / snack</option>
         <option value="entrepot">Entrepôt / hangar</option>
+        <option value="dock">Dock / local portuaire</option>
         <option value="mixte">Local mixte (bureau + entrepôt)</option>
       </select>
     </div>
     <div class="field"><label>Surface (m²)</label>
       <input type="number" id="lp-surf" value="100" min="10" oninput="calcLocPro()">
     </div>
-    <div class="field"><label>Loyer mensuel actuel (XPF)</label>
-      <input type="number" id="lp-loyer" value="150000" min="0" step="10000" oninput="calcLocPro()">
+  </div>
+  <div class="g3" style="margin-top:14px">
+    <div class="field"><label>Loyer mensuel actuel (XPF) <span style="color:rgba(255,255,255,.3);font-size:.7rem">— laisser 0 pour calcul auto</span></label>
+      <input type="number" id="lp-loyer" value="0" min="0" step="10000" oninput="calcLocPro()">
+    </div>
+    <div class="field"><label>Loyer recommandé (calculé)</label>
+      <input type="text" id="lp-loyer-reco" readonly style="background:#111;color:var(--gold);font-weight:700">
+    </div>
+    <div class="field"><label>XPF / m² / mois</label>
+      <input type="text" id="lp-pm2-mois" readonly style="background:#111;color:rgba(255,255,255,.45)">
     </div>
   </div>
   <div class="g3" style="margin-top:14px">
@@ -785,6 +858,22 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
         <option value="0">2 à 4 ans</option>
         <option value="-0.10">Moins de 2 ans</option>
         <option value="-0.05">Pas de bail / verbal</option>
+      </select>
+    </div>
+    <div class="field"><label>Situation locataire (bail commercial)</label>
+      <select id="lp-locataire" onchange="calcLocPro()">
+        <option value="0.10">Locataire solide en place +9 ans — bail reconductible</option>
+        <option value="0.05">Locataire en place 3–9 ans — bail actif</option>
+        <option value="0">Locataire récent (&lt;3 ans)</option>
+        <option value="-0.05">Local partiellement vacant</option>
+        <option value="-0.15">Local vide — pas de locataire</option>
+      </select>
+    </div>
+    <div class="field"><label>Écart loyer actuel vs marché</label>
+      <select id="lp-loyer-ecart" onchange="calcLocPro()">
+        <option value="0.10">Loyer sous le marché — revalorisation possible +IRL</option>
+        <option value="0">Loyer au marché</option>
+        <option value="-0.08">Loyer au-dessus du marché</option>
       </select>
     </div>
     <div class="field"><label>Nombre de niveaux</label>
@@ -823,16 +912,16 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
 </div>
 
 <div class="result-card" id="lp-result" style="display:none">
-  <div class="result-title">Valeur locale pro — Méthode capitalisation</div>
+  <div class="result-title" id="lp-result-title">Résultat</div>
   <div class="result-grid">
-    <div class="stat-box"><div class="lbl">Loyer annuel</div><div class="val" id="lp-loyer-an">—</div></div>
-    <div class="stat-box"><div class="lbl">Taux capitalisation</div><div class="val" id="lp-taux">—</div></div>
-    <div class="stat-box"><div class="lbl">Valeur au m²</div><div class="val" id="lp-pm2">—</div></div>
+    <div class="stat-box"><div class="lbl" id="lp-stat1-lbl">Loyer mensuel</div><div class="val" id="lp-loyer-an">—</div></div>
+    <div class="stat-box" style="border:1px solid rgba(192,83,58,.3)"><div class="lbl" id="lp-stat2-lbl">Valeur / Loyer annuel</div><div class="val" id="lp-taux" style="color:var(--coral)">—</div></div>
+    <div class="stat-box"><div class="lbl">Au m²</div><div class="val" id="lp-pm2">—</div></div>
   </div>
   <div class="result-main" id="lp-total">—</div>
-  <div class="result-range" id="lp-range">Fourchette : —</div>
+  <div class="result-range" id="lp-range">—</div>
   <div class="detail-line" id="lp-detail">—</div>
-  <div class="note">Méthode par capitalisation du loyer · Taux de rendement brut attendu Tahiti · Estimation indicative</div>
+  <div class="note" id="lp-note">Estimation indicative · Données marché Cabinet LEVY 2026</div>
   <div style="margin-top:12px;padding:12px 16px;background:rgba(255,255,255,.03);border-radius:8px">
     <div style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px">Références vente murs — Cabinet LEVY 2026</div>
     <div style="font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.8">
@@ -1151,7 +1240,23 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
   <div class="card-title"><span class="icon">💰</span> <span id="b-cession-title">Droit au bail / Pas de porte</span></div>
   <div style="font-size:.75rem;color:rgba(255,255,255,.35);margin-bottom:14px" id="b-cession-desc">—</div>
   
-  <div class="g2">
+  <div class="g3">
+    <div class="field"><label>Ancienneté du bail (locataire sortant)</label>
+      <select id="b-anciennete" onchange="calcBail()">
+        <option value="0.20">+9 ans — droit inamovible / indemnité éviction pleine</option>
+        <option value="0.10">6–9 ans — bien établi</option>
+        <option value="0">3–6 ans — standard</option>
+        <option value="-0.10">Moins de 3 ans — droit non consolidé</option>
+      </select>
+    </div>
+    <div class="field"><label>Loyer actuel vs marché</label>
+      <select id="b-loyer-marche" onchange="calcBail()">
+        <option value="0.15">Loyer très bas vs marché (+30% et plus)</option>
+        <option value="0.08">Loyer légèrement sous le marché</option>
+        <option value="0">Loyer au marché</option>
+        <option value="-0.10">Loyer au-dessus du marché</option>
+      </select>
+    </div>
     <div class="field"><label>État du local</label>
       <select id="b-etat" onchange="calcBail()">
         <option value="1.30">Excellent / entièrement rénové par locataire sortant</option>
@@ -1161,6 +1266,8 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
         <option value="0.70">Mauvais état / travaux importants</option>
       </select>
     </div>
+  </div>
+  <div class="g2" style="margin-top:14px">
     <div class="field"><label>Bail restant</label>
       <select id="b-bail-reste" onchange="calcBail()">
         <option value="1.20">Plus de 6 ans restants</option>
@@ -1211,6 +1318,9 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
   </div>
   <div class="detail-line" id="b-res-detail">—</div>
   <div class="note">Estimation indicative basée sur données marché Cabinet LEVY · Usage interne uniquement</div>
+  <div style="margin-top:10px;padding:10px 14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:7px;font-size:.75rem;color:rgba(255,255,255,.45);line-height:1.7">
+    📋 <strong style="color:rgba(255,255,255,.6)">Rappel bail commercial PF :</strong> Après 9 ans, le bail est reconductible tacitement à durée indéterminée. Le bailleur ne peut récupérer le local qu'en versant une <strong style="color:rgba(255,255,255,.6)">indemnité d'éviction = valeur marchande du fonds</strong>. Le loyer ne peut être révisé qu'au <strong style="color:rgba(255,255,255,.6)">bout de 3 ans suivant l'indice IRL</strong> (Indice de Révision des Loyers). Un loyer sous le marché depuis longtemps = DAB plus élevé car le locataire entrant bénéficie de cet écart sur toute la durée.
+  </div>
 </div>
 
 </div><!-- /tab-bail -->
@@ -1291,9 +1401,9 @@ function calcTerrain(){
   const surf=parseFloat($('t-surf')?.value)||500;
   if($('t-spc')&&cos>0){$('t-spc').value=Math.round(surf*cos)+' m² plancher constructible';}
   else if($('t-spc')){$('t-spc').value='Renseignez le COS';}
-  const bas=Math.max(0,Math.round(bv*typ*(1+delta)));
-  const cen=Math.max(0,Math.round(cv*typ*(1+delta)));
-  const hau=Math.max(0,Math.round(hv*typ*(1+delta)));
+  const bas=Math.max(0,inflaImmo(Math.round(bv*typ*(1+delta))));
+  const cen=Math.max(0,inflaImmo(Math.round(cv*typ*(1+delta))));
+  const hau=Math.max(0,inflaImmo(Math.round(hv*typ*(1+delta))));
   $('t-bas').textContent=fmtMF(bas*surf);
   $('t-cen').textContent=fmtMF(cen*surf);
   $('t-hau').textContent=fmtMF(hau*surf);
@@ -1343,7 +1453,9 @@ function calcMaison(){
   const isRapport=mUsage>0;
   const rapportCard=$('m-rapport-card');
   if(rapportCard) rapportCard.style.display=isRapport?'block':'none';
-  const coeff=(1+constr+toit+etat+bonus+risk+niveau+mUsage)*(1-vet);
+  // inflaConst sur le coût de construction + inflaImmo sur le terrain
+  const coeffConst=(1+constr+toit+etat+bonus+risk+niveau+mUsage)*(1-vet)*(1+G_INFLA_CONST);
+  const coeff=coeffConst;
   const vConstN=Math.round(surf*pn*coeff);
   const vConstX=Math.round(surf*px*coeff);
   // Équipements fixes
@@ -1373,9 +1485,9 @@ function calcMaison(){
   document.querySelectorAll('.mt-dec').forEach(cb=>{if(cb.checked)mtM+=parseFloat(cb.value)||0;});
   const mtD=mtB-mtM;
   const tsurf=parseFloat($('mt-surf').value)||0;
-  const tCen=Math.round(tcv[1]*(1+mtD));
-  const tBas=Math.round(tcv[0]*(1+mtD));
-  const tHau=Math.round(tcv[2]*(1+mtD));
+  const tCen=inflaImmo(Math.round(tcv[1]*(1+mtD)));
+  const tBas=inflaImmo(Math.round(tcv[0]*(1+mtD)));
+  const tHau=inflaImmo(Math.round(tcv[2]*(1+mtD)));
   const totTerrain=tsurf*tCen;
   const totConstN=vConstN+eq+(meuble?Math.round(vConstN*0.05):0);
   const totConstX=vConstX+eq+(meuble?Math.round(vConstX*0.05):0);
@@ -1442,25 +1554,69 @@ function calcAppart(){
 
 // ---- LOCAUX PRO ----
 function calcLocPro(){
-  const loyer=parseFloat($('lp-loyer').value)||0;
-  const taux=parseFloat($('lp-empl').value)||0.09;
+  const transaction=$('lp-transaction')?.value||'location';
+  const type=$('lp-type')?.value||'commerce';
+  const surf=parseFloat($('lp-surf').value)||100;
+  const empl=parseFloat($('lp-empl').value)||0.07;
   const bail=parseFloat($('lp-bail').value)||0;
   const etat=parseFloat($('lp-etat').value)||0;
   const niveaux=parseFloat($('lp-niveaux')?.value)||0;
+  const locataire=parseFloat($('lp-locataire')?.value)||0;
+  const loyerEcart=parseFloat($('lp-loyer-ecart')?.value)||0;
   let crit=0,dec=0;
   document.querySelectorAll('.lp-crit').forEach(cb=>{if(cb.checked)crit+=parseFloat(cb.value)||0;});
   document.querySelectorAll('.lp-dec').forEach(cb=>{if(cb.checked)dec+=parseFloat(cb.value)||0;});
-  const loyerAn=loyer*12;
-  const tauxFinal=Math.max(0.05,taux*(1-bail)*(1-etat));
-  const valBase=loyerAn/taux;
-  const valCorr=Math.round(valBase*(1+bail+etat+crit-dec+niveaux));
-  const surf=parseFloat($('lp-surf').value)||100;
-  $('lp-loyer-an').textContent=fmtMF(loyerAn);
-  $('lp-taux').textContent=(taux*100).toFixed(1)+'%';
-  $('lp-pm2').textContent=surf>0?fmt(Math.round(valCorr/surf))+' XPF/m²':'—';
-  $('lp-total').textContent=fmtMF(valCorr);
-  $('lp-range').textContent='Fourchette : '+fmtMF(Math.round(valCorr*0.85))+' — '+fmtMF(Math.round(valCorr*1.15));
-  $('lp-detail').textContent=`Loyer ${fmtMF(loyer)}/mois · Taux cap. ${(taux*100).toFixed(0)}% · ${surf}m² · ${$('lp-type').options[$('lp-type').selectedIndex].text}`;
+
+  // Loyers de base par type (XPF/m²/mois) — données marché Papeete centre
+  // Calibré: commerce 171k/35m²=4885, 325k/70m²=4642 → commerce ~4500-5500 Papeete
+  const loyerBaseMap={
+    'commerce':  [4500, 5500, 3500, 2800, 2500, 2200, 3200, 2200], // par empl index
+    'restaurant':[5000, 6000, 4000, 3200, 2800, 2500, 4000, 2800],
+    'bureau':    [3000, 3200, 2800, 2200, 1800, 1500, 2500, 1800],
+    'entrepot':  [1500, 1800, 1500, 1200, 1000,  900, 1200,  900],
+    'dock':      [2000, 2500, 2000, 1500, 1200, 1000, 1500, 1000],
+    'mixte':     [2500, 2800, 2200, 1800, 1500, 1200, 2000, 1500],
+  };
+  const emplOptions=['0.065','0.07','0.075','0.085','0.09','0.10','0.075','0.085'];
+  const emplIdx=emplOptions.indexOf(String(empl));
+  const emplIdxFinal=emplIdx>=0?emplIdx:1;
+  const loyerPm2Base=(loyerBaseMap[type]||loyerBaseMap['commerce'])[emplIdxFinal];
+  const corrTotal=1+bail+etat+crit-dec+niveaux;
+  const loyerPm2=Math.round(loyerPm2Base*corrTotal);
+  const loyerReco=inflaLoyer(Math.round(loyerPm2*surf));
+  // Loyer utilisé : saisi ou calculé
+  const loyerSaisi=parseFloat($('lp-loyer').value)||0;
+  const loyerUsed=loyerSaisi>0?loyerSaisi:loyerReco;
+
+  if($('lp-loyer-reco')) $('lp-loyer-reco').value=loyerReco.toLocaleString('fr-FR')+' XPF/mois';
+  if($('lp-pm2-mois')) $('lp-pm2-mois').value=loyerPm2+' XPF/m²/mois';
+
+  if(transaction==='location'){
+    $('lp-result-title').textContent='Location — Loyer recommandé';
+    $('lp-stat1-lbl').textContent='Loyer mensuel';
+    $('lp-stat2-lbl').textContent='Loyer annuel';
+    $('lp-loyer-an').textContent=fmtMF(loyerUsed);
+    $('lp-taux').textContent=fmtMF(loyerUsed*12);
+    $('lp-pm2').textContent=loyerPm2+' XPF/m²/mois';
+    $('lp-total').textContent=fmtMF(loyerUsed)+'/mois';
+    $('lp-range').textContent='Fourchette : '+fmtMF(Math.round(loyerUsed*0.85))+'/mois – '+fmtMF(Math.round(loyerUsed*1.20))+'/mois';
+    $('lp-note').textContent='Loyer indicatif · Données marché Cabinet LEVY 2026 · '+$('lp-type').options[$('lp-type').selectedIndex].text;
+  } else {
+    // Vente murs — capitalisation
+    const loyerAn=loyerUsed*12;
+    const valBase=loyerAn/empl;
+    const valCorr=Math.round(valBase*(1+bail+etat+crit-dec+niveaux+locataire+loyerEcart));
+    $('lp-result-title').textContent='Vente murs — Valeur par capitalisation';
+    $('lp-stat1-lbl').textContent='Loyer annuel';
+    $('lp-stat2-lbl').textContent='Taux capitalisation';
+    $('lp-loyer-an').textContent=fmtMF(loyerAn);
+    $('lp-taux').textContent=(empl*100).toFixed(1)+'%';
+    $('lp-pm2').textContent=surf>0?fmt(Math.round(valCorr/surf))+' XPF/m²':'—';
+    $('lp-total').textContent=fmtMF(valCorr);
+    $('lp-range').textContent='Fourchette : '+fmtMF(Math.round(valCorr*0.85))+' — '+fmtMF(Math.round(valCorr*1.15));
+    $('lp-note').textContent='Méthode capitalisation · Taux rendement brut Tahiti · Données Cabinet LEVY 2026';
+  }
+  $('lp-detail').textContent=`${surf}m² · ${$('lp-type').options[$('lp-type').selectedIndex].text} · ${$('lp-empl').options[$('lp-empl').selectedIndex].text}`;
   $('lp-result').style.display='block';
 }
 
@@ -1603,7 +1759,7 @@ function calcBail(){
   
   // Loyer recommandé = XPF/m²/mois × usage × surface
   const loyerPm2=empl*usageCoef;
-  const loyerReco=Math.round(loyerPm2*surf);
+  const loyerReco=inflaLoyer(Math.round(loyerPm2*surf));
   $('b-loyer-reco').value=loyerReco.toLocaleString('fr-FR')+' XPF/mois';
   $('b-loyer-pm2').value=Math.round(loyerPm2).toLocaleString('fr-FR')+' XPF/m²/mois';
   
@@ -1633,6 +1789,8 @@ function calcBail(){
   // Ajustements selon critères
   const etat=parseFloat($('b-etat').value)||1.0;
   const bailReste=parseFloat($('b-bail-reste').value)||1.0;
+  const anciennete=parseFloat($('b-anciennete')?.value)||0;
+  const loyerMarche=parseFloat($('b-loyer-marche')?.value)||0;
   let crit=0,dec=0;
   document.querySelectorAll('.b-crit').forEach(cb=>{if(cb.checked)crit+=parseFloat(cb.value)||0;});
   document.querySelectorAll('.b-dec').forEach(cb=>{if(cb.checked)dec+=parseFloat(cb.value)||0;});
@@ -1642,7 +1800,7 @@ function calcBail(){
   const baseRatio = isDab ? 3.4 : 3.0;
   const loyerAnnuel=loyerUsed*12;
   const valBase=loyerAnnuel*baseRatio;
-  const valFinale=Math.round(valBase*etat*bailReste*(1+crit-dec));
+  const valFinale=Math.round(valBase*etat*bailReste*(1+crit-dec+anciennete+loyerMarche));
   const valBas=Math.round(valFinale*0.85);
   const valHau=Math.round(valFinale*1.15);
   const ratioMois=(valFinale/loyerUsed).toFixed(1);
@@ -1666,9 +1824,9 @@ function calcBailTerrain(){
   document.querySelectorAll('.bt-crit').forEach(cb=>{if(cb.checked)crit+=parseFloat(cb.value)||0;});
   document.querySelectorAll('.bt-dec').forEach(cb=>{if(cb.checked)dec+=parseFloat(cb.value)||0;});
   const delta=crit-dec;
-  const vBas=Math.round(cv[0]*typ*(1+delta)*surf);
-  const vCen=Math.round(cv[1]*typ*(1+delta)*surf);
-  const vHau=Math.round(cv[2]*typ*(1+delta)*surf);
+  const vBas=inflaImmo(Math.round(cv[0]*typ*(1+delta)*surf));
+  const vCen=inflaImmo(Math.round(cv[1]*typ*(1+delta)*surf));
+  const vHau=inflaImmo(Math.round(cv[2]*typ*(1+delta)*surf));
   const taux=parseFloat($('bt-taux')?.value)||0.05;
   const loyerAnCen=Math.round(vCen*taux);
   const loyerAnBas=Math.round(vBas*taux);
@@ -1680,6 +1838,106 @@ function calcBailTerrain(){
   if($('bt-res-range')) $('bt-res-range').textContent='Fourchette loyer annuel : '+fmtMF(loyerAnBas)+' – '+fmtMF(loyerAnHau);
   const bType=$('b-type')?.value||'';
   if($('bt-res-detail')) $('bt-res-detail').textContent=`${surf}m² · Valeur vénale ${fmtMF(vCen)} · Taux ${(taux*100).toFixed(0)}%/an · ${bType==='terrain_precaire'?'Bail précaire':'Bail commercial'} · Correctif marché ${delta>0?'+':''}${Math.round(delta*100)}%`;
+}
+
+// ---- LOYERS MAISON / APPART ----
+function mSwitchTab(t){
+  $('m-section-location').style.display=t==='location'?'block':'none';
+  $('m-tab-vente').classList.toggle('active',t==='vente');
+  $('m-tab-location').classList.toggle('active',t==='location');
+  if(t==='location') calcMaisonLoyer();
+}
+function aSwitchTab(t){
+  $('a-section-location').style.display=t==='location'?'block':'none';
+  $('a-tab-vente').classList.toggle('active',t==='vente');
+  $('a-tab-location').classList.toggle('active',t==='location');
+  if(t==='location') calcAppartLoyer();
+}
+
+function calcMaisonLoyer(){
+  const surf=parseFloat($('m-surf').value)||120;
+  const commune=$('m-commune').value||'250000,380000';
+  const etat=parseFloat($('m-etat').value)||0;
+  const niveau=$('m-niveau')?.value||'0';
+  
+  // Loyers maison XPF/m²/mois par commune (bas, central, haut)
+  // Calibrés Cabinet LEVY mars 2026
+  const loyerMap={
+    '350000,500000': [1800,2500,3000], // Papeete/Pirae
+    '300000,450000': [1600,2200,2800], // Punaauia/Arue
+    '250000,380000': [1400,1800,2200], // Faaa/Mahina/Paea
+    '200000,320000': [1100,1500,1900], // Papara/Taravao
+    '180000,280000': [900,1200,1600],  // Mataiea/Toahotu
+    '160000,250000': [800,1100,1400],  // Vairao/Côte Est
+    '280000,420000': [1600,2200,2800], // Moorea Maharepa
+    '240000,370000': [1400,1800,2400], // Moorea Haapiti
+    '200000,300000': [1200,1600,2000], // Moorea Afareaitu
+  };
+  const [lb,lc,lh]=loyerMap[commune]||[1200,1600,2000];
+  // Ajustements état
+  const etCorr=1+etat*0.5; // état a moins d'impact sur loyer que sur vente
+  const loyerCen=inflaLoyer(Math.round(lc*etCorr*surf));
+  const loyerBas=inflaLoyer(Math.round(lb*etCorr*surf));
+  const loyerHau=inflaLoyer(Math.round(lh*etCorr*surf));
+  
+  // Valeur vénale pour rendement
+  const totalBien=parseInt($('m-total-bien').textContent.replace(/[^0-9]/g,''))||0;
+  const rdt=totalBien>0?((loyerCen*12/totalBien)*100).toFixed(1)+'%':'—';
+  
+  $('m-loyer-mois').textContent=fmtMF(loyerCen);
+  $('m-loyer-pm2-txt').textContent=Math.round(lc*etCorr)+' XPF/m²/mois';
+  $('m-loyer-an').textContent=fmtMF(loyerCen*12);
+  $('m-rendement').textContent=rdt+'/an';
+  $('m-loyer-range').textContent='Fourchette : '+fmtMF(loyerBas)+'/mois – '+fmtMF(loyerHau)+'/mois';
+}
+
+function calcAppartLoyer(){
+  const surf=parseFloat($('a-surf').value)||65;
+  const commune=$('a-commune').value||'300000,480000';
+  const standing=parseFloat($('a-standing').value)||0;
+  const vue=$('a-vue').value||'0';
+  const etage=$('a-etage').value||'1';
+  
+  // Loyers appart XPF/m²/mois par commune (bas, central, haut)
+  // Calibrés Cabinet LEVY + immobilier.pf mars 2026
+  // Note: dégressif avec la surface — les petits apparts ont un loyer/m² plus élevé
+  const loyerMap={
+    '350000,550000': [2200,3000,4500],  // Papeete/Pirae
+    '300000,480000': [1800,2600,3500],  // Punaauia/Arue
+    '240000,380000': [1400,2000,2800],  // Faaa/Mahina/Paea
+    '200000,320000': [1100,1500,2000],  // Papara/Taravao
+    '280000,450000': [1800,2500,3200],  // Moorea Maharepa
+    '240000,380000': [1500,2000,2800],  // Moorea Haapiti
+    'ILES':          [1200,1800,2500],
+  };
+  let [lb,lc,lh]=loyerMap[commune]||[1200,1800,2500];
+  
+  // Correctif taille (petits apparts cher/m², grands moins)
+  const surfCoef=surf<35?1.30:surf<50?1.15:surf<70?1.0:surf<100?0.90:0.80;
+  
+  // Standing + vue
+  const standV=parseFloat($('a-standing').value)||0;
+  const vueV=parseFloat(vue)||0;
+  
+  // Étage impact loyer (moins marqué que vente)
+  let etCoef=0;
+  if(etage==='rdc')etCoef=-0.03;
+  else if(etage==='4')etCoef=0.05;
+  else if(etage==='penthouse')etCoef=0.15;
+  
+  const corrTot=(1+standV*0.5+vueV*0.5+etCoef)*surfCoef;
+  const loyerCen=inflaLoyer(Math.round(lc*corrTot*surf));
+  const loyerBas=inflaLoyer(Math.round(lb*corrTot*surf));
+  const loyerHau=inflaLoyer(Math.round(lh*corrTot*surf));
+  
+  const totalBien=parseInt($('a-total').textContent.replace(/[^0-9]/g,''))||0;
+  const rdt=totalBien>0?((loyerCen*12/totalBien)*100).toFixed(1)+'%':'—';
+  
+  $('a-loyer-mois').textContent=fmtMF(loyerCen);
+  $('a-loyer-pm2-txt').textContent=Math.round(lc*corrTot)+' XPF/m²/mois';
+  $('a-loyer-an').textContent=fmtMF(loyerCen*12);
+  $('a-rendement').textContent=rdt+'/an';
+  $('a-loyer-range').textContent='Fourchette : '+fmtMF(loyerBas)+'/mois – '+fmtMF(loyerHau)+'/mois';
 }
 
 // ---- MAISON RAPPORT ----
@@ -1701,9 +1959,101 @@ function calcMaisonRapport(){
   } else if(compareDiv) compareDiv.style.display='none';
 }
 
+// ---- INFLATION AUTO ----
+// Année de référence : 2026 = données de base calibrées
+// Prix terrain, maison, appart, construction, loyers = tout indexé
+
+// Tables de prix de base (année 2026)
+const BASE_PRIX_TERRAIN = {
+  '35000,40000,45000': [35000,40000,45000],
+  '30000,35000,40000': [30000,35000,40000],
+  '22500,27500,32500': [22500,27500,32500],
+  '25000,30000,35000': [25000,30000,35000],
+  '20000,25000,30000': [20000,25000,30000],
+  '15000,20000,25000': [15000,20000,25000],
+  '12500,17500,22500': [12500,17500,22500],
+  '10000,15000,20000': [10000,15000,20000],
+};
+const BASE_PRIX_MAISON = {
+  '350000,500000': [350000,500000],
+  '300000,450000': [300000,450000],
+  '250000,380000': [250000,380000],
+  '200000,320000': [200000,320000],
+  '180000,280000': [180000,280000],
+  '160000,250000': [160000,250000],
+  '280000,420000': [280000,420000],
+  '240000,370000': [240000,370000],
+  '200000,300000': [200000,300000],
+};
+const BASE_PRIX_APPART = {
+  '350000,550000': [350000,550000],
+  '300000,480000': [300000,480000],
+  '240000,380000': [240000,380000],
+  '200000,320000': [200000,320000],
+  '280000,450000': [280000,450000],
+  '240000,380000': [240000,380000],
+};
+const BASE_CONST_PM2 = [250000, 350000]; // béton standard min/max XPF/m²
+const BASE_LOYER_M_MAP = {
+  '350000,500000': [1800,2500,3000],
+  '300000,450000': [1600,2200,2800],
+  '250000,380000': [1400,1800,2200],
+  '200000,320000': [1100,1500,1900],
+  '180000,280000': [900,1200,1600],
+  '160000,250000': [800,1100,1400],
+  '280000,420000': [1600,2200,2800],
+  '240000,370000': [1400,1800,2400],
+  '200000,300000': [1200,1600,2000],
+};
+const BASE_LOYER_A_MAP = {
+  '350000,550000': [2200,3000,4500],
+  '300000,480000': [1800,2600,3500],
+  '240000,380000': [1400,2000,2800],
+  '200000,320000': [1100,1500,2000],
+  '280000,450000': [1800,2500,3200],
+  '240000,380000': [1500,2000,2800],
+};
+
+let G_INFLA_IMMO = 0;  // % cumulé depuis 2026
+let G_INFLA_CONST = 0;
+let G_INFLA_LOYER = 0;
+
+function applyInflation(){
+  const anneeRef=parseInt($('infla-annee-ref')?.value)||2026;
+  const tauxImmo=(parseFloat($('infla-immo')?.value)||4.0)/100;
+  const tauxConst=(parseFloat($('infla-const')?.value)||3.0)/100;
+  const tauxLoyer=(parseFloat($('infla-loyer')?.value)||1.5)/100;
+  const anneeBase=2026;
+  const ans=Math.max(0,anneeRef-anneeBase);
+  
+  G_INFLA_IMMO=tauxImmo*ans;
+  G_INFLA_CONST=tauxConst*ans;
+  G_INFLA_LOYER=tauxLoyer*ans;
+  
+  const statusEl=$('infla-status');
+  if(statusEl){
+    if(ans===0){
+      statusEl.textContent='Année 2026 — données de base';
+      statusEl.style.color='rgba(255,255,255,.25)';
+    } else {
+      statusEl.textContent=`Année ${anneeRef} — Immo +${(G_INFLA_IMMO*100).toFixed(1)}% · Construction +${(G_INFLA_CONST*100).toFixed(1)}% · Loyers +${(G_INFLA_LOYER*100).toFixed(1)}%`;
+      statusEl.style.color='#c9a84c';
+    }
+  }
+  
+  // Recalculer tout
+  calcTerrain(); calcMaison(); calcAppart(); calcLocPro();
+  if($('m-section-location')?.style.display==='block') calcMaisonLoyer();
+  if($('a-section-location')?.style.display==='block') calcAppartLoyer();
+}
+
+function inflaImmo(v){ return Math.round(v*(1+G_INFLA_IMMO)); }
+function inflaConst(v){ return Math.round(v*(1+G_INFLA_CONST)); }
+function inflaLoyer(v){ return Math.round(v*(1+G_INFLA_LOYER)); }
+
 // ---- INIT ----
 fdcUpdateActivite();calcBail();calcBailTerrain();
-calcTerrain();calcMaison();calcAppart();calcLocPro();
+calcTerrain();calcMaison();calcAppart();calcLocPro();calcBailTerrain();
 </script>
 </body>
 </html>
