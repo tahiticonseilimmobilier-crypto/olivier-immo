@@ -327,6 +327,20 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
   <div class="note">Prix terrains résidentiels viabilisés standard · Données marché 2026 · Ne constitue pas une estimation officielle</div>
 </div>
 
+<div id="t-promo-alert" style="display:none;margin-top:12px;padding:20px 24px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.35);border-radius:12px">
+  <div style="font-size:.85rem;font-weight:700;color:#c9a84c;margin-bottom:10px">⚠️ Terrain à fort potentiel constructif — Méthode % insuffisante</div>
+  <div style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.75">
+    Pour un terrain R+4 et plus, la valeur réelle doit être estimée par la <strong style="color:rgba(255,255,255,.85)">méthode du compte à rebours promoteur</strong> :<br>
+    <strong style="color:rgba(255,255,255,.85)">Valeur terrain = CA promoteur − Coût construction − Frais − Marge promoteur</strong><br><br>
+    Exemple indicatif R+7 centre Papeete, 500 m² :<br>
+    · 7 niveaux × 8 apparts × 35 MF = <strong style="color:#c9a84c">1 960 MF CA brut</strong><br>
+    · Construction 200 000 XPF/m² × 2 800 m² = 560 MF<br>
+    · Frais + marge promoteur 25% = 490 MF<br>
+    · <strong style="color:#c9a84c">Valeur terrain résiduelle ≈ 910 MF soit ~1 820 000 XPF/m²</strong><br><br>
+    <span style="color:rgba(255,255,255,.4);font-size:.75rem">Les coefficients % ci-dessus donnent un ordre de grandeur pour l'usage résidentiel standard — ils sous-estiment significativement la valeur promoteur.</span>
+  </div>
+</div>
+
 <div id="t-iles" style="display:none;padding:20px;background:rgba(192,83,58,.08);border:1px solid rgba(192,83,58,.2);border-radius:10px;color:rgba(255,255,255,.6);font-size:.85rem">
   🌴 Îles éloignées — estimation sur dossier (plans cadastraux, actes, comparables). Contactez directement pour une évaluation.
 </div>
@@ -988,6 +1002,11 @@ function calcTerrain(){
   if(malusList.length)det+=' · ⚠️ '+malusList.join(', ');
   $('t-detail').textContent=det;
   $('t-result').style.display='block';
+  // Alerte promoteur si R+4+ ou R+8+
+  const hautVal=$('t-hauteur')?.value||'0';
+  const isPromo=parseFloat(hautVal)>=0.30;
+  const promoAlert=$('t-promo-alert');
+  if(promoAlert) promoAlert.style.display=isPromo?'block':'none';
 }
 
 // ---- MAISON ----
