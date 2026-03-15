@@ -50,6 +50,11 @@ footer{background:var(--noir);padding:28px 24px;text-align:center}
 footer p{font-size:.7rem;color:rgba(255,255,255,.25);line-height:1.6}
 footer a{color:rgba(255,255,255,.4);text-decoration:none}
 @media(max-width:600px){}
+
+/* Scroll to top */
+.scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:var(--coral);color:white;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.2);z-index:200;transition:opacity .2s}
+.scroll-top.visible{display:flex}
+.scroll-top:hover{background:#a8432c}
 </style>
 </head>
 <body>
@@ -95,7 +100,7 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
   <div class="erreur-item">
     <div class="erreur-num">Erreur n°5</div>
     <h3>Ne pas anticiper les frais</h3>
-    <p>Les frais de notaire, la plus-value immobilière éventuelle (50 % en PF), la commission d'agence — tout ça s'anticipe pour ne pas avoir de mauvaise surprise au moment de la signature. Je fais systématiquement ce calcul avec mes vendeurs dès le départ, pour que le net vendeur soit clair avant même de mettre le bien sur le marché.</p>
+    <p>Les frais de notaire, la plus-value immobilière éventuelle (50 % en PF, abattement 20%/an après 5 ans), la commission d'agence — tout ça s'anticipe pour ne pas avoir de mauvaise surprise au moment de la signature. Je fais systématiquement ce calcul avec mes vendeurs dès le départ, pour que le net vendeur soit clair avant même de mettre le bien sur le marché.</p>
   </div>
 
   <div class="cta-article">
@@ -103,8 +108,7 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
     <p>Vous avez un terrain ou un bien à évaluer ? Appelez-moi directement — une estimation sérieuse, c'est la base d'une vente réussie.</p>
     <a href="/" class="cta-btn">Demander mon estimation →</a>
     <a href="/vendre" class="cta-btn outline">En savoir plus sur la vente</a>
-   <a href="https://wa.me/68987225643" target="_blank" class="cta-btn outline">💬 WhatsApp</a>
-      <div class="cta-tel">📞 89 22 56 43 · olivier@levytahiti.com</div>
+    <a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43 · <span class="__cf_email__" data-cfemail="bdd2d1d4cbd4d8cffdd1d8cbc4c9dcd5d4c9d493ded2d0">[email&#160;protected]</span></a>
   </div>
 </div>
 <footer>

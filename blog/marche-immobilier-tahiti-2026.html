@@ -50,6 +50,11 @@ footer{background:var(--noir);padding:28px 24px;text-align:center}
 footer p{font-size:.7rem;color:rgba(255,255,255,.25);line-height:1.6}
 footer a{color:rgba(255,255,255,.4);text-decoration:none}
 @media(max-width:600px){}
+
+/* Scroll to top */
+.scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:var(--coral);color:white;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.2);z-index:200;transition:opacity .2s}
+.scroll-top.visible{display:flex}
+.scroll-top:hover{background:#a8432c}
 </style>
 </head>
 <body>
@@ -96,8 +101,8 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
     <h3>Votre terrain ou votre bien mérite une estimation sérieuse</h3>
     <p>Vous avez un terrain ou un bien à évaluer ? Appelez-moi directement — une estimation sérieuse, c'est la base d'une vente réussie.</p>
     <a href="/" class="cta-btn">Demander mon estimation →</a>
-        <a href="https://wa.me/68987225643" target="_blank" class="cta-btn outline">💬 WhatsApp</a>
-      <div class="cta-tel">📞 89 22 56 43 · olivier@levytahiti.com</div>
+    <a href="https://wa.me/68987225643" target="_blank" class="cta-btn outline">💬 WhatsApp</a>
+    <a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43 · <span class="__cf_email__" data-cfemail="c5aaa9acb3aca0b785a9a0b3bcb1a4adacb1aceba6aaa8">[email&#160;protected]</span></a>
   </div>
 </div>
 <footer>

@@ -127,6 +127,11 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
   .criteres-grid,.ppr-grid{grid-template-columns:1fr}
   .table-prix{font-size:.76rem}
 }
+
+/* Scroll to top */
+.scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:var(--coral);color:white;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.2);z-index:200;transition:opacity .2s}
+.scroll-top.visible{display:flex}
+.scroll-top:hover{background:#a8432c}
 </style>
 </head>
 <body>
@@ -170,16 +175,16 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
         </tr>
       </thead>
       <tbody>
-        <tr><td><strong>Papeete</strong></td><td class="bas">45 000 XPF</td><td class="mid">50 000 XPF</td><td class="haut">55 000 XPF</td></tr>
-        <tr><td><strong>Pirae</strong></td><td class="bas">40 000 XPF</td><td class="mid">45 000 XPF</td><td class="haut">50 000 XPF</td></tr>
-        <tr><td><strong>Faaa</strong></td><td class="bas">35 000 XPF</td><td class="mid">40 000 XPF</td><td class="haut">45 000 XPF</td></tr>
-        <tr><td><strong>Punaauia</strong></td><td class="bas">40 000 XPF</td><td class="mid">45 000 XPF</td><td class="haut">50 000 XPF</td></tr>
-        <tr><td><strong>Arue</strong></td><td class="bas">35 000 XPF</td><td class="mid">40 000 XPF</td><td class="haut">45 000 XPF</td></tr>
-        <tr><td><strong>Paea</strong></td><td class="bas">30 000 XPF</td><td class="mid">35 000 XPF</td><td class="haut">40 000 XPF</td></tr>
-        <tr><td><strong>Mahina</strong></td><td class="bas">25 000 XPF</td><td class="mid">30 000 XPF</td><td class="haut">35 000 XPF</td></tr>
+        <tr><td><strong>Papeete</strong></td><td class="bas">40 000 XPF</td><td class="mid">45 000 XPF</td><td class="haut">50 000 XPF</td></tr>
+        <tr><td><strong>Pirae</strong></td><td class="bas">35 000 XPF</td><td class="mid">40 000 XPF</td><td class="haut">45 000 XPF</td></tr>
+        <tr><td><strong>Faaa</strong></td><td class="bas">30 000 XPF</td><td class="mid">30 000 XPF</td><td class="haut">40 000 XPF</td></tr>
+        <tr><td><strong>Punaauia</strong></td><td class="bas">35 000 XPF</td><td class="mid">40 000 XPF</td><td class="haut">45 000 XPF</td></tr>
+        <tr><td><strong>Arue</strong></td><td class="bas">30 000 XPF</td><td class="mid">35 000 XPF</td><td class="haut">45 000 XPF</td></tr>
+        <tr><td><strong>Paea</strong></td><td class="bas">25 000 XPF</td><td class="mid">30 000 XPF</td><td class="haut">35 000 XPF</td></tr>
+        <tr><td><strong>Mahina</strong></td><td class="bas">20 000 XPF</td><td class="mid">25 000 XPF</td><td class="haut">30 000 XPF</td></tr>
       </tbody>
     </table>
-    <p class="table-note">Terrain résidentiel viabilisé standard, sans vue particulière · En MF : Papeete 22,5–27,5 MF pour 500 m²</p>
+    <p class="table-note">Terrain résidentiel viabilisé standard, sans vue particulière · En MF : Papeete 20–25 MF pour 500 m²</p>
   </div>
 
   <!-- CÔTE EST -->
@@ -190,10 +195,10 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
         <tr><th>Commune / District</th><th>Fourchette basse</th><th>Prix central</th><th>Fourchette haute</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>Papenoo</strong></td><td class="bas">17 500 XPF</td><td class="mid">22 500 XPF</td><td class="haut">27 500 XPF</td></tr>
-        <tr><td><strong>Tiarei</strong></td><td class="bas">17 500 XPF</td><td class="mid">22 500 XPF</td><td class="haut">27 500 XPF</td></tr>
-        <tr><td><strong>Hitiaa / Mahaena</strong></td><td class="bas">17 500 XPF</td><td class="mid">22 500 XPF</td><td class="haut">27 500 XPF</td></tr>
-        <tr><td><strong>Faaone (Taiarapu-Est)</strong></td><td class="bas">17 500 XPF</td><td class="mid">22 500 XPF</td><td class="haut">27 500 XPF</td></tr>
+        <tr><td><strong>Papenoo</strong></td><td class="bas">12 500 XPF</td><td class="mid">17 500 XPF</td><td class="haut">22 500 XPF</td></tr>
+        <tr><td><strong>Tiarei</strong></td><td class="bas">12 500 XPF</td><td class="mid">17 500 XPF</td><td class="haut">22 500 XPF</td></tr>
+        <tr><td><strong>Hitiaa / Mahaena</strong></td><td class="bas">12 500 XPF</td><td class="mid">17 500 XPF</td><td class="haut">22 500 XPF</td></tr>
+        <tr><td><strong>Faaone (Taiarapu-Est)</strong></td><td class="bas">12 500 XPF</td><td class="mid">17 500 XPF</td><td class="haut">22 500 XPF</td></tr>
       </tbody>
     </table>
     <p class="table-note">Zone en développement · Plages de surf réputées · Accès à la nature · Marché moins liquide que l'agglo</p>
@@ -207,16 +212,16 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
         <tr><th>Commune / District</th><th>Fourchette basse</th><th>Prix central</th><th>Fourchette haute</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>Papara</strong></td><td class="bas">22 500 XPF</td><td class="mid">27 500 XPF</td><td class="haut">32 500 XPF</td></tr>
-        <tr><td><strong>Mataiea</strong></td><td class="bas">20 000 XPF</td><td class="mid">25 000 XPF</td><td class="haut">30 000 XPF</td></tr>
-        <tr><td><strong>Papeari</strong></td><td class="bas">20 000 XPF</td><td class="mid">25 000 XPF</td><td class="haut">30 000 XPF</td></tr>
-        <tr><td><strong>Taravao</strong></td><td class="bas">22 500 XPF</td><td class="mid">27 500 XPF</td><td class="haut">32 500 XPF</td></tr>
-        <tr><td><strong>Toahotu</strong></td><td class="bas">20 000 XPF</td><td class="mid">25 000 XPF</td><td class="haut">30 000 XPF</td></tr>
-        <tr><td><strong>Afaahiti (Taiarapu-Est)</strong></td><td class="bas">20 000 XPF</td><td class="mid">25 000 XPF</td><td class="haut">30 000 XPF</td></tr>
-        <tr><td><strong>Vairao (Taiarapu-Ouest)</strong></td><td class="bas">17 500 XPF</td><td class="mid">22 500 XPF</td><td class="haut">27 500 XPF</td></tr>
-        <tr><td><strong>Teahupoo</strong></td><td class="bas">17 500 XPF</td><td class="mid">22 500 XPF</td><td class="haut">27 500 XPF</td></tr>
-        <tr><td><strong>Tautira</strong></td><td class="bas">17 500 XPF</td><td class="mid">22 500 XPF</td><td class="haut">27 500 XPF</td></tr>
-        <tr><td><strong>Pueu</strong></td><td class="bas">17 500 XPF</td><td class="mid">22 500 XPF</td><td class="haut">27 500 XPF</td></tr>
+        <tr><td><strong>Papara</strong></td><td class="bas">17 500 XPF</td><td class="mid">22 500 XPF</td><td class="haut">27 500 XPF</td></tr>
+        <tr><td><strong>Mataiea</strong></td><td class="bas">15 000 XPF</td><td class="mid">20 000 XPF</td><td class="haut">25 000 XPF</td></tr>
+        <tr><td><strong>Papeari</strong></td><td class="bas">15 000 XPF</td><td class="mid">20 000 XPF</td><td class="haut">25 000 XPF</td></tr>
+        <tr><td><strong>Taravao</strong></td><td class="bas">17 500 XPF</td><td class="mid">22 500 XPF</td><td class="haut">27 500 XPF</td></tr>
+        <tr><td><strong>Toahotu</strong></td><td class="bas">15 000 XPF</td><td class="mid">22 000 XPF</td><td class="haut">25 000 XPF</td></tr>
+        <tr><td><strong>Afaahiti (Taiarapu-Est)</strong></td><td class="bas">15 000 XPF</td><td class="mid">20 000 XPF</td><td class="haut">25 000 XPF</td></tr>
+        <tr><td><strong>Vairao (Taiarapu-Ouest)</strong></td><td class="bas">12 500 XPF</td><td class="mid">17 500 XPF</td><td class="haut">22 500 XPF</td></tr>
+        <tr><td><strong>Teahupoo</strong></td><td class="bas">12 500 XPF</td><td class="mid">17 500 XPF</td><td class="haut">22 500 XPF</td></tr>
+        <tr><td><strong>Tautira</strong></td><td class="bas">12 500 XPF</td><td class="mid">17 500 XPF</td><td class="haut">22 500 XPF</td></tr>
+        <tr><td><strong>Pueu</strong></td><td class="bas">12 500 XPF</td><td class="mid">17 500 XPF</td><td class="haut">22 500 XPF</td></tr>
       </tbody>
     </table>
     <p class="table-note">Taravao en forte progression depuis 2 ans (désengorgement Papeete, nouvelles entreprises) · Teahupoo notoriété internationale surf</p>
@@ -361,8 +366,7 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
     <h3>Votre terrain ou votre bien mérite une estimation sérieuse</h3>
     <p>Vous avez un terrain ou un bien à évaluer ? Appelez-moi directement — une estimation sérieuse, c'est la base d'une vente réussie.<br>Je me déplace sur toute la Polynésie française. Pour les îles éloignées, estimation sur dossier.</p>
     <a href="/" class="cta-btn">Demander mon estimation →</a>
-    <a href="https://wa.me/68987225643" target="_blank" class="cta-btn outline">💬 WhatsApp</a>
-      <div class="cta-tel">📞 89 22 56 43 · olivier@levytahiti.com</div>
+    <a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43 · WhatsApp : 87 22 56 43 · <span class="__cf_email__" data-cfemail="dbb4b7b2adb2bea99bb7beada2afbab3b2afb2f5b8b4b6">[email&#160;protected]</span></a>
   </div>
 
   <div style="background:white;border-radius:12px;border:1px solid var(--bord);padding:18px 22px;margin-top:24px">

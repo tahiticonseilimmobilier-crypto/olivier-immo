@@ -72,6 +72,11 @@ footer{background:var(--noir);padding:28px 24px;text-align:center}
 footer p{font-size:.7rem;color:rgba(255,255,255,.25);line-height:1.6}
 footer a{color:rgba(255,255,255,.4);text-decoration:none}
 @media(max-width:600px){.step-item{flex-direction:column;gap:10px}}
+
+/* Scroll to top */
+.scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:var(--coral);color:white;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.2);z-index:200;transition:opacity .2s}
+.scroll-top.visible{display:flex}
+.scroll-top:hover{background:#a8432c}
 </style>
 </head>
 <body>
@@ -166,6 +171,8 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
       <div class="step-num">9</div>
       <div class="step-content">
         <h4>Le compromis de vente</h4>
+        
+        <p><strong>Dépôt de garantie :</strong> lors de la signature du compromis, l'acheteur verse généralement un dépôt de <strong>5 à 10 % du prix de vente</strong>, qui constitue la clause pénale. Ce montant peut être inférieur si l'acheteur ne dispose pas encore des fonds (accord de principe bancaire, paiement comptant en cours…), mais un dépôt solide consolide l'offre et sécurise la transaction pour les deux parties.</p>
         <p>Attention — <strong>en Polynésie française, il n'existe pas de délai de rétractation de 10 jours</strong> contrairement à la métropole. La signature du compromis vous engage immédiatement, ainsi que l'acheteur. Assurez-vous que toutes les conditions suspensives (obtention du crédit, etc.) sont clairement définies. Ce document est rédigé et signé devant notaire.</p>
       </div>
     </div>
@@ -174,7 +181,7 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
       <div class="step-num">10</div>
       <div class="step-content">
         <h4>L'acte de vente et le notaire</h4>
-        <p>Entre le compromis et l'acte authentique, comptez en général 3 à 4 mois — le temps que le notaire vérifie les titres, obtienne les pièces administratives et que l'acheteur finalise son financement. L'acte de vente est signé chez le notaire en présence des deux parties. C'est à ce moment que vous recevez le prix de vente et que la propriété est officiellement transférée.</p>
+        <p>Entre le compromis et l'acte authentique, comptez en général <strong>3 à 4 mois</strong> — le temps que le notaire vérifie les titres, obtienne les pièces administratives et que l'acheteur finalise son financement. Les notaires polynésiens prévoient généralement 3 mois de délai de réalisation + 1 mois de marge pour éviter une prorogation si le dossier de crédit est encore en cours. Pour un achat comptant avec dossier complet, la signature peut intervenir en 2 mois. L'acte de vente est signé chez le notaire en présence des deux parties. C'est à ce moment que vous recevez le prix de vente et que la propriété est officiellement transférée.</p>
       </div>
     </div>
 
@@ -206,13 +213,13 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
 
   <h2>La plus-value immobilière</h2>
 
-  <p>Si vous vendez un bien à un prix supérieur à votre prix d'acquisition, la <strong>plus-value est imposable à 50 %</strong> en Polynésie française. C'est le notaire qui calcule et prélève cet impôt lors de la vente.</p>
+  <p>Si vous vendez un bien à un prix supérieur à votre prix d'acquisition, la <strong>plus-value est imposable à 50 %</strong> en Polynésie française pendant les 5 premières années de détention. Au-delà de 5 ans, un abattement de 20 % par an s'applique sur cet impôt de 50 %. C'est le notaire qui calcule et prélève cet impôt lors de la vente.</p>
 
   <p>Cet impôt s'applique aux ventes directes, aux cessions de parts et aux partages d'indivisions. Si vous êtes propriétaire depuis plus de 5 à 10 ans, des abattements peuvent s'appliquer selon les dispositions en vigueur. Consultez votre notaire pour évaluer votre situation avant de fixer votre prix.</p>
 
   <div class="info-box gold">
     <strong>💡 Conseil</strong>
-    Avant de fixer votre prix de vente, calculez votre plus-value potentielle. Si vous avez acquis votre bien à 20 MF et que vous le vendez à 35 MF, 50% de 15 MF = 7.5 MF d'impôt. Ce montant doit être anticipé dans votre calcul de net vendeur.
+    Avant de fixer votre prix de vente, calculez votre plus-value potentielle. Si vous avez acquis votre bien à 20 MF et que vous le vendez à 35 MF, 50% de 15 MF = 7,5 MF d'impôt (si détenu moins de 5 ans). Ce montant doit être anticipé dans votre calcul de net vendeur.
   </div>
 
   <div class="sep"></div>
@@ -237,8 +244,8 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
     <h3>Votre terrain ou votre bien mérite une estimation sérieuse</h3>
     <p>Vous avez un terrain ou un bien à évaluer ? Appelez-moi directement — une estimation sérieuse, c'est la base d'une vente réussie.</p>
     <a href="/" class="cta-btn">Demander mon estimation →</a>
-    <a href="https://wa.me/68987225643" target="_blank" class="cta-btn outline">💬 WhatsApp</a>
-      <div class="cta-tel">📞 89 22 56 43 · olivier@levytahiti.com</div>
+    <a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43 · WhatsApp : 87 22 56 43</a>
+    <a href="mailto:olivier@levytahiti.com" class="cta-tel">✉️ olivier@levytahiti.com</a>
   </div>
 
 </div>
