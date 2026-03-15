@@ -110,6 +110,10 @@ tr.sh td{color:var(--gold);font-size:.63rem;text-transform:uppercase;background:
 tr.sh td:last-child{color:var(--gold)}
 
 @media(max-width:600px){.g2,.g3,.fourchette,.checks-grid{grid-template-columns:1fr}}
+
+.scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:var(--coral);color:white;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.2);z-index:200;transition:opacity .2s}
+.scroll-top.visible{display:flex}
+.scroll-top:hover{background:#a8432c}
 </style>
 </head>
 <body>
@@ -1000,5 +1004,7 @@ function initAll(){
   buildEQ();tChange();toggleEDT();toggleEau();calcM();calcA();calcL();calcH();
 }
 </script>
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
+<script>window.addEventListener('scroll',function(){document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>300);});</script>
 </body>
 </html>
