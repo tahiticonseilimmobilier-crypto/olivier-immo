@@ -2,118 +2,114 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculateur Interne — Olivier BLAISE · Cabinet LEVY</title>
-<meta name="robots" content="noindex, nofollow">
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<title>Calculateur Interne — Cabinet LEVY · Usage Professionnel</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--noir:#0f1117;--coral:#c0533a;--gold:#c9a84c;--sable:#f0ebe2;--bord:#ddd7cd;--gris:#7a7570;--vert:#1e6b45}
-body{font-family:'DM Sans',sans-serif;background:#1a1d27;color:#e8e4de;min-height:100vh;font-size:14px}
+:root{
+  --noir:#0f1117;--coral:#c0533a;--coral-dk:#a8432c;--vert:#1e6b45;
+  --sable:#f0ebe2;--bord:#ddd7cd;--gris:#7a7570;--lagoon:#00838f;
+  --gold:#c9a84c;--warn:#e8a020;
+}
+body{font-family:'DM Sans',sans-serif;background:#1a1d24;color:#e8e4df;min-height:100vh}
 
 /* LOGIN */
-#login-screen{position:fixed;inset:0;background:#0f1117;display:flex;align-items:center;justify-content:center;z-index:9999}
-.login-box{background:#1a1d27;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:40px 36px;width:340px;text-align:center}
-.login-box h2{font-family:'Libre Baskerville',serif;color:white;font-size:1.1rem;margin-bottom:6px}
-.login-box p{color:rgba(255,255,255,.35);font-size:.75rem;margin-bottom:24px}
-.login-box input{width:100%;background:#0f1117;border:1.5px solid rgba(255,255,255,.15);border-radius:8px;padding:11px 14px;font-family:inherit;font-size:.9rem;color:white;outline:none;text-align:center;letter-spacing:.15em;margin-bottom:12px}
-.login-box input:focus{border-color:var(--gold)}
-.login-box button{width:100%;background:var(--coral);border:none;border-radius:8px;padding:11px;font-family:inherit;font-size:.85rem;font-weight:700;color:white;cursor:pointer}
-.login-box .err{color:#c0533a;font-size:.72rem;margin-top:8px;display:none}
+#login-screen{position:fixed;inset:0;background:#0f1117;display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:24px}
+.login-box{background:#1a1d24;border:1px solid rgba(192,83,58,.3);border-radius:16px;padding:48px;width:360px;text-align:center}
+.login-logo{font-family:'Libre Baskerville',serif;font-size:1.1rem;color:white;margin-bottom:6px}
+.login-logo em{color:var(--coral);font-style:normal}
+.login-tag{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:32px}
+.login-box input{width:100%;background:#0f1117;border:1.5px solid rgba(255,255,255,.12);border-radius:8px;padding:14px 18px;color:white;font-family:inherit;font-size:.95rem;outline:none;text-align:center;letter-spacing:.2em;margin-bottom:16px}
+.login-box input:focus{border-color:var(--coral)}
+.login-box button{width:100%;background:var(--coral);color:white;border:none;border-radius:8px;padding:14px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer}
+.login-box button:hover{background:var(--coral-dk)}
+.login-err{color:#e05050;font-size:.8rem;margin-top:8px;min-height:20px}
 
 /* HEADER */
-.int-header{background:#0f1117;border-bottom:1px solid rgba(255,255,255,.08);padding:13px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.int-logo{font-family:'Libre Baskerville',serif;font-size:.85rem;color:white}
-.int-logo em{color:var(--coral);font-style:normal}
-.int-badge{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(201,168,76,.15);color:var(--gold);border:1px solid rgba(201,168,76,.3);padding:4px 10px;border-radius:4px}
-.btn-sm{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);padding:6px 14px;border-radius:6px;font-family:inherit;font-size:.72rem;cursor:pointer}
-.btn-sm:hover{background:rgba(255,255,255,.1);color:white}
+header{background:#0f1117;border-bottom:1px solid rgba(255,255,255,.08);padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
+.h-logo{font-family:'Libre Baskerville',serif;font-size:.9rem;color:white}
+.h-logo em{color:var(--coral);font-style:normal}
+.h-badge{background:rgba(192,83,58,.15);border:1px solid rgba(192,83,58,.3);color:var(--coral);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:4px}
 
 /* TABS */
-.tabs{background:#0f1117;border-bottom:1px solid rgba(255,255,255,.06);display:flex;overflow-x:auto;padding:0 16px}
-.tab{padding:11px 17px;border:none;background:transparent;font-family:inherit;font-size:.78rem;cursor:pointer;color:rgba(255,255,255,.4);white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;font-weight:500}
-.tab:hover{color:rgba(255,255,255,.7)}
-.tab.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:700}
+.tabs{display:flex;gap:4px;padding:20px 32px 0;background:#0f1117;overflow-x:auto}
+.tab{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-bottom:none;border-radius:8px 8px 0 0;padding:10px 20px;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.45);cursor:pointer;white-space:nowrap;transition:all .2s}
+.tab:hover{color:rgba(255,255,255,.75);background:rgba(255,255,255,.08)}
+.tab.active{background:#1a1d24;color:white;border-color:rgba(255,255,255,.15)}
 
-.body{max-width:980px;margin:0 auto;padding:20px 16px 60px}
+/* MAIN */
+.main{padding:0 32px 80px;max-width:1100px;margin:0 auto}
+.tab-content{display:none;padding-top:24px}
+.tab-content.active{display:block}
 
 /* CARDS */
-.card{background:#242836;border-radius:12px;border:1px solid rgba(255,255,255,.07);padding:20px 22px;margin-bottom:14px}
-.card-title{font-family:'Libre Baskerville',serif;font-size:.92rem;color:white;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:8px}
+.card{background:#222630;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:24px 28px;margin-bottom:16px}
+.card-title{font-family:'Libre Baskerville',serif;font-size:.95rem;color:white;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.card-title .icon{font-size:1.1rem}
+.section-label{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.06)}
 
-/* FORM */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
-.field{margin-bottom:12px}
-.field label{display:block;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px}
-.field select,.field input{width:100%;background:#1a1d27;border:1.5px solid rgba(255,255,255,.1);border-radius:7px;padding:9px 12px;font-family:inherit;font-size:.82rem;color:#e8e4de;outline:none;transition:border-color .15s}
-.field select:focus,.field input:focus{border-color:var(--gold)}
-.field input[type=number]{-moz-appearance:textfield}
-.check-row{display:flex;align-items:center;gap:8px;font-size:.8rem;color:#c0b8b0;cursor:pointer;padding:5px 0}
-.check-row input[type=checkbox]{accent-color:var(--coral);width:14px;height:14px;flex-shrink:0}
-.checks-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
 
-/* RÉSULTATS */
-.fourchette{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
-.fbox{border-radius:9px;padding:12px 14px;text-align:center}
-.fbox.bas{background:rgba(30,107,69,.12);border:1px solid rgba(30,107,69,.25)}
-.fbox.mid{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3)}
-.fbox.haut{background:rgba(192,83,58,.1);border:1px solid rgba(192,83,58,.2)}
-.fbox .fl{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;color:rgba(255,255,255,.4)}
-.fbox .fv{font-family:'Libre Baskerville',serif;font-size:1rem;color:white}
-.fbox .fs{font-size:.62rem;color:rgba(255,255,255,.3);margin-top:2px}
+/* FIELDS */
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:.75rem;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.04em}
+.field input,.field select{background:#1a1d24;border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 14px;color:white;font-family:inherit;font-size:.85rem;outline:none;transition:border-color .2s;width:100%}
+.field input:focus,.field select:focus{border-color:var(--coral)}
+.field select option{background:#1a1d24}
 
-.result-box{background:#0f1117;border-radius:10px;padding:16px 20px;margin-top:10px;border:1px solid rgba(201,168,76,.2)}
-.result-main{font-family:'Libre Baskerville',serif;font-size:1.45rem;color:var(--gold);margin-bottom:3px}
-.result-sub{font-size:.7rem;color:rgba(255,255,255,.35)}
-.result-detail{font-size:.7rem;color:rgba(255,255,255,.25);margin-top:4px;line-height:1.5}
+/* CHECKBOXES - critères en grille */
+.crit-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px}
+@media(max-width:600px){.crit-grid{grid-template-columns:1fr}}
+.crit-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#1a1d24;border:1.5px solid rgba(255,255,255,.07);border-radius:7px;cursor:pointer;transition:all .2s;user-select:none}
+.crit-item:hover{border-color:rgba(192,83,58,.3);background:rgba(192,83,58,.05)}
+.crit-item input[type=checkbox]{accent-color:var(--coral);width:15px;height:15px;flex-shrink:0}
+.crit-item.pos .crit-pct{color:#4caf7a}
+.crit-item.neg .crit-pct{color:#e05050}
+.crit-txt{font-size:.78rem;color:rgba(255,255,255,.7);flex:1}
+.crit-pct{font-size:.72rem;font-weight:700;white-space:nowrap}
 
-.stat-row{display:grid;gap:8px;margin-bottom:14px}
-.sbox{background:#1a1d27;border-radius:8px;padding:10px 13px;border:1px solid rgba(255,255,255,.06)}
-.sbox .sl{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:3px}
-.sbox .sv{font-family:'Libre Baskerville',serif;font-size:.92rem;color:white}
-.sbox .ss{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:2px}
+/* RESULT BOX */
+.result-card{background:linear-gradient(135deg,#1e2535,#1a2028);border:1px solid rgba(192,83,58,.25);border-radius:14px;padding:28px;margin-bottom:16px}
+.result-title{font-family:'Libre Baskerville',serif;font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:16px;letter-spacing:.05em;text-transform:uppercase}
+.result-main{font-family:'Libre Baskerville',serif;font-size:2.4rem;color:white;font-weight:700;line-height:1}
+.result-range{font-size:.85rem;color:rgba(255,255,255,.45);margin-top:8px}
+.result-pm2{font-size:.8rem;color:var(--coral);margin-top:4px}
 
-.alert{border-radius:7px;padding:10px 14px;font-size:.72rem;line-height:1.55;margin-bottom:10px}
-.ag{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.9)}
-.ar{background:rgba(192,83,58,.08);border:1px solid rgba(192,83,58,.25);color:rgba(220,120,90,.9)}
-.ab{background:rgba(0,131,143,.1);border:1px solid rgba(0,131,143,.3);color:rgba(100,200,210,.9)}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.stat-box{background:#1a1d24;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px 18px}
+.stat-box .lbl{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px}
+.stat-box .val{font-family:'Libre Baskerville',serif;font-size:1.1rem;color:white}
+.stat-box .sub{font-size:.7rem;color:rgba(255,255,255,.3);margin-top:3px}
 
-.note{font-size:.66rem;color:rgba(255,255,255,.22);font-style:italic;margin-top:8px;line-height:1.55}
-.sep{height:1px;background:rgba(255,255,255,.06);margin:14px 0}
+.detail-line{font-size:.75rem;color:rgba(255,255,255,.35);margin-top:8px;line-height:1.7;padding:10px 14px;background:rgba(255,255,255,.03);border-radius:6px}
+.note{font-size:.72rem;color:rgba(255,255,255,.25);margin-top:10px;font-style:italic}
 
-/* VIAB SECTION */
-.viab-section{background:#1a1d27;border-radius:9px;padding:14px 16px;border:1px solid rgba(255,255,255,.06);margin-top:10px}
-.viab-title{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px}
-.viab-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.78rem}
-.viab-row:last-child{border-bottom:none}
-.viab-row .vl{color:#c0b8b0}
-.viab-row .vv{font-family:'Libre Baskerville',serif;color:var(--gold);font-size:.82rem}
-.viab-total{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1)}
-.viab-total .vtl{font-size:.7rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase}
-.viab-total .vtv{font-family:'Libre Baskerville',serif;color:#c0533a;font-size:1rem}
+/* COEFF TOTAL */
+.coeff-display{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:700;margin-bottom:12px}
+.coeff-display.positive{background:rgba(76,175,122,.1);border:1px solid rgba(76,175,122,.25);color:#4caf7a}
+.coeff-display.negative{background:rgba(224,80,80,.1);border:1px solid rgba(224,80,80,.25);color:#e05050}
+.coeff-display.neutral{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
 
-/* ILES */
-.iles-panel{background:linear-gradient(135deg,rgba(26,58,107,.4),rgba(0,131,143,.2));border:1px solid rgba(100,180,200,.2);border-radius:10px;padding:18px 20px;margin-top:10px}
-.iles-panel h4{font-family:'Libre Baskerville',serif;color:white;font-size:.88rem;margin-bottom:8px}
-.iles-panel p{font-size:.74rem;color:rgba(255,255,255,.45);line-height:1.65;margin-bottom:10px}
-.iles-note{font-size:.67rem;color:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 11px;line-height:1.5}
+/* SCROLL TOP */
+.scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:var(--coral);color:white;border:none;border-radius:50%;font-size:20px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s;z-index:100;box-shadow:0 2px 12px rgba(192,83,58,.4)}
+.scroll-top.visible{opacity:1;pointer-events:auto}
 
-/* TABLE */
-table{width:100%;border-collapse:collapse;font-size:.76rem}
-thead tr{background:rgba(255,255,255,.04)}
-th{padding:8px 10px;text-align:left;color:rgba(255,255,255,.35);font-size:.63rem;letter-spacing:.07em;text-transform:uppercase}
-td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.05);color:#c0b8b0}
-td:last-child{text-align:right;font-family:'Libre Baskerville',serif;color:white}
-tr.sh td{color:var(--gold);font-size:.63rem;text-transform:uppercase;background:rgba(201,168,76,.05);font-weight:700;padding-top:12px}
-tr.sh td:last-child{color:var(--gold)}
+/* TABS SPÉCIAUX */
+.subtab-bar{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.subtab{padding:7px 16px;border-radius:6px;font-size:.78rem;font-weight:600;cursor:pointer;border:1.5px solid rgba(255,255,255,.1);color:rgba(255,255,255,.45);background:transparent;transition:all .2s}
+.subtab.active{background:var(--coral);border-color:var(--coral);color:white}
 
-@media(max-width:600px){.g2,.g3,.fourchette,.checks-grid{grid-template-columns:1fr}}
+/* FDC barème */
+.fdc-select{background:#1a1d24;border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 14px;color:white;font-family:inherit;font-size:.82rem;outline:none;width:100%}
+.fdc-pct-display{padding:10px 14px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:8px;font-size:.82rem;color:var(--gold)}
 
-.scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:var(--coral);color:white;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.2);z-index:200;transition:opacity .2s}
-.scroll-top.visible{display:flex}
-.scroll-top:hover{background:#a8432c}
+hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
 </style>
 </head>
 <body>
@@ -121,280 +117,38 @@ tr.sh td:last-child{color:var(--gold)}
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
-    <div style="font-size:1.8rem;margin-bottom:12px">🏝️</div>
-    <h2>Outil interne — Olivier BLAISE</h2>
-    <p>Cabinet LEVY · Accès réservé</p>
+    <div class="login-logo">Cabinet <em>LEVY</em> — Olivier BLAISE</div>
+    <div class="login-tag">Outil interne · Accès restreint</div>
     <input type="password" id="pwd-input" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')checkPwd()">
-    <button onclick="checkPwd()">Accéder →</button>
-    <div class="err" id="pwd-err">Mot de passe incorrect</div>
+    <button onclick="checkPwd()">Accéder</button>
+    <div class="login-err" id="pwd-err"></div>
   </div>
 </div>
 
-<div id="app" style="display:none">
-<div class="int-header">
-  <div class="int-logo">Cabinet <em>LEVY</em> — Olivier BLAISE · Outil interne</div>
-  <div style="display:flex;gap:8px;align-items:center">
-    <button class="btn-sm" onclick="window.print()">🖨️ Imprimer</button>
-    <span class="int-badge">Usage professionnel</span>
-  </div>
+<header>
+  <div class="h-logo">Cabinet <em>LEVY</em> — Calculateur Pro</div>
+  <div class="h-badge">🔒 Usage interne uniquement</div>
+</header>
+
+<div class="tabs" id="main-tabs">
+  <div class="tab active" onclick="showTab('terrain',this)">🏕️ Terrain</div>
+  <div class="tab" onclick="showTab('maison',this)">🏠 Maison</div>
+  <div class="tab" onclick="showTab('appart',this)">🏢 Appartement</div>
+  <div class="tab" onclick="showTab('locpro',this)">🏭 Locaux Pro</div>
+  <div class="tab" onclick="showTab('fdc',this)">🏪 Fonds de Commerce</div>
+  <div class="tab" onclick="showTab('methodo',this)">📖 Méthode</div>
 </div>
 
-<div class="tabs">
-  <button class="tab active" onclick="showTab('terrain',this)">🏕️ Terrain</button>
-  <button class="tab" onclick="showTab('maison',this)">🏠 Maison</button>
-  <button class="tab" onclick="showTab('appart',this)">🏢 Appartement</button>
-  <button class="tab" onclick="showTab('locaux',this)">🏪 Locaux Pro</button>
-  <button class="tab" onclick="showTab('hangar',this)">🏗️ Entrepôt</button>
-  <button class="tab" onclick="showTab('recap',this)">📋 Référentiel</button>
-</div>
+<div class="main">
 
-<div class="body">
+<!-- ==================== TERRAIN ==================== -->
+<div id="tab-terrain" class="tab-content active">
 
-<!-- ══════════ TERRAIN ══════════ -->
-<div id="tab-terrain">
 <div class="card">
-  <div class="card-title">🏕️ Paramètres terrain</div>
-  <div class="g2">
-    <div class="field"><label>Commune / Secteur</label>
-      <select id="t-commune" onchange="tChange()">
-        <optgroup label="TAHITI · Agglo Papeete">
-          <option value="papeete">Papeete</option>
-          <option value="pirae">Pirae</option>
-          <option value="faaa">Faaa</option>
-          <option value="punaauia">Punaauia</option>
-          <option value="arue">Arue</option>
-          <option value="paea">Paea</option>
-          <option value="mahina">Mahina</option>
-        </optgroup>
-        <optgroup label="TAHITI · Côte Est">
-          <option value="papenoo">Papenoo (Hitiaa O Te Ra)</option>
-          <option value="tiarei">Tiarei (Hitiaa O Te Ra)</option>
-          <option value="hitiaa">Hitiaa / Mahaena</option>
-          <option value="faaone">Faaone (Taiarapu-Est)</option>
-        </optgroup>
-        <optgroup label="TAHITI · Sud / Presqu'île">
-          <option value="papara" selected>Papara</option>
-          <option value="mataiea">Mataiea</option>
-          <option value="papeari">Papeari</option>
-          <option value="taravao">Taravao (Taiarapu-Ouest)</option>
-          <option value="toahotu">Toahotu</option>
-          <option value="afaahiti">Afaahiti (Taiarapu-Est)</option>
-          <option value="vairao">Vairao (Taiarapu-Ouest)</option>
-          <option value="teahupoo">Teahupoo</option>
-          <option value="tautira">Tautira (Taiarapu-Est)</option>
-          <option value="pueu">Pueu (Taiarapu-Est)</option>
-        </optgroup>
-        <optgroup label="MOOREA">
-          <option value="maharepa">Moorea – Maharepa / Papetoai</option>
-          <option value="haapiti">Moorea – Haapiti / Paopao / Cook</option>
-          <option value="afareaitu">Moorea – Afareaitu / Teavaro</option>
-        </optgroup>
-        <optgroup label="ÎLES · Sur demande">
-          <option value="ILES">Bora Bora / Îles Sous-le-Vent</option>
-          <option value="ILES">Tuamotu / Gambier</option>
-          <option value="ILES">Marquises</option>
-          <option value="ILES">Australes</option>
-        </optgroup>
-      </select>
-    </div>
-    <div class="field"><label>Superficie (m²)</label>
-      <input type="number" id="t-surf" value="500" min="50" oninput="calcT()">
-    </div>
-  </div>
-
-  <div id="t-iles" class="iles-panel" style="display:none">
-    <h4>🌴 Estimation sur dossier — Îles éloignées</h4>
-    <p>Pour les îles hors Tahiti/Moorea, estimation officielle sur plans cadastraux, photos et actes. Le marché est trop hétérogène pour un calcul automatique. Je ne me déplace pas sur ces îles sauf cas exceptionnel.</p>
-    <div class="iles-note">📋 Valeur vénale : 35 000 XPF · Valeur locative : 15 000 XPF · Délai : 5–7 jours · 89 22 56 43</div>
-  </div>
-
-  <div id="t-form">
-    <!-- CARACTÉRISTIQUES PHYSIQUES -->
-    <div class="card-title" style="margin-top:4px;font-size:.78rem;color:rgba(255,255,255,.5);padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.05)">Caractéristiques physiques</div>
-    <div class="g2">
-      <div class="field"><label>Topographie</label>
-        <select id="t-topo" onchange="calcT()">
-          <option value="3000">Plat (+3 000 XPF/m²)</option>
-          <option value="0" selected>Légère pente (neutre)</option>
-          <option value="-5000">Forte pente (−5 000 XPF/m²)</option>
-        </select>
-      </div>
-      <div class="field"><label>Accès</label>
-        <select id="t-acces" onchange="calcT()">
-          <option value="2000">Route goudronnée directe (+2 000)</option>
-          <option value="0" selected>Servitude carrossable (neutre)</option>
-          <option value="-3000">Chemin terre / difficile (−3 000)</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- VUE / SITUATION -->
-    <div class="card-title" style="margin-top:4px;font-size:.78rem;color:rgba(255,255,255,.5);padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.05)">Vue / Situation</div>
-    <div class="checks-grid">
-      <label class="check-row"><input type="checkbox" id="c-vue-deg" onchange="calcT()"> Vue mer dégagée (+20%)</label>
-      <label class="check-row"><input type="checkbox" id="c-vue-part" onchange="calcT()"> Vue mer partielle (+10%)</label>
-      <label class="check-row"><input type="checkbox" id="c-bord-mer" onchange="calcT()"> Bord de mer / lagon (+50%)</label>
-      <label class="check-row"><input type="checkbox" id="c-bord-route" onchange="calcT()"> Bord de route principale (+30%)</label>
-      <label class="check-row"><input type="checkbox" id="c-hauteur" onchange="calcT()"> Hauteur vue dégagée (+8%)</label>
-      <label class="check-row"><input type="checkbox" id="c-cloture" onchange="calcT()"> Clôturé / sécurisé (+3%)</label>
-      <label class="check-row"><input type="checkbox" id="c-inondable" onchange="calcT()"> Zone inondable / risque (−15%)</label>
-    </div>
-
-    <!-- VIABILISATION EDT -->
-    <div class="sep"></div>
-    <div class="card-title" style="font-size:.78rem;color:rgba(255,255,255,.5);padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.05)">⚡ EDT (Électricité)</div>
-    <div class="field">
-      <select id="t-edt" onchange="toggleEDT()">
-        <option value="bordure">EDT en bordure terrain</option>
-        <option value="distance" selected>EDT à distance (poteaux)</option>
-        <option value="panneaux">Hors réseau → panneaux solaires</option>
-      </select>
-    </div>
-    <div id="t-edt-dist" class="g2">
-      <div class="field"><label>Distance réseau EDT (mètres)</label>
-        <input type="number" id="t-edt-m" value="80" min="0" step="10" oninput="calcT()">
-      </div>
-      <div class="sbox" style="align-self:end">
-        <div class="sl">Coût estimé EDT</div>
-        <div class="sv" id="t-edt-cout">—</div>
-        <div class="ss">Indicatif — devis EDT requis</div>
-      </div>
-    </div>
-    <div id="t-edt-pan" style="display:none">
-      <div class="sbox">
-        <div class="sl">Panneaux solaires (indicatif)</div>
-        <div class="sv">1,5 – 3 MF</div>
-        <div class="ss">Selon surface et consommation · Devis installateur</div>
-      </div>
-    </div>
-
-    <!-- VIABILISATION EAU -->
-    <div class="sep"></div>
-    <div class="card-title" style="font-size:.78rem;color:rgba(255,255,255,.5);padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.05)">💧 Eau</div>
-    <div class="field">
-      <select id="t-eau" onchange="toggleEau()">
-        <option value="bordure">Eau en bordure terrain (raccordement)</option>
-        <option value="distance" selected>Eau à distance (tranchée)</option>
-        <option value="citerne">Pas de réseau → citerne</option>
-      </select>
-    </div>
-    <div id="t-eau-dist" class="g2">
-      <div class="field"><label>Distance réseau eau (mètres)</label>
-        <input type="number" id="t-eau-m" value="50" min="0" step="10" oninput="calcT()">
-      </div>
-      <div class="sbox" style="align-self:end">
-        <div class="sl">Coût estimé eau</div>
-        <div class="sv" id="t-eau-cout">—</div>
-        <div class="ss">Indicatif — varie selon terrain</div>
-      </div>
-    </div>
-    <div id="t-eau-cit" style="display:none">
-      <div class="sbox">
-        <div class="sl">Citerne (indicatif)</div>
-        <div class="sv">300 000 – 600 000 XPF</div>
-        <div class="ss">Selon capacité · Devis fournisseur</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- RÉSULTAT TERRAIN -->
-<div class="card" id="t-result">
-  <div class="card-title">📊 Résultat terrain</div>
-
-  <div class="fourchette">
-    <div class="fbox bas">
-      <div class="fl">Fourchette basse</div>
-      <div class="fv" id="t-rbas">—</div>
-      <div class="fs" id="t-rbas-pm2">— XPF/m²</div>
-    </div>
-    <div class="fbox mid">
-      <div class="fl">Valeur centrale</div>
-      <div class="fv" id="t-rmid">—</div>
-      <div class="fs" id="t-rmid-pm2">— XPF/m²</div>
-    </div>
-    <div class="fbox haut">
-      <div class="fl">Fourchette haute</div>
-      <div class="fv" id="t-rhaut">—</div>
-      <div class="fs" id="t-rhaut-pm2">— XPF/m²</div>
-    </div>
-  </div>
-
-  <div class="result-box">
-    <div class="result-main" id="t-final">—</div>
-    <div class="result-sub">Valeur estimée terrain (hors viabilisation)</div>
-    <div class="result-detail" id="t-coeffs">—</div>
-  </div>
-
-  <!-- VIABILISATION -->
-  <div class="viab-section" id="t-viab-section">
-    <div class="viab-title">⚡💧 Coûts de viabilisation estimés (à déduire)</div>
-    <div class="viab-row"><span class="vl" id="t-viab-edt-lbl">—</span><span class="vv" id="t-viab-edt-val">—</span></div>
-    <div class="viab-row"><span class="vl" id="t-viab-eau-lbl">—</span><span class="vv" id="t-viab-eau-val">—</span></div>
-    <div class="viab-total">
-      <span class="vtl">Total viabilisation</span>
-      <span class="vtv" id="t-viab-total">—</span>
-    </div>
-    <div class="viab-row" style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.06)">
-      <span style="font-size:.72rem;color:rgba(255,255,255,.4)">Valeur nette estimée</span>
-      <span style="font-family:'Libre Baskerville',serif;color:var(--gold);font-size:.9rem" id="t-viab-net">—</span>
-    </div>
-  </div>
-
-  <div class="alert ag" style="margin-top:12px">⚠️ Coûts EDT indicatifs uniquement — tarifs fixés par EDT de Polynésie, susceptibles d'évoluer. Devis obligatoire avant tout engagement.</div>
-  <p class="note">Prix base = terrain résidentiel viabilisé standard sans vue · Données annonces 2024-2025 · Marché volatile · Fourchette basse = conditions défavorables · Haute = conditions idéales</p>
-</div>
-</div>
-
-<!-- ══════════ MAISON ══════════ -->
-<div id="tab-maison" style="display:none">
-<div class="card">
-  <div class="card-title">🏠 Construction</div>
-  <div class="g2">
-    <div class="field"><label>Type de construction</label>
-      <select id="m-type" onchange="calcM()">
-        <option value="125000">Bois — 125 000 XPF/m²</option>
-        <option value="150000">Ossature métallique — 150 000 XPF/m²</option>
-        <option value="175000" selected>Dur (béton) — 175 000 XPF/m²</option>
-        <option value="200000">Architecte / standing — 200 000+ XPF/m²</option>
-      </select>
-    </div>
-    <div class="field"><label>Année de construction</label>
-      <input type="number" id="m-annee" value="2010" min="1950" max="2026" oninput="calcM()">
-    </div>
-  </div>
-  <div class="g2">
-    <div class="field"><label>Surface habitable (m²)</label>
-      <input type="number" id="m-sh" value="120" min="20" oninput="calcM()">
-    </div>
-    <div class="field"><label>Surfaces utiles — garage, terrasse, débarras (m²)</label>
-      <input type="number" id="m-su" value="40" min="0" oninput="calcM()">
-    </div>
-  </div>
-  <div class="sbox" style="margin-bottom:12px">
-    <div class="sl">Surface pondérée</div>
-    <div class="sv" id="m-pond">—</div>
-    <div class="ss">Surf. hab. + (Surf. utiles × 0,5)</div>
-  </div>
-  <div class="field"><label>État général</label>
-    <select id="m-etat" onchange="calcM()">
-      <option value="0.5">Très bon état / rénové récemment — 0,5%/an</option>
-      <option value="0.75">Bon état / bien entretenu — 0,75%/an</option>
-      <option value="1" selected>État normal — 1%/an</option>
-      <option value="1.25">Moyen / à rafraîchir — 1,25%/an</option>
-      <option value="1.75">Mauvais état / gros travaux — 1,75%/an</option>
-    </select>
-  </div>
-</div>
-<div class="card">
-  <div class="card-title">🔧 Équipements</div>
-  <div id="equips-list"></div>
-</div>
-<div class="card">
-  <div class="card-title">🏕️ Terrain (inclus dans le total)</div>
-  <div class="g2">
-    <div class="field"><label>Commune du terrain</label>
-      <select id="mt-commune" onchange="calcM()">
+  <div class="card-title"><span class="icon">📍</span> Commune & Surface</div>
+  <div class="g3">
+    <div class="field"><label>Commune</label>
+      <select id="t-commune" onchange="tCommChange()">
         <optgroup label="TAHITI · Agglo">
           <option value="35000,40000,45000">Papeete</option>
           <option value="30000,35000,40000">Pirae</option>
@@ -406,7 +160,7 @@ tr.sh td:last-child{color:var(--gold)}
         </optgroup>
         <optgroup label="TAHITI · Sud / Presqu'île">
           <option value="15000,20000,25000">Papara</option>
-          <option value="20000,25000,30000">Mataiea / Papeari</option>
+          <option value="12500,17500,22500">Mataiea / Papeari</option>
           <option value="15000,20000,25000">Taravao</option>
           <option value="12500,17500,22500">Toahotu / Afaahiti</option>
           <option value="10000,15000,20000">Vairao / Teahupoo / Tautira</option>
@@ -414,598 +168,1073 @@ tr.sh td:last-child{color:var(--gold)}
         </optgroup>
         <optgroup label="MOOREA">
           <option value="25000,30000,35000">Moorea – Maharepa / Papetoai</option>
-          <option value="20000,25000,30000">Moorea – Haapiti / Paopao</option>
+          <option value="20000,25000,30000">Moorea – Haapiti / Paopao / Cook</option>
           <option value="15000,20000,25000">Moorea – Afareaitu / Teavaro</option>
         </optgroup>
+        <optgroup label="ÎLES ÉLOIGNÉES">
+          <option value="ILES">Bora Bora / Sous-le-Vent / Autres</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="field"><label>Superficie (m²)</label>
+      <input type="number" id="t-surf" value="500" min="50" oninput="calcTerrain()">
+    </div>
+    <div class="field"><label>Type de terrain</label>
+      <select id="t-type" onchange="calcTerrain()">
+        <option value="1.0">Résidentiel viabilisé</option>
+        <option value="0.6">UC brut / non viabilisé</option>
+        <option value="0.35">Agricole / naturel</option>
+        <option value="1.3">Commercial / axe passant</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">🏛️</span> Urbanisme — Zone PGA, Usage & Hauteur</div>
+  <div class="g3">
+    <div class="field"><label>Zone PGA</label>
+      <select id="t-pga" onchange="calcTerrain()">
+        <option value="0">UA — Zone urbaine dense (constructible)</option>
+        <option value="0.05">UB — Zone urbaine secondaire</option>
+        <option value="-0.05">UC — Zone urbaine périphérique</option>
+        <option value="-0.10">UD — Zone urbaine diffuse</option>
+        <option value="-0.05">AU — Zone à urbaniser</option>
+        <option value="-0.20">NB — Zone naturelle constructible limitée</option>
+        <option value="-0.35">N / ND — Zone naturelle protégée</option>
+        <option value="-0.40">A / Na — Zone agricole</option>
+        <option value="-0.30">Nc — Zone naturelle inconstructible</option>
+      </select>
+    </div>
+    <div class="field"><label>Usage autorisé</label>
+      <select id="t-usage" onchange="calcTerrain()">
+        <option value="0">Habitation uniquement</option>
+        <option value="0.20">Commercial + habitation (mixte)</option>
+        <option value="0.25">Commercial / activité seul</option>
+        <option value="0.35">Touristique / hôtelier autorisé</option>
+        <option value="-0.10">Habitation avec restrictions (copro, cahier charges)</option>
+      </select>
+    </div>
+    <div class="field"><label>Hauteur max autorisée</label>
+      <select id="t-hauteur" onchange="calcTerrain()">
+        <option value="-0.15">Plain pied uniquement (RDC)</option>
+        <option value="0">R+1 (standard résidentiel)</option>
+        <option value="0.15">R+2 / R+3</option>
+        <option value="0.30">R+4 à R+7</option>
+        <option value="0.50">R+8 et + (immeuble)</option>
+      </select>
+    </div>
+  </div>
+  <div class="g2" style="margin-top:14px">
+    <div class="field"><label>COS (Coefficient Occupation Sols) — si connu</label>
+      <input type="number" id="t-cos" value="0" min="0" max="5" step="0.1" oninput="calcTerrain()">
+      <span style="font-size:.7rem;color:rgba(255,255,255,.3);margin-top:4px">0 = non renseigné · Ex: 0.5 = 50% surface constructible</span>
+    </div>
+    <div class="field"><label>Surface plancher constructible estimée (m²)</label>
+      <input type="text" id="t-spc" readonly style="background:#111;color:var(--gold)">
+      <span style="font-size:.7rem;color:rgba(255,255,255,.3);margin-top:4px">Calculé automatiquement si COS renseigné</span>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">🛣️</span> Accès & Réseaux</div>
+  <div class="section-label">Accès</div>
+  <div class="crit-grid">
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.03" onchange="calcTerrain()"><span class="crit-txt">Route goudronnée directe</span><span class="crit-pct">+3%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.05" onchange="calcTerrain()"><span class="crit-txt">Chemin privé entretenu</span><span class="crit-pct">−5%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.10" onchange="calcTerrain()"><span class="crit-txt">Accès difficile / piste</span><span class="crit-pct">−10%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.08" onchange="calcTerrain()"><span class="crit-txt">Accès en servitude</span><span class="crit-pct">−8%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.30" onchange="calcTerrain()"><span class="crit-txt">Bord de route principale (commercial)</span><span class="crit-pct">+30%</span></label>
+  </div>
+  <hr class="sep">
+  <div class="section-label">Réseaux</div>
+  <div class="crit-grid">
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.03" onchange="calcTerrain()"><span class="crit-txt">Eau réseau public raccordé</span><span class="crit-pct">+3%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.05" onchange="calcTerrain()"><span class="crit-txt">Citerne obligatoire</span><span class="crit-pct">−5%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.03" onchange="calcTerrain()"><span class="crit-txt">EDT raccordé</span><span class="crit-pct">+3%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.08" onchange="calcTerrain()"><span class="crit-txt">Hors réseau EDT (solaire obligatoire)</span><span class="crit-pct">−8%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.03" onchange="calcTerrain()"><span class="crit-txt">Fosse septique requise</span><span class="crit-pct">−3%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.02" onchange="calcTerrain()"><span class="crit-txt">Fibre / internet disponible</span><span class="crit-pct">+2%</span></label>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">🌄</span> Topographie & Vue</div>
+  <div class="section-label">Topographie</div>
+  <div class="crit-grid">
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.05" onchange="calcTerrain()"><span class="crit-txt">Terrain plat</span><span class="crit-pct">+5%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.05" onchange="calcTerrain()"><span class="crit-txt">Pente douce (&lt;15%)</span><span class="crit-pct">−5%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.10" onchange="calcTerrain()"><span class="crit-txt">Pente moyenne (15–30%)</span><span class="crit-pct">−10%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.15" onchange="calcTerrain()"><span class="crit-txt">Forte pente (&gt;30%)</span><span class="crit-pct">−15%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.08" onchange="calcTerrain()"><span class="crit-txt">Terrassement à prévoir</span><span class="crit-pct">−8%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.10" onchange="calcTerrain()"><span class="crit-txt">Risque érosion / glissement</span><span class="crit-pct">−10%</span></label>
+  </div>
+  <hr class="sep">
+  <div class="section-label">Vue</div>
+  <div class="crit-grid">
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.50" onchange="calcTerrain()"><span class="crit-txt">Bord de mer / accès lagon</span><span class="crit-pct">+50%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.20" onchange="calcTerrain()"><span class="crit-txt">Vue mer dégagée / panoramique</span><span class="crit-pct">+20%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.10" onchange="calcTerrain()"><span class="crit-txt">Vue mer partielle</span><span class="crit-pct">+10%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.08" onchange="calcTerrain()"><span class="crit-txt">Hauteur avec vue dégagée</span><span class="crit-pct">+8%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.03" onchange="calcTerrain()"><span class="crit-txt">Vue montagne</span><span class="crit-pct">+3%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.10" onchange="calcTerrain()"><span class="crit-txt">En hauteur éloigné sans vue</span><span class="crit-pct">−10%</span></label>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">🌿</span> Environnement & Situation</div>
+  <div class="section-label">Environnement</div>
+  <div class="crit-grid">
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.05" onchange="calcTerrain()"><span class="crit-txt">En lotissement</span><span class="crit-pct">+5%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.05" onchange="calcTerrain()"><span class="crit-txt">Quartier résidentiel calme</span><span class="crit-pct">+5%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.05" onchange="calcTerrain()"><span class="crit-txt">Déjà viabilisé eau + EDT</span><span class="crit-pct">+5%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.03" onchange="calcTerrain()"><span class="crit-txt">Proximité commerces / écoles</span><span class="crit-pct">+3%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="t-crit" value="0.03" onchange="calcTerrain()"><span class="crit-txt">Clôturé / sécurisé</span><span class="crit-pct">+3%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.05" onchange="calcTerrain()"><span class="crit-txt">Défrichage à prévoir</span><span class="crit-pct">−5%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.08" onchange="calcTerrain()"><span class="crit-txt">Bruit route / aéroport / industries</span><span class="crit-pct">−8%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.20" onchange="calcTerrain()"><span class="crit-txt">Zone 50 pas géométriques</span><span class="crit-pct">−20%</span></label>
+  </div>
+  <hr class="sep">
+  <div class="section-label">Situation & Quartier</div>
+  <div class="crit-grid">
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.15" onchange="calcTerrain()"><span class="crit-txt">Quartier populaire</span><span class="crit-pct">−15%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.25" onchange="calcTerrain()"><span class="crit-txt">Quartier social</span><span class="crit-pct">−25%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.08" onchange="calcTerrain()"><span class="crit-txt">Zone PPR bleue</span><span class="crit-pct">−8%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.25" onchange="calcTerrain()"><span class="crit-txt">Zone PPR rouge</span><span class="crit-pct">−25%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.30" onchange="calcTerrain()"><span class="crit-txt">Zone agricole (non constructible)</span><span class="crit-pct">−30%</span></label>
+  </div>
+  <hr class="sep">
+  <div class="section-label">Situation juridique / foncière</div>
+  <div class="crit-grid">
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.15" onchange="calcTerrain()"><span class="crit-txt">Terrain en indivision</span><span class="crit-pct">−15%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.08" onchange="calcTerrain()"><span class="crit-txt">Servitude de passage grevant</span><span class="crit-pct">−8%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.10" onchange="calcTerrain()"><span class="crit-txt">Restrictions marae / archéo</span><span class="crit-pct">−10%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="t-dec" value="0.05" onchange="calcTerrain()"><span class="crit-txt">Non borné (litige possible)</span><span class="crit-pct">−5%</span></label>
+  </div>
+</div>
+
+<!-- Résultat terrain -->
+<div class="result-card" id="t-result" style="display:none">
+  <div class="result-title">Estimation terrain — Résultat</div>
+  <div id="t-coeff-display" class="coeff-display neutral">Δ 0%</div>
+  <div class="result-grid">
+    <div class="stat-box"><div class="lbl">Fourchette basse</div><div class="val" id="t-bas">—</div><div class="sub" id="t-pm2-bas">—/m²</div></div>
+    <div class="stat-box" style="border:1px solid rgba(192,83,58,.3)"><div class="lbl">Valeur centrale</div><div class="val" id="t-cen" style="color:var(--coral)">—</div><div class="sub" id="t-pm2-cen">—/m²</div></div>
+    <div class="stat-box"><div class="lbl">Fourchette haute</div><div class="val" id="t-hau">—</div><div class="sub" id="t-pm2-hau">—/m²</div></div>
+  </div>
+  <div class="detail-line" id="t-detail">—</div>
+  <div class="note">Prix terrains résidentiels viabilisés standard · Données marché 2026 · Ne constitue pas une estimation officielle</div>
+</div>
+
+<div id="t-iles" style="display:none;padding:20px;background:rgba(192,83,58,.08);border:1px solid rgba(192,83,58,.2);border-radius:10px;color:rgba(255,255,255,.6);font-size:.85rem">
+  🌴 Îles éloignées — estimation sur dossier (plans cadastraux, actes, comparables). Contactez directement pour une évaluation.
+</div>
+
+</div><!-- /tab-terrain -->
+
+<!-- ==================== MAISON ==================== -->
+<div id="tab-maison" class="tab-content">
+
+<div class="card">
+  <div class="card-title"><span class="icon">📋</span> Informations générales</div>
+  <div class="g3">
+    <div class="field"><label>Commune</label>
+      <select id="m-commune" onchange="calcMaison()">
+        <optgroup label="TAHITI · Agglo">
+          <option value="350000,500000">Papeete / Pirae</option>
+          <option value="300000,450000">Punaauia / Arue</option>
+          <option value="250000,380000">Faaa / Mahina / Paea</option>
+        </optgroup>
+        <optgroup label="TAHITI · Sud / Presqu'île">
+          <option value="200000,320000">Papara / Taravao</option>
+          <option value="180000,280000">Mataiea / Toahotu / Faaone</option>
+          <option value="160000,250000">Vairao / Tautira / Côte Est</option>
+        </optgroup>
+        <optgroup label="MOOREA">
+          <option value="280000,420000">Moorea – Maharepa / Papetoai</option>
+          <option value="240000,370000">Moorea – Haapiti / Paopao</option>
+          <option value="200000,300000">Moorea – Afareaitu / Teavaro</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="field"><label>Superficie habitable totale (m²)</label>
+      <input type="number" id="m-surf" value="120" min="20" oninput="calcMaison()">
+    </div>
+    <div class="field"><label>Année de construction</label>
+      <input type="number" id="m-annee" value="2005" min="1950" max="2026" oninput="calcMaison()">
+    </div>
+  </div>
+  <div class="g3" style="margin-top:14px">
+    <div class="field"><label>Niveau / Configuration</label>
+      <select id="m-niveau" onchange="calcMaison()">
+        <option value="0">Plain pied (RDC)</option>
+        <option value="0.05">Plain pied + mezzanine</option>
+        <option value="0.08">R+1 (2 niveaux)</option>
+        <option value="0.10">R+2 (3 niveaux)</option>
+        <option value="-0.05">Sous-sol + RDC</option>
+      </select>
+    </div>
+    <div class="field"><label>Usage</label>
+      <select id="m-usage" onchange="calcMaison()">
+        <option value="0">Habitation pure</option>
+        <option value="0.10">Mixte (habitation + local en bas)</option>
+        <option value="0.05">Immeuble de rapport (locatif)</option>
+      </select>
+    </div>
+    <div class="field"><label>Hauteur max autorisée (PGA)</label>
+      <select id="m-haut-pga" onchange="calcMaison()">
+        <option value="0">Conforme à la construction</option>
+        <option value="0.05">Extension possible (hauteur restante)</option>
+        <option value="-0.10">Non conforme / hors norme</option>
+      </select>
+    </div>
+  </div>
+  <div class="g4" style="margin-top:14px">
+    <div class="field"><label>Nb chambres</label>
+      <input type="number" id="m-ch" value="3" min="0" max="10" oninput="calcMaison()">
+    </div>
+    <div class="field"><label>Nb salles de bain</label>
+      <input type="number" id="m-sdb" value="1" min="0" max="6" oninput="calcMaison()">
+    </div>
+    <div class="field"><label>Nb WC séparés</label>
+      <input type="number" id="m-wc" value="1" min="0" max="5" oninput="calcMaison()">
+    </div>
+    <div class="field"><label>Surface terrasse couverte (m²)</label>
+      <input type="number" id="m-terrasse" value="0" min="0" oninput="calcMaison()">
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">🏗️</span> Construction & Matériaux</div>
+  <div class="g3">
+    <div class="field"><label>Type de construction</label>
+      <select id="m-constr" onchange="calcMaison()">
+        <option value="0">Béton standard</option>
+        <option value="0.15">Béton architecte / standing</option>
+        <option value="-0.05">Bois traité qualité</option>
+        <option value="-0.10">Bois simple / mixte</option>
+        <option value="-0.15">Fare poteau traditionnel</option>
+        <option value="-0.08">Ossature métallique</option>
+      </select>
+    </div>
+    <div class="field"><label>Type de toiture</label>
+      <select id="m-toit" onchange="calcMaison()">
+        <option value="0.05">Dalle béton terrasse</option>
+        <option value="0">Shingle / tuile</option>
+        <option value="-0.02">Tôle bonne qualité</option>
+        <option value="-0.05">Tôle ancienne / rouillée</option>
+      </select>
+    </div>
+    <div class="field"><label>État général</label>
+      <select id="m-etat" onchange="calcMaison()">
+        <option value="0.10">Excellent / rénové récemment</option>
+        <option value="0">Bon état</option>
+        <option value="-0.10">État moyen</option>
+        <option value="-0.20">Mauvais état</option>
+        <option value="-0.30">Très mauvais / à rénover</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">⚙️</span> Équipements</div>
+  <div class="g2">
+    <div>
+      <div class="section-label">Équipements fixes (valeur XPF)</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label class="crit-item pos"><input type="checkbox" id="eq-piscine-cr" onchange="calcMaison()"><span class="crit-txt">Piscine creusée</span><span class="crit-pct">+5 000 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="eq-piscine-sf" onchange="calcMaison()"><span class="crit-txt">Piscine de surface</span><span class="crit-pct">+2 500 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="eq-jacuzzi" onchange="calcMaison()"><span class="crit-txt">Jacuzzi</span><span class="crit-pct">+1 500 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="eq-solaire" onchange="calcMaison()"><span class="crit-txt">Panneaux solaires (système complet)</span><span class="crit-pct">+2 000 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="eq-citerne" onchange="calcMaison()"><span class="crit-txt">Citerne eau 5 000L+</span><span class="crit-pct">+500 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="eq-portail-el" onchange="calcMaison()"><span class="crit-txt">Portail électrique</span><span class="crit-pct">+400 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="eq-portail-mn" onchange="calcMaison()"><span class="crit-txt">Portail manuel</span><span class="crit-pct">+150 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="eq-cuisine-eq" onchange="calcMaison()"><span class="crit-txt">Cuisine entièrement équipée</span><span class="crit-pct">+2 000 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="eq-cuisine-sm" onchange="calcMaison()"><span class="crit-txt">Cuisine semi-équipée</span><span class="crit-pct">+1 000 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="eq-meuble" onchange="calcMaison()"><span class="crit-txt">Vendu meublé</span><span class="crit-pct">+5%</span></label>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">Climatisation & Clôture</div>
+      <div class="g2" style="margin-bottom:12px">
+        <div class="field"><label>Nb unités clim</label>
+          <input type="number" id="m-clim" value="0" min="0" max="10" oninput="calcMaison()">
+        </div>
+        <div class="field"><label>→ valeur unitaire 350 000 XPF</label>
+          <input type="text" id="m-clim-val" readonly style="background:#111;color:var(--coral)">
+        </div>
+      </div>
+      <div class="section-label" style="margin-top:8px">Clôture</div>
+      <div class="g2">
+        <div class="field"><label>Type clôture</label>
+          <select id="m-cloture-type" onchange="calcMaison()">
+            <option value="0">Aucune</option>
+            <option value="35000">Parpaing / mur (35k/ml)</option>
+            <option value="25000">Béton (25k/ml)</option>
+            <option value="15000">Grillage (15k/ml)</option>
+            <option value="10000">Bois / mixte (10k/ml)</option>
+          </select>
+        </div>
+        <div class="field"><label>Linéaire (ml)</label>
+          <input type="number" id="m-cloture-ml" value="0" min="0" oninput="calcMaison()">
+        </div>
+      </div>
+      <div class="section-label" style="margin-top:12px">Garage / fare poteau</div>
+      <div class="g2">
+        <div class="field"><label>Garage couvert (m²)</label>
+          <input type="number" id="m-garage" value="0" min="0" oninput="calcMaison()">
+        </div>
+        <div class="field"><label>Fare poteau / véranda (m²)</label>
+          <input type="number" id="m-fare-pote" value="0" min="0" oninput="calcMaison()">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">⚠️</span> Risques & Contraintes</div>
+  <div class="crit-grid">
+    <label class="crit-item neg"><input type="checkbox" class="m-risk" value="-0.15" onchange="calcMaison()"><span class="crit-txt">Zone inondable</span><span class="crit-pct">−15%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="m-risk" value="-0.05" onchange="calcMaison()"><span class="crit-txt">Termites avérés</span><span class="crit-pct">−5%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="m-risk" value="-0.08" onchange="calcMaison()"><span class="crit-txt">Zone PPR bleue</span><span class="crit-pct">−8%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="m-risk" value="-0.20" onchange="calcMaison()"><span class="crit-txt">Zone PPR rouge</span><span class="crit-pct">−20%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="m-risk" value="-0.08" onchange="calcMaison()"><span class="crit-txt">Bruit route / aéroport</span><span class="crit-pct">−8%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="m-risk" value="-0.10" onchange="calcMaison()"><span class="crit-txt">Humidité / moisissures</span><span class="crit-pct">−10%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="m-bonus" value="0.20" onchange="calcMaison()"><span class="crit-txt">Vue mer / lagon directe</span><span class="crit-pct">+20%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="m-bonus" value="0.10" onchange="calcMaison()"><span class="crit-txt">Vue mer partielle</span><span class="crit-pct">+10%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="m-bonus" value="0.08" onchange="calcMaison()"><span class="crit-txt">Quartier résidentiel prisé</span><span class="crit-pct">+8%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="m-risk" value="-0.15" onchange="calcMaison()"><span class="crit-txt">Quartier social / défavorisé</span><span class="crit-pct">−15%</span></label>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">🏕️</span> Terrain inclus</div>
+  <div class="g2">
+    <div class="field"><label>Commune terrain (si différente)</label>
+      <select id="mt-commune" onchange="calcMaison()">
+        <option value="35000,40000,45000">Papeete</option>
+        <option value="30000,35000,40000">Pirae / Punaauia</option>
+        <option value="22500,27500,32500">Faaa</option>
+        <option value="25000,30000,35000">Arue</option>
+        <option value="20000,25000,30000">Paea</option>
+        <option value="15000,20000,25000">Mahina / Papara / Taravao</option>
+        <option value="12500,17500,22500">Mataiea / Toahotu</option>
+        <option value="10000,15000,20000">Vairao / Côte Est</option>
+        <option value="25000,30000,35000">Moorea – Maharepa</option>
+        <option value="20000,25000,30000">Moorea – Haapiti / Paopao</option>
+        <option value="15000,20000,25000">Moorea – Afareaitu</option>
       </select>
     </div>
     <div class="field"><label>Superficie terrain (m²)</label>
-      <input type="number" id="mt-surf" value="500" min="50" oninput="calcM()">
+      <input type="number" id="mt-surf" value="500" min="0" oninput="calcMaison()">
     </div>
   </div>
-  <label class="check-row"><input type="checkbox" id="mt-vue" onchange="calcM()"> Vue mer (+8 000 XPF/m²)</label>
-  <label class="check-row"><input type="checkbox" id="mt-plat" onchange="calcM()"> Terrain plat (+3 000 XPF/m²)</label>
-  <label class="check-row"><input type="checkbox" id="mt-pente" onchange="calcM()"> Forte pente (−5 000 XPF/m²)</label>
-</div>
-<div class="card">
-  <div class="g3">
-    <div class="sbox"><div class="sl">Valeur brute</div><div class="sv" id="m-brute">—</div></div>
-    <div class="sbox"><div class="sl">Vétusté <span id="m-vpct" style="color:var(--coral)"></span></div><div class="sv" id="m-vet" style="color:var(--coral)">—</div></div>
-    <div class="sbox"><div class="sl">Équipements</div><div class="sv" id="m-equips" style="color:#1e6b45">—</div></div>
+  <div class="section-label" style="margin-top:14px">Caractéristiques terrain</div>
+  <div class="crit-grid">
+    <label class="crit-item pos"><input type="checkbox" class="mt-crit" value="0.50" onchange="calcMaison()"><span class="crit-txt">Bord de mer / lagon</span><span class="crit-pct">+50%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="mt-crit" value="0.20" onchange="calcMaison()"><span class="crit-txt">Vue mer panoramique</span><span class="crit-pct">+20%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="mt-crit" value="0.10" onchange="calcMaison()"><span class="crit-txt">Vue mer partielle</span><span class="crit-pct">+10%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="mt-crit" value="0.05" onchange="calcMaison()"><span class="crit-txt">Terrain plat</span><span class="crit-pct">+5%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="mt-dec" value="0.15" onchange="calcMaison()"><span class="crit-txt">Forte pente</span><span class="crit-pct">−15%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="mt-dec" value="0.10" onchange="calcMaison()"><span class="crit-txt">Accès difficile</span><span class="crit-pct">−10%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="mt-dec" value="0.08" onchange="calcMaison()"><span class="crit-txt">Zone PPR bleue</span><span class="crit-pct">−8%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="mt-dec" value="0.15" onchange="calcMaison()"><span class="crit-txt">Terrain en indivision</span><span class="crit-pct">−15%</span></label>
   </div>
-  <div class="result-box">
-    <div class="result-main" id="m-total">—</div>
-    <div class="result-sub">Valeur construction estimée hors terrain</div>
-    <div class="result-detail" id="m-infla">—</div>
-  </div>
-  <p class="note">Hors terrain · Vétusté plafonnée à 70% · Inflation construction 3,5–5%/an</p>
-</div>
 </div>
 
-<!-- ══════════ APPART ══════════ -->
-<div id="tab-appart" style="display:none">
+<!-- Résultat maison -->
+<div class="result-card" id="m-result" style="display:none">
+  <div class="result-title">Estimation maison — Résultat</div>
+  <div class="result-grid">
+    <div class="stat-box"><div class="lbl">Construction nette</div><div class="val" id="m-const-val">—</div><div class="sub" id="m-pm2">—/m²</div></div>
+    <div class="stat-box"><div class="lbl">Équipements</div><div class="val" id="m-eq-val" style="color:#4caf7a">—</div></div>
+    <div class="stat-box"><div class="lbl">Terrain</div><div class="val" id="m-ter-val" style="color:var(--gold)">—</div><div class="sub" id="m-ter-range">—</div></div>
+  </div>
+  <div class="result-main" id="m-total-bien">—</div>
+  <div class="result-range" id="m-range-bien">—</div>
+  <div class="detail-line" id="m-detail">—</div>
+  <div class="note">Construction + terrain valeur centrale · Vétusté sur construction · Ne constitue pas une estimation officielle</div>
+</div>
+
+</div><!-- /tab-maison -->
+
+<!-- ==================== APPARTEMENT ==================== -->
+<div id="tab-appart" class="tab-content">
+
 <div class="card">
-  <div class="card-title">🏢 Paramètres appartement</div>
-  <div class="g2">
-    <div class="field"><label>Gamme</label>
-      <select id="a-gamme" onchange="calcA()">
-        <option value="350000,500000">Intermédiaire — 350 000–500 000 XPF/m²</option>
-        <option value="500000,700000">Standing — 500 000–700 000 XPF/m²</option>
-      </select>
-    </div>
+  <div class="card-title"><span class="icon">📋</span> Informations générales</div>
+  <div class="g3">
     <div class="field"><label>Commune</label>
-      <select id="a-commune" onchange="calcA()">
-        <optgroup label="TAHITI">
-          <option value="0.20">Papeete / Pirae +20%</option>
-          <option value="0.15">Punaauia / Arue +15%</option>
-          <option value="0.10">Faaa / Mahina / Paea +10%</option>
-          <option value="0.05">Papenoo / Tiarei / Taravao +5%</option>
-          <option value="0">Papara / Faaone / Presqu'île base</option>
-        </optgroup>
-        <optgroup label="MOOREA">
-          <option value="0.12">Maharepa / Papetoai +12%</option>
-          <option value="0.08">Haapiti / Paopao +8%</option>
-          <option value="0.06">Afareaitu / Teavaro +6%</option>
-        </optgroup>
-        <optgroup label="ÎLES"><option value="ILES">Îles éloignées — sur demande</option></optgroup>
+      <select id="a-commune" onchange="calcAppart()">
+        <option value="350000,550000">Papeete / Pirae</option>
+        <option value="300000,480000">Punaauia / Arue</option>
+        <option value="240000,380000">Faaa / Mahina / Paea</option>
+        <option value="200000,320000">Papara / Taravao / autres</option>
+        <option value="280000,450000">Moorea – Maharepa / Papetoai</option>
+        <option value="240000,380000">Moorea – Haapiti / Paopao</option>
+        <option value="ILES">Îles éloignées</option>
       </select>
     </div>
+    <div class="field"><label>Surface (m²)</label>
+      <input type="number" id="a-surf" value="65" min="15" oninput="calcAppart()">
+    </div>
+    <div class="field"><label>Année construction résidence</label>
+      <input type="number" id="a-annee" value="2000" min="1960" max="2026" oninput="calcAppart()">
+    </div>
   </div>
-  <div class="g3">
-    <div class="field"><label>Surface (m²)</label><input type="number" id="a-surf" value="70" min="20" oninput="calcA()"></div>
+  <div class="g4" style="margin-top:14px">
     <div class="field"><label>Étage</label>
-          <select id="a-etage" onchange="calcA()">
-            <option value="rdc_jardin">RDC avec jardin / terrasse</option>
-            <option value="rdc" selected>RDC sans jardin</option>
-            <option value="1">1er étage</option>
-            <option value="2">2e étage</option>
-            <option value="3">3e étage</option>
-            <option value="4">4e étage et +</option>
-            <option value="penthouse">Penthouse / Rooftop</option>
-          </select>
+      <select id="a-etage" onchange="calcAppart()">
+        <option value="rdc_jardin">RDC avec jardin</option>
+        <option value="rdc">RDC sans jardin</option>
+        <option value="1">1er étage</option>
+        <option value="2">2e étage</option>
+        <option value="3">3e étage</option>
+        <option value="4">4e étage et +</option>
+        <option value="penthouse">Penthouse</option>
+      </select>
+    </div>
+    <div class="field"><label>Nb chambres</label>
+      <input type="number" id="a-ch" value="2" min="0" max="6" oninput="calcAppart()">
+    </div>
+    <div class="field"><label>Nb SDB</label>
+      <input type="number" id="a-sdb" value="1" min="0" max="4" oninput="calcAppart()">
+    </div>
+    <div class="field"><label>Charges copropriété (XPF/mois)</label>
+      <input type="number" id="a-charges" value="30000" min="0" step="5000" oninput="calcAppart()">
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">🏛️</span> Standing & Résidence</div>
+  <div class="g2">
+    <div class="field"><label>Standing de la résidence</label>
+      <select id="a-standing" onchange="calcAppart()">
+        <option value="-0.10">Basique / HLM</option>
+        <option value="0">Standard</option>
+        <option value="0.10">Standing / résidence fermée</option>
+        <option value="0.20">Luxe / prestige</option>
+      </select>
+    </div>
+    <div class="field"><label>Vue</label>
+      <select id="a-vue" onchange="calcAppart()">
+        <option value="0">Vue standard / dégagée</option>
+        <option value="0.15">Vue mer / lagon directe</option>
+        <option value="0.08">Vue mer partielle</option>
+        <option value="0.05">Vue piscine / jardin</option>
+        <option value="0.05">Vue montagne dégagée</option>
+        <option value="-0.08">Vue masquée / sur mur</option>
+      </select>
+    </div>
+  </div>
+  <hr class="sep">
+  <div class="section-label">Équipements résidence</div>
+  <div class="crit-grid">
+    <label class="crit-item pos"><input type="checkbox" class="a-res" value="0.05" onchange="calcAppart()"><span class="crit-txt">Piscine commune</span><span class="crit-pct">+5%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="a-res" value="0.05" onchange="calcAppart()"><span class="crit-txt">Gardiennage 24h</span><span class="crit-pct">+5%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="a-res" value="0.03" onchange="calcAppart()"><span class="crit-txt">Ascenseur</span><span class="crit-pct">+3%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="a-res" value="0.02" onchange="calcAppart()"><span class="crit-txt">Interphone / vidéophone</span><span class="crit-pct">+2%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="a-res" value="0.03" onchange="calcAppart()"><span class="crit-txt">Espace vert / jardin commun</span><span class="crit-pct">+3%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="a-malus" value="0.08" onchange="calcAppart()"><span class="crit-txt">Charges très élevées (&gt;60k/mois)</span><span class="crit-pct">−8%</span></label>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">⚙️</span> Équipements appartement</div>
+  <div class="g2">
+    <div>
+      <div class="section-label">Parking & Annexes</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+        <label class="crit-item pos"><input type="checkbox" id="a-pk-couv" onchange="calcAppart()"><span class="crit-txt">Parking couvert</span><span class="crit-pct">+1 750 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="a-pk-decouv" onchange="calcAppart()"><span class="crit-txt">Parking découvert</span><span class="crit-pct">+800 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="a-cave" onchange="calcAppart()"><span class="crit-txt">Cave / storage privatif</span><span class="crit-pct">+400 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="a-cuisine-eq" onchange="calcAppart()"><span class="crit-txt">Cuisine équipée</span><span class="crit-pct">+1 500 000</span></label>
+        <label class="crit-item pos"><input type="checkbox" id="a-meuble" onchange="calcAppart()"><span class="crit-txt">Vendu meublé</span><span class="crit-pct">+5%</span></label>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">Climatisation</div>
+      <div class="g2" style="margin-bottom:12px">
+        <div class="field"><label>Nb unités clim</label>
+          <input type="number" id="a-clim" value="1" min="0" max="6" oninput="calcAppart()">
         </div>
-    <div class="field"><label>Places parking</label><input type="number" id="a-park" value="1" min="0" oninput="calcA()"></div>
+        <div class="field"><label>Valeur clim</label>
+          <input type="text" id="a-clim-val" readonly style="background:#111;color:var(--coral)">
+        </div>
+      </div>
+      <div class="section-label">Risques appartement</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <label class="crit-item neg"><input type="checkbox" class="a-malus" value="0.08" onchange="calcAppart()"><span class="crit-txt">Bruit route / aéroport</span><span class="crit-pct">−8%</span></label>
+        <label class="crit-item neg"><input type="checkbox" class="a-malus" value="0.10" onchange="calcAppart()"><span class="crit-txt">Humidité / moisissures</span><span class="crit-pct">−10%</span></label>
+        <label class="crit-item neg"><input type="checkbox" class="a-malus" value="0.08" onchange="calcAppart()"><span class="crit-txt">Syndic défaillant / copro dégradée</span><span class="crit-pct">−8%</span></label>
+      </div>
+    </div>
   </div>
-  <label class="check-row"><input type="checkbox" id="a-vue" onchange="calcA()"> Vue mer (+8%)</label>
-  <label class="check-row"><input type="checkbox" id="a-cuisine" onchange="calcA()" checked> Cuisine équipée</label>
-  <label class="check-row"><input type="checkbox" id="a-asc" onchange="calcA()"> Ascenseur</label>
-</div>
-<div id="a-iles" style="display:none">
-  <div class="iles-panel">
-    <h4>🌴 Îles éloignées — Estimation sur dossier</h4>
-    <p>Valeur vénale ou locative sur plans et documents.</p>
-    <div class="iles-note">35 000 XPF vénale · 15 000 XPF locative · 89 22 56 43</div>
-  </div>
-</div>
-<div class="card" id="a-result">
-  <div class="card-title">📊 Résultat appartement</div>
-  <div class="g3">
-    <div class="sbox"><div class="sl">Prix/m² appliqué</div><div class="sv" id="a-pm2">—</div><div class="ss">XPF/m²</div></div>
-    <div class="sbox"><div class="sl">Parking</div><div class="sv" id="a-vpark">—</div></div>
-    <div class="sbox"><div class="sl">Cuisine équipée</div><div class="sv" id="a-vcuis">—</div></div>
-  </div>
-  <div class="result-box">
-    <div class="result-main" id="a-total">—</div>
-    <div class="result-sub">Fourchette estimation appartement (hors terrain)</div>
-    <div class="result-detail" id="a-detail">—</div>
-  </div>
-  <p class="note">RDC jardin +5% · RDC −5% · Étages +3→+10% selon vue · Penthouse +20% · Vue mer +8% · Médiane PF (Properstar déc.2025) : 635 000 XPF/m²</p>
-</div>
 </div>
 
-<!-- ══════════ LOCAUX PRO ══════════ -->
-<div id="tab-locaux" style="display:none">
+<!-- Résultat appart -->
+<div class="result-card" id="a-result" style="display:none">
+  <div class="result-title">Estimation appartement — Résultat</div>
+  <div class="result-grid">
+    <div class="stat-box"><div class="lbl">Prix au m²</div><div class="val" id="a-pm2">—</div></div>
+    <div class="stat-box" style="border:1px solid rgba(192,83,58,.3)"><div class="lbl">Valeur totale</div><div class="val" id="a-total" style="color:var(--coral)">—</div></div>
+    <div class="stat-box"><div class="lbl">Dont équipements</div><div class="val" id="a-eq-val" style="color:#4caf7a">—</div></div>
+  </div>
+  <div class="detail-line" id="a-detail">—</div>
+  <div class="note">Estimation indicative · Données marché Tahiti 2026 · Ne constitue pas une expertise officielle</div>
+</div>
+
+<div id="a-iles" style="display:none;padding:20px;background:rgba(192,83,58,.08);border:1px solid rgba(192,83,58,.2);border-radius:10px;color:rgba(255,255,255,.6);font-size:.85rem">
+  🌴 Îles éloignées — estimation sur dossier. Contactez directement.
+</div>
+
+</div><!-- /tab-appart -->
+
+<!-- ==================== LOCAUX PRO ==================== -->
+<div id="tab-locpro" class="tab-content">
+
 <div class="card">
-  <div class="card-title">🏪 Paramètres local professionnel</div>
-  <div class="g2">
+  <div class="card-title"><span class="icon">🏭</span> Informations locaux professionnels</div>
+  <div class="g3">
     <div class="field"><label>Type de local</label>
-      <select id="l-type" onchange="calcL()">
-        <option value="commerce">Commerce RDC</option>
-        <option value="bureau">Bureau</option>
-        <option value="mixte">Mixte (RDC commerce + étage bureau)</option>
+      <select id="lp-type" onchange="calcLocPro()">
+        <option value="bureau">Bureau / open space</option>
+        <option value="commerce">Commerce / boutique</option>
+        <option value="restaurant">Restaurant / snack</option>
+        <option value="entrepot">Entrepôt / hangar</option>
+        <option value="mixte">Local mixte (bureau + entrepôt)</option>
       </select>
     </div>
-    <div class="field"><label>Commune / Zone</label>
-      <select id="l-commune" onchange="calcL()">
-        <optgroup label="TAHITI Agglo">
-          <option value="0.15">Papeete centre prime +15%</option>
-          <option value="0.10">Pirae / Punaauia Marina +10%</option>
-          <option value="0.07">Faaa / Arue / Mahina +7%</option>
-          <option value="0.05">Paea / Papenoo +5%</option>
-        </optgroup>
-        <optgroup label="TAHITI Autres">
-          <option value="0.03">Taravao / Presqu'île +3%</option>
-          <option value="0">Zone secondaire / Papara base</option>
-        </optgroup>
-        <optgroup label="MOOREA">
-          <option value="0.08">Moorea Maharepa +8%</option>
-          <option value="0.04">Moorea autres +4%</option>
-        </optgroup>
-        <optgroup label="ÎLES"><option value="ILES">Îles éloignées — sur demande</option></optgroup>
-      </select>
+    <div class="field"><label>Surface (m²)</label>
+      <input type="number" id="lp-surf" value="100" min="10" oninput="calcLocPro()">
+    </div>
+    <div class="field"><label>Loyer mensuel actuel (XPF)</label>
+      <input type="number" id="lp-loyer" value="150000" min="0" step="10000" oninput="calcLocPro()">
     </div>
   </div>
-  <div class="g2">
-    <div class="field"><label>Surface totale (m²)</label><input type="number" id="l-surf" value="100" min="10" oninput="calcL()"></div>
-    <div class="field"><label>Part commerce RDC (m²) — mixte uniquement</label><input type="number" id="l-surfcom" value="60" min="0" oninput="calcL()"></div>
-  </div>
-  <div class="g2">
-    <div class="field"><label>Étage (bureaux)</label><input type="number" id="l-etage" value="0" min="0" oninput="calcL()"></div>
-    <div class="field"><label>Places parking</label><input type="number" id="l-park" value="2" min="0" oninput="calcL()"></div>
-  </div>
-  <label class="check-row"><input type="checkbox" id="l-asc" onchange="calcL()"> Ascenseur</label>
-  <label class="check-row"><input type="checkbox" id="l-terrain" onchange="calcL()"> Inclure terrain (zone UB / commerciale)</label>
-</div>
-<div class="card" id="l-tcard" style="display:none">
-  <div class="card-title">🏕️ Terrain zone commerciale / UB</div>
-  <div class="g2">
-    <div class="field"><label>Superficie terrain (m²)</label><input type="number" id="l-tsurf" value="300" min="50" oninput="calcL()"></div>
-    <div class="field"><label>Prix terrain</label>
-      <select id="l-tcat" onchange="calcL()">
-        <option value="20000">Zone industrielle / US — 20 000 XPF/m²</option>
-        <option value="27500" selected>Zone UB standard — 27 500 XPF/m²</option>
-        <option value="35000">Zone UB bord route — 35 000 XPF/m²</option>
+  <div class="g3" style="margin-top:14px">
+    <div class="field"><label>Emplacement</label>
+      <select id="lp-empl" onchange="calcLocPro()">
+        <option value="0.07">Centre Papeete N°1 (bd Pomare, Vaima)</option>
+        <option value="0.08">Papeete standard</option>
+        <option value="0.085">Punaauia / zone commerciale</option>
+        <option value="0.09">Communes (Faaa, Mahina, Taravao…)</option>
+        <option value="0.10">Zone industrielle / périphérie</option>
+        <option value="0.095">Moorea</option>
+      </select>
+    </div>
+    <div class="field"><label>Bail restant</label>
+      <select id="lp-bail" onchange="calcLocPro()">
+        <option value="0.08">Plus de 6 ans</option>
+        <option value="0.04">4 à 6 ans</option>
+        <option value="0">2 à 4 ans</option>
+        <option value="-0.10">Moins de 2 ans</option>
+        <option value="-0.05">Pas de bail / verbal</option>
+      </select>
+    </div>
+    <div class="field"><label>État du local</label>
+      <select id="lp-etat" onchange="calcLocPro()">
+        <option value="0.10">Excellent / récent</option>
+        <option value="0">Bon état</option>
+        <option value="-0.10">État moyen</option>
+        <option value="-0.20">Mauvais état / à rénover</option>
       </select>
     </div>
   </div>
-</div>
-<div id="l-iles" style="display:none">
-  <div class="iles-panel"><h4>🌴 Îles éloignées — sur dossier</h4><div class="iles-note">35 000 XPF vénale · 15 000 XPF locative · 89 22 56 43</div></div>
-</div>
-<div class="card" id="l-result">
-  <div class="card-title">📊 Résultats</div>
-  <div class="g2">
-    <div class="sbox"><div class="sl">Valeur locative</div><div class="sv" id="l-loc">—</div><div class="ss">XPF/mois</div></div>
-    <div class="sbox"><div class="sl">Valeur vénale construction</div><div class="sv" id="l-venal">—</div></div>
-  </div>
-  <div class="result-box">
-    <div class="result-main" id="l-total">—</div>
-    <div class="result-sub">Valeur vénale totale estimée</div>
-    <div class="result-detail" id="l-detail">—</div>
-  </div>
-  <div class="alert ag" style="margin-top:10px">Loyers marché 2024-2025 : commerce 2 500–5 000 · bureau 2 000–4 000 · hangar 1 200–3 000 XPF/m²/mois. Bas = zone secondaire · Haut = Papeete prime.</div>
-</div>
 </div>
 
-<!-- ══════════ HANGAR ══════════ -->
-<div id="tab-hangar" style="display:none">
 <div class="card">
-  <div class="card-title">🏗️ Entrepôt / Hangar</div>
-  <div class="g2">
-    <div class="field"><label>Surface au sol (m²)</label><input type="number" id="h-surf" value="500" min="50" oninput="calcH()"></div>
-    <div class="field"><label>Hauteur utile (m)</label><input type="number" id="h-haut" value="6" min="2" max="20" step="0.5" oninput="calcH()"></div>
-  </div>
-  <div class="field"><label>Qualité de construction</label>
-    <select id="h-qual" onchange="calcH()">
-      <option value="100000">Simple / économique — 100 000 XPF/m²</option>
-      <option value="150000" selected>Standard — 150 000 XPF/m²</option>
-      <option value="200000">Renforcé / industriel — 200 000 XPF/m²</option>
-    </select>
-  </div>
-  <div class="g2">
-    <div class="field"><label>Commune / Zone</label>
-      <select id="h-commune" onchange="calcH()">
-        <option value="0.12">Papeete / Pirae zone prime +12%</option>
-        <option value="0.08">Punaauia / Faaa +8%</option>
-        <option value="0.05">Paea / Mahina +5%</option>
-        <option value="0.03">Taravao +3%</option>
-        <option value="0" selected>Zone secondaire / Papara base</option>
-        <option value="0.05">Moorea +5%</option>
-      </select>
-    </div>
-    <div class="field"><label>Année de construction</label><input type="number" id="h-annee" value="2010" min="1960" max="2026" oninput="calcH()"></div>
-  </div>
-  <label class="check-row"><input type="checkbox" id="h-pl" onchange="calcH()" checked> Accès poids lourds (+8%)</label>
-  <label class="check-row"><input type="checkbox" id="h-quai" onchange="calcH()"> Quai de chargement (+12%)</label>
-  <label class="check-row"><input type="checkbox" id="h-terrain" onchange="calcH()"> Inclure terrain</label>
-</div>
-<div class="card" id="h-tcard" style="display:none">
-  <div class="card-title">🏕️ Terrain zone industrielle / UB</div>
-  <div class="g2">
-    <div class="field"><label>Superficie terrain (m²)</label><input type="number" id="h-tsurf" value="1000" oninput="calcH()"></div>
-    <div class="field"><label>Prix terrain</label>
-      <select id="h-tcat" onchange="calcH()">
-        <option value="20000">Zone industrielle / US — 20 000 XPF/m²</option>
-        <option value="27500" selected>Zone UB / commerciale — 27 500 XPF/m²</option>
-        <option value="35000">Bord route primaire — 35 000 XPF/m²</option>
-      </select>
-    </div>
+  <div class="card-title"><span class="icon">✅</span> Critères de valorisation</div>
+  <div class="crit-grid">
+    <label class="crit-item pos"><input type="checkbox" class="lp-crit" value="0.15" onchange="calcLocPro()"><span class="crit-txt">Vitrine sur axe très passant</span><span class="crit-pct">+15%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="lp-crit" value="0.08" onchange="calcLocPro()"><span class="crit-txt">Parking clients disponible</span><span class="crit-pct">+8%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="lp-crit" value="0.10" onchange="calcLocPro()"><span class="crit-txt">Accès camions / quai de chargement</span><span class="crit-pct">+10%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="lp-crit" value="0.05" onchange="calcLocPro()"><span class="crit-txt">Fibre optique</span><span class="crit-pct">+5%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="lp-crit" value="0.10" onchange="calcLocPro()"><span class="crit-txt">Hauteur &gt;5m (entrepôt)</span><span class="crit-pct">+10%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="lp-crit" value="0.08" onchange="calcLocPro()"><span class="crit-txt">Climatisation fournie</span><span class="crit-pct">+8%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="lp-crit" value="0.05" onchange="calcLocPro()"><span class="crit-txt">Locataire en place (revenus)</span><span class="crit-pct">+5%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="lp-dec" value="0.10" onchange="calcLocPro()"><span class="crit-txt">Accès difficile / peu visible</span><span class="crit-pct">−10%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="lp-dec" value="0.08" onchange="calcLocPro()"><span class="crit-txt">Bruit / nuisances sonores</span><span class="crit-pct">−8%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="lp-dec" value="0.15" onchange="calcLocPro()"><span class="crit-txt">Litige / contentieux en cours</span><span class="crit-pct">−15%</span></label>
   </div>
 </div>
+
+<div class="result-card" id="lp-result" style="display:none">
+  <div class="result-title">Valeur locale pro — Méthode capitalisation</div>
+  <div class="result-grid">
+    <div class="stat-box"><div class="lbl">Loyer annuel</div><div class="val" id="lp-loyer-an">—</div></div>
+    <div class="stat-box"><div class="lbl">Taux capitalisation</div><div class="val" id="lp-taux">—</div></div>
+    <div class="stat-box"><div class="lbl">Valeur au m²</div><div class="val" id="lp-pm2">—</div></div>
+  </div>
+  <div class="result-main" id="lp-total">—</div>
+  <div class="result-range" id="lp-range">Fourchette : —</div>
+  <div class="detail-line" id="lp-detail">—</div>
+  <div class="note">Méthode par capitalisation du loyer · Taux de rendement brut attendu Tahiti · Estimation indicative</div>
+</div>
+
+</div><!-- /tab-locpro -->
+
+<!-- ==================== FONDS DE COMMERCE ==================== -->
+<div id="tab-fdc" class="tab-content">
+
 <div class="card">
-  <div class="card-title">📊 Résultats entrepôt</div>
+  <div class="card-title"><span class="icon">🏪</span> Fonds de commerce — Identification</div>
+  <div class="g2">
+    <div class="field"><label>Catégorie d'activité</label>
+      <select id="fdc-cat" onchange="fdcUpdateActivite();calcFdc()">
+        <option value="alimentaire">Commerce alimentaire</option>
+        <option value="auto">Commerce & réparation automobile</option>
+        <option value="resto">Restauration & hôtellerie</option>
+        <option value="detail">Commerce de détail</option>
+        <option value="services">Services aux personnes</option>
+        <option value="pme">PME / artisanat</option>
+        <option value="special">Cas particuliers (café, bar, tabac…)</option>
+      </select>
+    </div>
+    <div class="field"><label>Activité précise</label>
+      <select id="fdc-activite" onchange="calcFdc()"></select>
+    </div>
+  </div>
+  <div id="fdc-pct-display" class="fdc-pct-display" style="margin-top:12px">Sélectionnez une activité</div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">📊</span> Données financières</div>
   <div class="g3">
-    <div class="sbox"><div class="sl">Volume utile</div><div class="sv" id="h-vol">—</div><div class="ss">m³</div></div>
-    <div class="sbox"><div class="sl">Prix/m³ appliqué</div><div class="sv" id="h-pm3">—</div><div class="ss">XPF/m³</div></div>
-    <div class="sbox"><div class="sl">Vétusté</div><div class="sv" id="h-vet">—</div></div>
+    <div class="field"><label>CA annuel TTC — Année N-2 (XPF)</label>
+      <input type="number" id="fdc-ca1" value="0" min="0" step="100000" oninput="calcFdc()">
+    </div>
+    <div class="field"><label>CA annuel TTC — Année N-1 (XPF)</label>
+      <input type="number" id="fdc-ca2" value="0" min="0" step="100000" oninput="calcFdc()">
+    </div>
+    <div class="field"><label>CA annuel TTC — Année N (XPF)</label>
+      <input type="number" id="fdc-ca3" value="0" min="0" step="100000" oninput="calcFdc()">
+    </div>
   </div>
+  <div class="g2" style="margin-top:14px">
+    <div class="field"><label>Loyer annuel bail commercial (XPF)</label>
+      <input type="number" id="fdc-loyer" value="0" min="0" step="100000" oninput="calcFdc()">
+    </div>
+    <div class="field"><label>Durée bail restante</label>
+      <select id="fdc-bail" onchange="calcFdc()">
+        <option value="0.10">Plus de 6 ans</option>
+        <option value="0.05">4 à 6 ans</option>
+        <option value="0">2 à 4 ans</option>
+        <option value="-0.15">Moins de 2 ans</option>
+        <option value="-0.05">Pas de bail / verbal</option>
+      </select>
+    </div>
+  </div>
+  <div class="g2" style="margin-top:14px">
+    <div class="field"><label>Valeur matériel inclus (XPF)</label>
+      <input type="number" id="fdc-materiel" value="0" min="0" step="100000" oninput="calcFdc()">
+    </div>
+    <div class="field"><label>Stock à valoriser séparément (XPF)</label>
+      <input type="number" id="fdc-stock" value="0" min="0" step="100000" oninput="calcFdc()">
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="icon">📍</span> Emplacement & Contexte</div>
   <div class="g2">
-    <div class="sbox"><div class="sl">Valeur locative</div><div class="sv" id="h-loc">—</div><div class="ss">XPF/mois</div></div>
-    <div class="sbox"><div class="sl">Valeur construction nette</div><div class="sv" id="h-const">—</div></div>
+    <div class="field"><label>Emplacement</label>
+      <select id="fdc-empl" onchange="calcFdc()">
+        <option value="0.20">N°1 — Artère principale Papeete (bd Pomare, Vaima…)</option>
+        <option value="0.10">Bon emplacement — Zone commerciale active</option>
+        <option value="0">Emplacement moyen — Communes</option>
+        <option value="-0.20">Mauvais emplacement — Peu fréquenté</option>
+      </select>
+    </div>
+    <div class="field"><label>Tendance CA sur 3 ans</label>
+      <select id="fdc-trend" onchange="calcFdc()">
+        <option value="0.15">En forte croissance (+10%/an et +)</option>
+        <option value="0.08">En croissance modérée (+5%/an)</option>
+        <option value="0">Stable</option>
+        <option value="-0.15">En baisse modérée</option>
+        <option value="-0.25">En forte baisse</option>
+      </select>
+    </div>
   </div>
-  <div class="result-box">
-    <div class="result-main" id="h-total">—</div>
-    <div class="result-sub">Valeur vénale totale (construction + terrain si inclus)</div>
-    <div class="result-detail" id="h-detail">—</div>
+  <div class="crit-grid" style="margin-top:14px">
+    <label class="crit-item pos"><input type="checkbox" class="fdc-crit" value="0.10" onchange="calcFdc()"><span class="crit-txt">État locaux excellent</span><span class="crit-pct">+10%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="fdc-crit" value="0.05" onchange="calcFdc()"><span class="crit-txt">Personnel repris (stabilité)</span><span class="crit-pct">+5%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="fdc-crit" value="0.08" onchange="calcFdc()"><span class="crit-txt">Clientèle fidélisée / base solide</span><span class="crit-pct">+8%</span></label>
+    <label class="crit-item pos"><input type="checkbox" class="fdc-crit" value="0.05" onchange="calcFdc()"><span class="crit-txt">Licence ou autorisation rare (alcool…)</span><span class="crit-pct">+5%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="fdc-dec" value="0.15" onchange="calcFdc()"><span class="crit-txt">État locaux mauvais</span><span class="crit-pct">−15%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="fdc-dec" value="0.10" onchange="calcFdc()"><span class="crit-txt">Concurrence forte à proximité</span><span class="crit-pct">−10%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="fdc-dec" value="0.20" onchange="calcFdc()"><span class="crit-txt">Litige / contentieux / procédure</span><span class="crit-pct">−20%</span></label>
+    <label class="crit-item neg"><input type="checkbox" class="fdc-dec" value="0.10" onchange="calcFdc()"><span class="crit-txt">Activité saisonnière forte</span><span class="crit-pct">−10%</span></label>
   </div>
 </div>
+
+<div class="result-card" id="fdc-result" style="display:none">
+  <div class="result-title">Valeur fonds de commerce — Résultat</div>
+  <div class="result-grid">
+    <div class="stat-box"><div class="lbl">CA moyen 3 ans</div><div class="val" id="fdc-ca-moy">—</div></div>
+    <div class="stat-box"><div class="lbl">% appliqué (bas/haut)</div><div class="val" id="fdc-pct-val" style="color:var(--gold)">—</div></div>
+    <div class="stat-box"><div class="lbl">Stock séparé</div><div class="val" id="fdc-stock-val" style="color:#4caf7a">—</div></div>
+  </div>
+  <div class="result-main" id="fdc-total">—</div>
+  <div class="result-range" id="fdc-range">Fourchette : —</div>
+  <div class="detail-line" id="fdc-detail">—</div>
+  <div class="note">Méthode % CA annuel TTC · Barème indicatif professionnel · Stock à valoriser séparément · Matériel inclus dans le % · Droit au bail inclus</div>
 </div>
 
-<!-- ══════════ RÉCAP ══════════ -->
-<div id="tab-recap" style="display:none">
+</div><!-- /tab-fdc -->
+
+<!-- ==================== MÉTHODOLOGIE ==================== -->
+<div id="tab-methodo" class="tab-content">
 <div class="card">
-  <div class="card-title">📋 Prix terrains par commune — Référentiel 2025</div>
-  <table>
-    <thead><tr><th>Commune</th><th>Bas</th><th>Central</th><th>Haut</th></tr></thead>
-    <tbody>
-      <tr class="sh"><td colspan="4">TAHITI · Agglo Papeete</td></tr>
-      <tr><td>Papeete</td><td>38 000</td><td>45 000</td><td>55 000</td></tr>
-      <tr><td>Pirae</td><td>34 000</td><td>40 000</td><td>50 000</td></tr>
-      <tr><td>Faaa</td><td>30 000</td><td>35 000</td><td>42 000</td></tr>
-      <tr><td>Punaauia</td><td>34 000</td><td>40 000</td><td>55 000</td></tr>
-      <tr><td>Arue</td><td>28 000</td><td>35 000</td><td>45 000</td></tr>
-      <tr><td>Paea</td><td>28 000</td><td>35 000</td><td>42 000</td></tr>
-      <tr><td>Mahina</td><td>20 000</td><td>25 000</td><td>32 000</td></tr>
-      <tr class="sh"><td colspan="4">TAHITI · Côte Est</td></tr>
-      <tr><td>Papenoo / Tiarei / Hitiaa / Faaone</td><td>13 000</td><td>17 500</td><td>22 000</td></tr>
-      <tr class="sh"><td colspan="4">TAHITI · Sud / Presqu'île</td></tr>
-      <tr><td>Papara</td><td>20 000</td><td>25 000</td><td>32 000</td></tr>
-      <tr><td>Mataiea / Papeari</td><td>16 000</td><td>20 000</td><td>25 000</td></tr>
-      <tr><td>Taravao</td><td>20 000</td><td>25 000</td><td>32 000</td></tr>
-      <tr><td>Toahotu / Afaahiti / Teahupoo</td><td>16 000</td><td>20 000</td><td>25 000</td></tr>
-      <tr><td>Vairao / Tautira / Pueu</td><td>11 000</td><td>17 500</td><td>22 000</td></tr>
-      <tr class="sh"><td colspan="4">MOOREA</td></tr>
-      <tr><td>Maharepa / Papetoai</td><td>22 000</td><td>30 000</td><td>45 000</td></tr>
-      <tr><td>Haapiti / Paopao / Cook</td><td>18 000</td><td>25 000</td><td>38 000</td></tr>
-      <tr><td>Afareaitu / Teavaro</td><td>16 000</td><td>22 000</td><td>32 000</td></tr>
-    </tbody>
-  </table>
-  <p class="note">Prix base = résidentiel viabilisé standard sans vue · + coefficients vue/situation/topographie · Données annonces 2024-2025 + terrain Olivier BLAISE · Marché volatile</p>
-</div>
-<div class="card">
-  <div class="card-title">📋 Coefficients terrain</div>
-  <table>
-    <thead><tr><th>Option</th><th>Effet</th></tr></thead>
-    <tbody>
-      <tr class="sh"><td colspan="2">Valorisations</td></tr>
-      <tr><td>Vue mer dégagée</td><td>+20%/+30%</td></tr>
-      <tr><td>Vue mer partielle</td><td>+4 000 XPF/m²</td></tr>
-      <tr><td>Bord de mer / lagon</td><td>+50%</td></tr>
-      <tr><td>Bord de route principale</td><td>+20%/+30%</td></tr>
-      <tr><td>Hauteur vue dégagée</td><td>+5 000 XPF/m²</td></tr>
-      <tr><td>Terrain plat</td><td>+3 000 XPF/m²</td></tr>
-      <tr><td>Accès route goudronnée</td><td>+2 000 XPF/m²</td></tr>
-      <tr><td>Clôturé / sécurisé</td><td>+2 000 XPF/m²</td></tr>
-      <tr class="sh"><td colspan="2">Décotes</td></tr>
-      <tr><td>Forte pente</td><td>−5 000 XPF/m²</td></tr>
-      <tr><td>Accès servitude / piste</td><td>−3 000 XPF/m²</td></tr>
-      <tr><td>Zone inondable / risque</td><td>−5 000 XPF/m²</td></tr>
-      <tr class="sh"><td colspan="2">Viabilisation (coûts séparés)</td></tr>
-      <tr><td>EDT en bordure</td><td>~150 000 XPF (compteur)</td></tr>
-      <tr><td>EDT à distance (poteau ~40m)</td><td>~600 000 + 150 000 XPF · Devis EDT</td></tr>
-      <tr><td>Panneaux solaires hors réseau</td><td>1,5 – 3 MF · Devis installateur</td></tr>
-      <tr><td>Eau en bordure</td><td>~50 000 XPF</td></tr>
-      <tr><td>Eau à distance / tranchée</td><td>Variable · Devis requis</td></tr>
-      <tr><td>Citerne</td><td>300 000 – 600 000 XPF</td></tr>
-    </tbody>
-  </table>
-</div>
-</div>
+  <div class="card-title">📖 Méthodologie & Rappels professionnels</div>
+  <div style="display:flex;flex-direction:column;gap:20px;font-size:.85rem;line-height:1.75;color:rgba(255,255,255,.65)">
+    <div><strong style="color:white;font-size:.9rem">🏕️ Terrain</strong><br>
+    Base : prix central par commune (terrains résidentiels viabilisés standard). Les coefficients s'appliquent en % cumulés sur les trois fourchettes. Un terrain bord de lagon à Papeete peut dépasser 60 000 XPF/m² ; un terrain en zone PPR rouge agricole peut tomber sous 3 000 XPF/m². Toujours vérifier le titre foncier, le PGA et le certificat d'urbanisme avant toute estimation.</div>
 
-</div><!-- /body -->
-</div><!-- /app -->
+    <div><strong style="color:white;font-size:.9rem">🏠 Maison</strong><br>
+    Base : prix au m² habitable selon commune × surface. Vétusté calculée automatiquement à partir de l'année de construction (linéaire, plafonnée à 60%). L'état "Excellent/rénové" compense une partie de la vétusté. Les équipements sont valorisés en montants fixes XPF (pas en %). Le terrain est ajouté au total avec ses propres coefficients.</div>
 
+    <div><strong style="color:white;font-size:.9rem">🏢 Appartement</strong><br>
+    Base : prix au m² selon commune et gamme. Étage et vue sont des coefficients clés à Tahiti (penthouse vue mer = +35% vs RDC sans jardin vue masquée). Les équipements résidence (piscine, gardiennage) valorisent significativement l'immeuble. Charges élevées = décote sur valeur vénale.</div>
+
+    <div><strong style="color:white;font-size:.9rem">🏭 Locaux professionnels</strong><br>
+    Méthode par capitalisation : Valeur = Loyer annuel ÷ Taux de rendement. Taux Tahiti : 7% (centre N°1) à 10% (zone industrielle). Plus le taux est bas (emplacement prime), plus la valeur est élevée. Un local vide sans loyer doit être estimé en valeur de marché locatif théorique.</div>
+
+    <div><strong style="color:white;font-size:.9rem">🏪 Fonds de commerce</strong><br>
+    Méthode : CA moyen 3 ans TTC × pourcentage barème (issu de l'Ordre des experts-comptables). Le stock est valorisé séparément. Le matériel est inclus dans le pourcentage. La durée du bail restante est critique : un bail court dévalue fortement. Les résultats s'entendent HORS murs commerciaux. Toujours croiser avec la méthode EBE (excédent brut d'exploitation).</div>
+
+    <div style="padding:14px;background:rgba(192,83,58,.08);border:1px solid rgba(192,83,58,.2);border-radius:8px">
+    ⚠️ <strong style="color:var(--coral)">Usage interne exclusif</strong> — Ces estimations sont des outils d'aide à la décision pour Olivier BLAISE et l'équipe Cabinet LEVY. Elles ne constituent pas une expertise immobilière certifiée. Seul un rapport d'expertise officiel signé par Olivier BLAISE engage sa responsabilité professionnelle.</div>
+  </div>
+</div>
+</div><!-- /tab-methodo -->
+
+</div><!-- /main -->
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
-// ── LOGIN
-const PWD = 'LEVY2026OB';
+// ---- UTILITAIRES ----
+const $=id=>document.getElementById(id);
+const fmt=n=>n?n.toLocaleString('fr-FR'):'—';
+const fmtMF=n=>{if(!n)return'—';if(n>=1000000)return(n/1000000).toFixed(2).replace('.',',')+' MF';return fmt(Math.round(n))+' XPF';}
+
+// ---- LOGIN ----
 function checkPwd(){
-  const v=document.getElementById('pwd-input').value;
-  if(v===PWD){document.getElementById('login-screen').style.display='none';document.getElementById('app').style.display='block';initAll();}
-  else{const e=document.getElementById('pwd-err');e.style.display='block';setTimeout(()=>e.style.display='none',2000);}
+  const v=$('pwd-input').value;
+  if(v==='LEVY2026OB'){$('login-screen').style.display='none';}
+  else{$('pwd-err').textContent='Mot de passe incorrect';$('pwd-input').value='';}
 }
 
-// ── DONNÉES COMMUNES
-const COMMUNES={
-  papeete:{bas:45000,mid:50000,haut:55000},
-  pirae:{bas:40000,mid:45000,haut:50000},
-  faaa:{bas:22500,mid:27500,haut:32500},
-  punaauia:{bas:40000,mid:45000,haut:50000},
-  arue:{bas:28000,mid:35000,haut:45000},
-  paea:{bas:28000,mid:35000,haut:42000},
-  mahina:{bas:15000,mid:20000,haut:25000},
-  papenoo:{bas:13000,mid:17500,haut:22000},
-  tiarei:{bas:13000,mid:17500,haut:22000},
-  hitiaa:{bas:13000,mid:17500,haut:22000},
-  faaone:{bas:17500,mid:22500,haut:27500},
-  papara:{bas:15000,mid:20000,haut:25000},
-  mataiea:{bas:16000,mid:20000,haut:25000},
-  papeari:{bas:16000,mid:20000,haut:25000},
-  taravao:{bas:22500,mid:27500,haut:32500},
-  toahotu:{bas:16000,mid:20000,haut:25000},
-  afaahiti:{bas:16000,mid:20000,haut:25000},
-  vairao:{bas:17500,mid:22500,haut:27500},
-  teahupoo:{bas:17500,mid:22500,haut:27500},
-  tautira:{bas:17500,mid:22500,haut:27500},
-  pueu:{bas:11000,mid:17500,haut:22000},
-  maharepa:{bas:25000,mid:30000,haut:35000},
-  haapiti:{bas:20000,mid:25000,haut:30000},
-  afareaitu:{bas:15000,mid:20000,haut:25000},
+// ---- TABS ----
+function showTab(n,b){
+  ['terrain','maison','appart','locpro','fdc','methodo'].forEach(t=>{
+    const el=$('tab-'+t);if(el)el.classList.remove('active');
+  });
+  const el=$('tab-'+n);if(el)el.classList.add('active');
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  if(b)b.classList.add('active');
+}
+
+// ---- TERRAIN ----
+function tCommChange(){
+  const v=$('t-commune').value;
+  $('t-iles').style.display=v==='ILES'?'block':'none';
+  $('t-result').style.display=v==='ILES'?'none':'block';
+  if(v!=='ILES')calcTerrain();
+}
+function calcTerrain(){
+  const v=$('t-commune').value;
+  if(v==='ILES')return;
+  const [bv,cv,hv]=v.split(',').map(Number);
+  const typ=parseFloat($('t-type').value)||1.0;
+  const pga=parseFloat($('t-pga')?.value)||0;
+  const usage=parseFloat($('t-usage')?.value)||0;
+  const hauteur=parseFloat($('t-hauteur')?.value)||0;
+  let bonus=0,malus=0;
+  document.querySelectorAll('.t-crit').forEach(cb=>{if(cb.checked)bonus+=parseFloat(cb.value)||0;});
+  document.querySelectorAll('.t-dec').forEach(cb=>{if(cb.checked)malus+=parseFloat(cb.value)||0;});
+  const delta=bonus-malus+pga+usage+hauteur;
+  // COS
+  const cos=parseFloat($('t-cos')?.value)||0;
+  const surf=parseFloat($('t-surf')?.value)||500;
+  if($('t-spc')&&cos>0){$('t-spc').value=Math.round(surf*cos)+' m² plancher constructible';}
+  else if($('t-spc')){$('t-spc').value='Renseignez le COS';}
+  const surf=parseFloat($('t-surf').value)||500;
+  const bas=Math.max(0,Math.round(bv*typ*(1+delta)));
+  const cen=Math.max(0,Math.round(cv*typ*(1+delta)));
+  const hau=Math.max(0,Math.round(hv*typ*(1+delta)));
+  $('t-bas').textContent=fmtMF(bas*surf);
+  $('t-cen').textContent=fmtMF(cen*surf);
+  $('t-hau').textContent=fmtMF(hau*surf);
+  $('t-pm2-bas').textContent=fmt(bas)+' XPF/m²';
+  $('t-pm2-cen').textContent=fmt(cen)+' XPF/m²';
+  $('t-pm2-hau').textContent=fmt(hau)+' XPF/m²';
+  const dp=Math.round(delta*100);
+  const cd=$('t-coeff-display');
+  cd.textContent='Δ '+(dp>0?'+':'')+dp+'%';
+  cd.className='coeff-display '+(dp>0?'positive':dp<0?'negative':'neutral');
+  const bonusList=[],malusList=[];
+  document.querySelectorAll('.t-crit').forEach(cb=>{if(cb.checked)bonusList.push(cb.closest('.crit-item').querySelector('.crit-txt').textContent);});
+  document.querySelectorAll('.t-dec').forEach(cb=>{if(cb.checked)malusList.push(cb.closest('.crit-item').querySelector('.crit-txt').textContent);});
+  const pgaTxt=$('t-pga')?.options[$('t-pga')?.selectedIndex]?.text||'';
+  const usageTxt=$('t-usage')?.options[$('t-usage')?.selectedIndex]?.text||'';
+  const hautTxt=$('t-hauteur')?.options[$('t-hauteur')?.selectedIndex]?.text||'';
+  let det=surf+' m² · '+$('t-type').options[$('t-type').selectedIndex].text+' · '+pgaTxt+' · '+usageTxt+' · '+hautTxt;
+  if(bonusList.length)det+=' · ✅ '+bonusList.join(', ');
+  if(malusList.length)det+=' · ⚠️ '+malusList.join(', ');
+  $('t-detail').textContent=det;
+  $('t-result').style.display='block';
+}
+
+// ---- MAISON ----
+function calcMaison(){
+  const cv=($('m-commune').value||'250000,380000').split(',').map(Number);
+  const [pn,px]=[cv[0],cv[1]];
+  const surf=parseFloat($('m-surf').value)||120;
+  const annee=parseInt($('m-annee').value)||2000;
+  const age=2026-annee;
+  // Vétusté linéaire
+  const vet=Math.min(0.60,age*0.018);
+  const constr=parseFloat($('m-constr').value)||0;
+  const toit=parseFloat($('m-toit').value)||0;
+  const etat=parseFloat($('m-etat').value)||0;
+  let risk=0,bonus=0;
+  document.querySelectorAll('.m-risk').forEach(cb=>{if(cb.checked)risk+=parseFloat(cb.value)||0;});
+  document.querySelectorAll('.m-bonus').forEach(cb=>{if(cb.checked)bonus+=parseFloat(cb.value)||0;});
+  const niveau=parseFloat($('m-niveau')?.value)||0;
+  const mUsage=parseFloat($('m-usage')?.value)||0;
+  const coeff=(1+constr+toit+etat+bonus+risk+niveau+mUsage)*(1-vet);
+  const vConstN=Math.round(surf*pn*coeff);
+  const vConstX=Math.round(surf*px*coeff);
+  // Équipements fixes
+  let eq=0;
+  if($('eq-piscine-cr').checked)eq+=5000000;
+  if($('eq-piscine-sf').checked)eq+=2500000;
+  if($('eq-jacuzzi').checked)eq+=1500000;
+  if($('eq-solaire').checked)eq+=2000000;
+  if($('eq-citerne').checked)eq+=500000;
+  if($('eq-portail-el').checked)eq+=400000;
+  if($('eq-portail-mn').checked)eq+=150000;
+  if($('eq-cuisine-eq').checked)eq+=2000000;
+  if($('eq-cuisine-sm').checked)eq+=1000000;
+  const clim=parseInt($('m-clim').value)||0;eq+=clim*350000;
+  $('m-clim-val').value=fmtMF(clim*350000);
+  const clType=parseInt($('m-cloture-type').value)||0;
+  const clMl=parseFloat($('m-cloture-ml').value)||0;
+  eq+=clType*clMl;
+  const garage=parseFloat($('m-garage').value)||0;eq+=garage*100000;
+  const farePote=parseFloat($('m-fare-pote').value)||0;eq+=farePote*80000;
+  const terrasse=parseFloat($('m-terrasse').value)||0;eq+=terrasse*60000;
+  const meuble=$('eq-meuble').checked;
+  // Terrain
+  const tcv=($('mt-commune').value||'15000,20000,25000').split(',').map(Number);
+  let mtB=0,mtM=0;
+  document.querySelectorAll('.mt-crit').forEach(cb=>{if(cb.checked)mtB+=parseFloat(cb.value)||0;});
+  document.querySelectorAll('.mt-dec').forEach(cb=>{if(cb.checked)mtM+=parseFloat(cb.value)||0;});
+  const mtD=mtB-mtM;
+  const tsurf=parseFloat($('mt-surf').value)||0;
+  const tCen=Math.round(tcv[1]*(1+mtD));
+  const tBas=Math.round(tcv[0]*(1+mtD));
+  const tHau=Math.round(tcv[2]*(1+mtD));
+  const totTerrain=tsurf*tCen;
+  const totConstN=vConstN+eq+(meuble?Math.round(vConstN*0.05):0);
+  const totConstX=vConstX+eq+(meuble?Math.round(vConstX*0.05):0);
+  const totBienN=totConstN+totTerrain;
+  const totBienX=totConstX+totTerrain;
+  $('m-const-val').textContent=fmtMF(Math.round((totConstN+totConstX)/2));
+  $('m-pm2').textContent=fmt(Math.round(pn*coeff))+' – '+fmt(Math.round(px*coeff))+' XPF/m²';
+  $('m-eq-val').textContent=eq>0?'+'+fmtMF(eq):'—';
+  $('m-ter-val').textContent=tsurf>0?fmtMF(totTerrain):'Non renseigné';
+  $('m-ter-range').textContent=tsurf>0?fmtMF(tBas*tsurf)+' – '+fmtMF(tHau*tsurf):'';
+  $('m-total-bien').textContent=fmtMF(Math.round((totBienN+totBienX)/2));
+  $('m-range-bien').textContent='Fourchette : '+fmtMF(totBienN)+' — '+fmtMF(totBienX);
+  const vetPct=Math.round(vet*100);
+  const niveauTxt=$('m-niveau')?.options[$('m-niveau')?.selectedIndex]?.text||'Plain pied';
+  const mUsageTxt=$('m-usage')?.options[$('m-usage')?.selectedIndex]?.text||'';
+  $('m-detail').textContent=`${surf}m² · ${niveauTxt} · ${mUsageTxt} · Âge: ${age}ans · Vétusté: ${vetPct}% · État: ${Math.round(etat*100)}% · Terrain: ${tsurf}m²`;
+  $('m-result').style.display='block';
+}
+
+// ---- APPARTEMENT ----
+function calcAppart(){
+  const v=$('a-commune').value;
+  if(v==='ILES'){$('a-iles').style.display='block';$('a-result').style.display='none';return;}
+  $('a-iles').style.display='none';
+  const [pn,px]=v.split(',').map(Number);
+  const surf=parseFloat($('a-surf').value)||65;
+  const annee=parseInt($('a-annee').value)||2000;
+  const age=2026-annee;
+  const vet=Math.min(0.40,age*0.012);
+  const standing=parseFloat($('a-standing').value)||0;
+  const vue=parseFloat($('a-vue').value)||0;
+  const etV=$('a-etage').value;
+  let etC=0;
+  if(etV==='rdc_jardin')etC=0.05;
+  else if(etV==='rdc')etC=-0.05;
+  else if(etV==='1')etC=0;
+  else if(etV==='2')etC=0.05;
+  else if(etV==='3')etC=0.08;
+  else if(etV==='4')etC=0.12;
+  else if(etV==='penthouse')etC=0.30;
+  let resCrit=0,malus=0;
+  document.querySelectorAll('.a-res').forEach(cb=>{if(cb.checked)resCrit+=parseFloat(cb.value)||0;});
+  document.querySelectorAll('.a-malus').forEach(cb=>{if(cb.checked)malus+=parseFloat(cb.value)||0;});
+  const charges=parseFloat($('a-charges').value)||0;
+  const chargesMalus=charges>60000?0.08:0;
+  const coeff=(1+standing+vue+etC+resCrit-malus-chargesMalus)*(1-vet);
+  let eq=0;
+  if($('a-pk-couv').checked)eq+=1750000;
+  if($('a-pk-decouv').checked)eq+=800000;
+  if($('a-cave').checked)eq+=400000;
+  if($('a-cuisine-eq').checked)eq+=1500000;
+  const clim=parseInt($('a-clim').value)||0;eq+=clim*300000;
+  $('a-clim-val').value=fmtMF(clim*300000);
+  const meuble=$('a-meuble').checked;
+  const vN=Math.round(surf*pn*coeff)+(meuble?Math.round(surf*pn*coeff*0.05):0);
+  const vX=Math.round(surf*px*coeff)+(meuble?Math.round(surf*px*coeff*0.05):0);
+  const totN=vN+eq, totX=vX+eq;
+  $('a-pm2').textContent=fmt(Math.round(pn*coeff))+' – '+fmt(Math.round(px*coeff))+' XPF/m²';
+  $('a-total').textContent=fmtMF(Math.round((totN+totX)/2));
+  $('a-eq-val').textContent=eq>0?'+'+fmtMF(eq):'—';
+  $('a-detail').textContent=`${surf}m² · Âge résidence: ${age}ans · Vétusté: ${Math.round(vet*100)}% · Étage: ${etV} (${etC>0?'+':''}${Math.round(etC*100)}%) · Standing: ${Math.round(standing*100)}%`;
+  $('a-result').style.display='block';
+}
+
+// ---- LOCAUX PRO ----
+function calcLocPro(){
+  const loyer=parseFloat($('lp-loyer').value)||0;
+  const taux=parseFloat($('lp-empl').value)||0.09;
+  const bail=parseFloat($('lp-bail').value)||0;
+  const etat=parseFloat($('lp-etat').value)||0;
+  let crit=0,dec=0;
+  document.querySelectorAll('.lp-crit').forEach(cb=>{if(cb.checked)crit+=parseFloat(cb.value)||0;});
+  document.querySelectorAll('.lp-dec').forEach(cb=>{if(cb.checked)dec+=parseFloat(cb.value)||0;});
+  const loyerAn=loyer*12;
+  const tauxFinal=Math.max(0.05,taux*(1-bail)*(1-etat));
+  const valBase=loyerAn/taux;
+  const valCorr=Math.round(valBase*(1+bail+etat+crit-dec));
+  const surf=parseFloat($('lp-surf').value)||100;
+  $('lp-loyer-an').textContent=fmtMF(loyerAn);
+  $('lp-taux').textContent=(taux*100).toFixed(1)+'%';
+  $('lp-pm2').textContent=surf>0?fmt(Math.round(valCorr/surf))+' XPF/m²':'—';
+  $('lp-total').textContent=fmtMF(valCorr);
+  $('lp-range').textContent='Fourchette : '+fmtMF(Math.round(valCorr*0.85))+' — '+fmtMF(Math.round(valCorr*1.15));
+  $('lp-detail').textContent=`Loyer ${fmtMF(loyer)}/mois · Taux cap. ${(taux*100).toFixed(0)}% · ${surf}m² · ${$('lp-type').options[$('lp-type').selectedIndex].text}`;
+  $('lp-result').style.display='block';
+}
+
+// ---- FONDS DE COMMERCE ----
+const FDC_DATA={
+  alimentaire:[
+    ['Alimentation générale','60,145'],['Boucherie','25,60'],['Boulangerie-Pâtisserie','50,120'],
+    ['Cave à vins','20,60'],['Charcuterie','40,90'],['Chocolaterie-Confiserie','80,110'],
+    ['Épicerie libre-service','50,150'],['Épicerie fine','100,400'],['Fromagerie','25,60'],
+    ['Fruits et légumes','15,70'],['Pâtisserie','50,110'],['Poissonnerie','30,50'],
+    ['Produits surgelés','15,35'],['Supérette','10,30'],['Supermarché','10,40'],
+  ],
+  auto:[
+    ['Garage atelier réparations','35,50'],['Garage station-service','35,50'],
+    ['Électricité auto','30,60'],['Garage vente VN','10,35'],['Garage vente VO','5,30'],
+    ['Station service','15,50'],
+  ],
+  resto:[
+    ['Restaurant','60,190'],['Restauration rapide','40,110'],['Crêperie','60,110'],
+    ['Pizzéria','45,120'],['Salon de thé','55,165'],['Discothèque','180,310'],
+    ['Hôtel tourisme','200,800'],
+  ],
+  detail:[
+    ['Ameublement','30,50'],['Animalerie','50,90'],['Bijouterie-Horlogerie','30,70'],
+    ['Bijouterie fantaisie','40,120'],['Chaussures','40,90'],['Electroménager-HiFi','10,60'],
+    ['Fleurs','45,90'],['Informatique (vente matériel)','10,30'],['Jeux-Jouets','20,60'],
+    ['Librairie-Papeterie','30,130'],['Optique','50,120'],['Parfumerie-Beauté','45,95'],
+    ['Pharmacie','70,110'],['Photo','40,115'],['Prêt-à-porter','35,90'],
+    ['Prêt-à-porter luxe','60,170'],['Quincaillerie-Bricolage','20,60'],
+    ['Serrurerie-talon minute','40,100'],['Tabac-Tabletière','80,160'],['Tissus','10,110'],
+  ],
+  services:[
+    ['Coiffure','50,120'],['Institut de beauté','50,80'],['Blanchisserie-Pressing','70,130'],
+    ['Laverie automatique','80,130'],['Location véhicules','30,60'],
+    ['Soins animaliers-Toilettage','50,90'],['Maison de retraite','90,110'],
+  ],
+  pme:[
+    ['Blanchisserie industrielle','40,80'],['Cuisines (vente et pose)','15,40'],
+    ['Ébénisterie-Menuiserie','15,60'],['Électricité générale','10,30'],
+    ['Imprimerie','5,40'],['Jardinerie-Paysagiste','10,60'],
+    ['Maçonnerie-Toiture','10,25'],['Plomberie-Chauffage','10,40'],
+    ['Protection-Sécurité-Alarme','25,75'],['Transports routiers','50,90'],
+  ],
+  special:[
+    ['Café (recette journalière ×300-1000)','SPEC:cafe'],
+    ['Bar licence alcool','SPEC:bar'],['Café-Tabac','SPEC:cafetabac'],
+    ['Agence immobilière (0.5-1.5× bénéfice net)','SPEC:immo'],
+    ['Administrateur de biens','100,220'],['Agence de voyages','25,100'],
+  ],
 };
 
-const EQUIPS=[
-  {id:'piscine',label:'Piscine',val:8000000},
-  {id:'jacuzzi',label:'Jacuzzi',val:2500000},
-  {id:'clp',label:'Clôture parpaing',val:80000,u:'ml'},
-  {id:'clmp',label:'Clôture mi-parpaing',val:45000,u:'ml'},
-  {id:'clg',label:'Clôture grillage',val:15000,u:'ml'},
-  {id:'clb',label:'Clôture bois',val:25000,u:'ml'},
-  {id:'sol',label:'Panneaux solaires PV',val:350000,u:'kWc'},
-  {id:'borne',label:'Borne recharge',val:400000},
-  {id:'pkc',label:'Parking couvert',val:1750000},
-  {id:'cprt',label:'Carport',val:800000},
-];
-
-const $=id=>document.getElementById(id);
-const fmt=n=>Math.round(n).toLocaleString('fr-FR');
-const fMF=n=>(Math.round(n/100000)/10).toFixed(2)+' MF';
-const fXPF=n=>fmt(n)+' XPF';
-
-function showTab(n,b){
-  ['terrain','maison','appart','locaux','hangar','recap'].forEach(t=>$('tab-'+t).style.display=t===n?'block':'none');
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
-}
-
-function toggleEDT(){
-  const v=$('t-edt').value;
-  $('t-edt-dist').style.display=v==='distance'?'grid':'none';
-  $('t-edt-pan').style.display=v==='panneaux'?'block':'none';
-  calcT();
-}
-function toggleEau(){
-  const v=$('t-eau').value;
-  $('t-eau-dist').style.display=v==='distance'?'grid':'none';
-  $('t-eau-cit').style.display=v==='citerne'?'block':'none';
-  calcT();
-}
-
-function tChange(){
-  const v=$('t-commune').value;
-  const iles=v==='ILES';
-  $('t-iles').style.display=iles?'block':'none';
-  $('t-form').style.display=iles?'none':'block';
-  $('t-result').style.display=iles?'none':'block';
-  if(!iles) calcT();
-}
-
-function calcT(){
-  const cv=$('t-commune').value;
-  if(cv==='ILES') return;
-  const c=COMMUNES[cv]||COMMUNES.papara;
-  const surf=parseFloat($('t-surf').value)||0;
-
-  // Coefficients
-  let coeff=0, coeffLbls=[];
-  const topo=parseInt($('t-topo').value)||0;
-  const acces=parseInt($('t-acces').value)||0;
-  if(topo!==0){coeff+=topo;coeffLbls.push((topo>0?'+':'')+fmt(topo)+'/m² topo');}
-  if(acces!==0){coeff+=acces;coeffLbls.push((acces>0?'+':'')+fmt(acces)+'/m² accès');}
-
-  const checks=[
-    ['c-vue-deg',0.20,'vue mer dégagée'],['c-vue-part',0.10,'vue mer partielle'],
-    ['c-bord-mer',0.50,'bord de mer'],['c-bord-route',0.30,'bord route'],
-    ['c-hauteur',0.08,'hauteur vue'],['c-cloture',0.03,'clôturé'],
-    ['c-inondable',-0.15,'risque inondable'],
-  ];
-  let pct=0;
-  checks.forEach(([id,val,lbl])=>{
-    if($(id)&&$(id).checked){pct+=val;coeffLbls.push((val>0?'+':'')+Math.round(val*100)+'% ('+lbl+')');}
+function fdcUpdateActivite(){
+  const cat=$('fdc-cat').value;
+  const sel=$('fdc-activite');
+  sel.innerHTML='';
+  (FDC_DATA[cat]||[]).forEach(([label,pct])=>{
+    const o=document.createElement('option');
+    o.value=pct;o.textContent=label;sel.appendChild(o);
   });
-
-  const pmBas=Math.round((c.bas+coeff)*(1+pct)), pmMid=Math.round((c.mid+coeff)*(1+pct)), pmHaut=Math.round((c.haut+coeff)*(1+pct));
-  const vBas=pmBas*surf, vMid=pmMid*surf, vHaut=pmHaut*surf;
-
-  $('t-rbas').textContent=fMF(vBas);$('t-rbas-pm2').textContent=fmt(pmBas)+' XPF/m²';
-  $('t-rmid').textContent=fMF(vMid);$('t-rmid-pm2').textContent=fmt(pmMid)+' XPF/m²';
-  $('t-rhaut').textContent=fMF(vHaut);$('t-rhaut-pm2').textContent=fmt(pmHaut)+' XPF/m²';
-  $('t-final').textContent=fMF(vBas)+' – '+fMF(vHaut);
-  $('t-coeffs').textContent=coeffLbls.length?'Coefficients : '+coeffLbls.join(' · '):'Base commune sans coefficient';
-
-  // Viabilisation EDT
-  let edtCout=0, edtLbl='';
-  const edtMode=$('t-edt').value;
-  if(edtMode==='bordure'){edtCout=150000;edtLbl='EDT bordure (compteur)';}
-  else if(edtMode==='distance'){
-    const m=parseFloat($('t-edt-m').value)||0;
-    const poteaux=Math.ceil(m/40);
-    edtCout=poteaux*600000+150000;
-    edtLbl='EDT '+m+'m ('+poteaux+' poteau'+( poteaux>1?'x':'')+' + compteur) — indicatif';
-    $('t-edt-cout').textContent=fMF(edtCout)+' (indicatif)';
-  } else {edtLbl='Panneaux solaires (voir fourchette)'; edtCout=2000000;}
-
-  // Viabilisation eau
-  let eauCout=0, eauLbl='';
-  const eauMode=$('t-eau').value;
-  if(eauMode==='bordure'){eauCout=50000;eauLbl='Eau bordure (raccordement)';}
-  else if(eauMode==='distance'){
-    const m=parseFloat($('t-eau-m').value)||0;
-    eauCout=m*3000+50000; // ~3000 XPF/ml tranchée indicatif
-    eauLbl='Eau à '+m+'m (tranchée indicatif)';
-    $('t-eau-cout').textContent=fMF(eauCout)+' (indicatif)';
-  } else {eauCout=450000;eauLbl='Citerne (fourchette 300–600k)';}
-
-  const viabTotal=edtMode==='panneaux'?eauCout:edtCout+eauCout;
-  $('t-viab-edt-lbl').textContent=edtLbl;
-  $('t-viab-edt-val').textContent=edtMode==='panneaux'?'1,5 – 3 MF':fMF(edtCout);
-  $('t-viab-eau-lbl').textContent=eauLbl;
-  $('t-viab-eau-val').textContent=eauMode==='citerne'?'0,30 – 0,60 MF':fMF(eauCout);
-  $('t-viab-total').textContent=edtMode==='panneaux'?'~2 – 4 MF (estim.)':fMF(viabTotal);
-  $('t-viab-net').textContent=fMF(vMid-viabTotal)+' (valeur centrale − viabilisation)';
+  fdcUpdatePctDisplay();calcFdc();
 }
 
-function buildEQ(){
-  $('equips-list').innerHTML=EQUIPS.map(e=>`
-    <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)">
-      <input type="checkbox" id="eq-${e.id}" onchange="calcM()" style="flex-shrink:0;accent-color:#c0533a">
-      <label for="eq-${e.id}" style="flex:1;font-size:.82rem;color:#c0b8b0;cursor:pointer">${e.label}</label>
-      ${e.u?`<input type="number" id="eqq-${e.id}" value="1" min="1" style="width:56px;background:#1a1d27;border:1.5px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 8px;font-family:inherit;font-size:.78rem;color:#e8e4de;outline:none" oninput="calcM()"><span style="font-size:.65rem;color:rgba(255,255,255,.3)">${e.u}</span>`:''}
-      <span id="eqv-${e.id}" style="font-size:.72rem;color:#c0533a;min-width:75px;text-align:right">—</span>
-    </div>`).join('');
+function fdcUpdatePctDisplay(){
+  const pct=$('fdc-activite').value;
+  const label=$('fdc-activite').options[$('fdc-activite').selectedIndex]?.text||'';
+  if(!pct||pct.startsWith('SPEC'))$('fdc-pct-display').textContent=label+' — Méthode spécifique (voir méthodologie)';
+  else{const[lo,hi]=pct.split(',');$('fdc-pct-display').textContent=`${label} — Fourchette barème : ${lo}% à ${hi}% du CA annuel TTC`;}
 }
 
-function calcM(){
-  const tp=parseInt($('m-type').value)||175000;
-  const an=parseInt($('m-annee').value)||2010;
-  const sh=parseFloat($('m-sh').value)||0;
-  const su=parseFloat($('m-su').value)||0;
-  const tx=parseFloat($('m-etat').value)||1;
-  const sp=sh+su*0.5;
-  $('m-pond').textContent=sp.toFixed(1)+' m² ('+sh+' + '+su+'×0,5)';
-  const age=2026-an, vp=Math.min(age*tx,70);
-  $('m-vpct').textContent='(−'+vp.toFixed(1)+'%)';
-  const vb=sp*tp, vv=vb*vp/100;
-  let ve=0;
-  EQUIPS.forEach(e=>{
-    const cb=$('eq-'+e.id);if(!cb)return;
-    const qt=e.u?(parseFloat($('eqq-'+e.id)?.value)||1):1;
-    const v=cb.checked?e.val*qt:0; ve+=v;
-    const el=$('eqv-'+e.id);if(el) el.textContent=cb.checked?fMF(v):'—';
-  });
-  const totConst=vb-vv+ve;
-  // Terrain
-  const tcv=($('mt-commune')?.value||'22500,27500,32500').split(',').map(Number);
-  let tcen=tcv[1]||27500;
-  if($('mt-vue')?.checked) tcen+=8000;
-  if($('mt-plat')?.checked) tcen+=3000;
-  if($('mt-pente')?.checked) tcen-=5000;
-  tcen=Math.max(0,tcen);
-  const tsurf=parseFloat($('mt-surf')?.value)||500;
-  const totTerrain=tcen*tsurf;
-  const totBien=totConst+totTerrain;
-  $('m-brute').textContent=fMF(vb);
-  $('m-vet').textContent='−'+fMF(vv);
-  $('m-equips').textContent=ve>0?'+'+fMF(ve):'—';
-  $('m-total').textContent=fMF(totConst);
-  $('m-terrain-val').textContent=fMF(totTerrain);
-  $('m-total-bien').textContent=fMF(totBien);
-  $('m-infla').textContent='Construction : '+fMF(totConst)+' + Terrain : '+fMF(totTerrain)+' · Dans 1 an : ~'+fMF(totBien*1.04);
+function calcFdc(){
+  fdcUpdatePctDisplay();
+  const ca1=parseFloat($('fdc-ca1').value)||0;
+  const ca2=parseFloat($('fdc-ca2').value)||0;
+  const ca3=parseFloat($('fdc-ca3').value)||0;
+  const count=[ca1,ca2,ca3].filter(x=>x>0).length;
+  if(!count){$('fdc-result').style.display='none';return;}
+  const caMoy=(ca1+ca2+ca3)/Math.max(count,1);
+  const pctStr=$('fdc-activite').value;
+  const bail=parseFloat($('fdc-bail').value)||0;
+  const empl=parseFloat($('fdc-empl').value)||0;
+  const trend=parseFloat($('fdc-trend').value)||0;
+  const stock=parseFloat($('fdc-stock').value)||0;
+  const materiel=parseFloat($('fdc-materiel').value)||0;
+  let crit=0,dec=0;
+  document.querySelectorAll('.fdc-crit').forEach(cb=>{if(cb.checked)crit+=parseFloat(cb.value)||0;});
+  document.querySelectorAll('.fdc-dec').forEach(cb=>{if(cb.checked)dec+=parseFloat(cb.value)||0;});
+  const corrTotal=1+bail+empl+trend+crit-dec;
+  let valBas=0,valHau=0;
+  if(pctStr&&!pctStr.startsWith('SPEC')&&pctStr.includes(',')){
+    const[lo,hi]=pctStr.split(',').map(Number);
+    valBas=Math.round(caMoy*lo/100*corrTotal);
+    valHau=Math.round(caMoy*hi/100*corrTotal);
+  }
+  const valMoy=Math.round((valBas+valHau)/2);
+  $('fdc-ca-moy').textContent=fmtMF(caMoy);
+  const pct=$('fdc-activite').value;
+  $('fdc-pct-val').textContent=pct&&!pct.startsWith('SPEC')?pct.replace(',','% – ')+'%':'Méthode spécifique';
+  $('fdc-stock-val').textContent=stock>0?fmtMF(stock):'Non inclus';
+  $('fdc-total').textContent=valMoy>0?fmtMF(valMoy+materiel):'Méthode spécifique';
+  $('fdc-range').textContent=valBas>0?'Fourchette FDC seul : '+fmtMF(valBas)+' — '+fmtMF(valHau):'';
+  $('fdc-detail').textContent=`CA moyen: ${fmtMF(caMoy)} · Correctifs: ${Math.round((corrTotal-1)*100)}% · Matériel: ${fmtMF(materiel)} · Stock séparé: ${fmtMF(stock)}`;
+  $('fdc-result').style.display='block';
 }
 
-function calcA(){
-  const cv=$('a-commune').value;
-  const iles=cv==='ILES';
-  $('a-iles').style.display=iles?'block':'none';
-  $('a-result').style.display=iles?'none':'block';
-  if(iles)return;
-  const [pn,px]=($('a-gamme').value||'350000,500000').split(',').map(Number);
-  const mc=parseFloat(cv)||0;
-  const s=parseFloat($('a-surf').value)||0;
-  const etV=$('a-etage').value;
-  const as=$('a-asc').checked;
-  // Logique tahitienne : vue = valeur, RDC jardin = bien coté
-  let etCoef=0;
-  if(etV==='rdc_jardin') etCoef=0.05;       // RDC jardin +5%
-  else if(etV==='rdc') etCoef=-0.05;         // RDC sans jardin -5%
-  else if(etV==='1') etCoef=0;               // 1er = référence
-  else if(etV==='2') etCoef=as?0.05:0.03;    // 2e + vue
-  else if(etV==='3') etCoef=as?0.08:0.05;    // 3e + vue
-  else if(etV==='4') etCoef=as?0.10:0.06;    // 4e+ belle vue
-  else if(etV==='penthouse') etCoef=0.20;    // Penthouse +20%
-  const np=parseInt($('a-park').value)||0;
-  const vm=$('a-vue').checked?0.08:0;
-  const cu=$('a-cuisine').checked;
-  const dec=0; // remplacé par etCoef
-  const cf=(1+mc+vm+etCoef);
-  const vc=cu?(pn>=500000?3500000:2000000):0;
-  const vp=np*1750000;
-  const mn=s*pn*cf+vc+vp, mx=s*px*cf+vc+vp;
-  $('a-pm2').textContent=fmt(Math.round(pn*cf))+' – '+fmt(Math.round(px*cf));
-  $('a-vpark').textContent=np>0?fMF(vp):'—';
-  $('a-vcuis').textContent=cu?fMF(vc):'—';
-  $('a-total').textContent=fMF(mn)+' – '+fMF(mx);
-  $('a-detail').textContent=(etCoef!==0?'Étage '+(etCoef>0?'+':'')+Math.round(etCoef*100)+'% · ':'')+(np>0?np+' parking(s) · ':'')+(cu?'Cuisine incluse':'');
-}
+// ---- SCROLL TOP ----
+window.addEventListener('scroll',()=>{$('scrollTop').classList.toggle('visible',window.scrollY>300);});
 
-function calcL(){
-  const cv=$('l-commune').value;
-  const iles=cv==='ILES';
-  $('l-iles').style.display=iles?'block':'none';
-  $('l-result').style.display=iles?'none':'block';
-  if(iles)return;
-  const type=$('l-type').value;
-  const mc=parseFloat(cv)||0;
-  const s=parseFloat($('l-surf').value)||0;
-  const sc=parseFloat($('l-surfcom').value)||s;
-  const et=parseInt($('l-etage').value)||0;
-  const np=parseInt($('l-park').value)||0;
-  const as=$('l-asc').checked;
-  const at=$('l-terrain').checked;
-  $('l-tcard').style.display=at?'block':'none';
-  let lmin,lmax;
-  if(type==='mixte'){const sb=s-sc;lmin=sc*2500+sb*2000;lmax=sc*5000+sb*4000;}
-  else if(type==='commerce'){lmin=s*2500;lmax=s*5000;}
-  else{lmin=s*2000;lmax=s*4000;}
-  lmin*=(1+mc);lmax*=(1+mc);
-  const dec=et>0?(as?0.08:0.15):0;
-  const cf=(1+mc)*(1-dec);
-  const vcn=s*250000*cf, vcx=s*400000*cf;
-  const vp=np*1750000;
-  let vt=0;
-  if(at){const ts=parseFloat($('l-tsurf').value)||0;const tc=parseInt($('l-tcat').value)||27500;vt=ts*tc;}
-  $('l-loc').textContent=fmt(Math.round(lmin))+' – '+fmt(Math.round(lmax))+' XPF/mois';
-  $('l-venal').textContent=fMF(vcn)+' – '+fMF(vcx);
-  $('l-total').textContent=fMF(vcn+vp+vt)+' – '+fMF(vcx+vp+vt);
-  $('l-detail').textContent='Constr. '+fMF(vcn)+'–'+fMF(vcx)+(np>0?' · Parking '+fMF(vp):'')+(at?' · Terrain '+fMF(vt):'');
-}
-
-function calcH(){
-  const s=parseFloat($('h-surf').value)||0;
-  const h=parseFloat($('h-haut').value)||5;
-  const q=parseInt($('h-qual').value)||150000;
-  const mc=parseFloat($('h-commune').value)||0;
-  const an=parseInt($('h-annee').value)||2010;
-  const pl=$('h-pl').checked, qi=$('h-quai').checked;
-  const at=$('h-terrain').checked;
-  $('h-tcard').style.display=at?'block':'none';
-  const vol=s*h, pm3=q/5;
-  const cf=(1+mc+(pl?0.08:0)+(qi?0.12:0));
-  const age=2026-an, vp=Math.min(age,70);
-  const vc=vol*pm3*cf*(1-vp/100);
-  let vt=0;
-  if(at){const ts=parseFloat($('h-tsurf').value)||0;const tc=parseInt($('h-tcat').value)||27500;vt=ts*tc;}
-  $('h-vol').textContent=fmt(vol);
-  $('h-pm3').textContent=fmt(Math.round(pm3*cf));
-  $('h-vet').textContent=vp.toFixed(0)+'% ('+age+' ans)';
-  $('h-loc').textContent=fmt(Math.round(s*1200*(1+mc)))+' – '+fmt(Math.round(s*3000*(1+mc)));
-  $('h-const').textContent=fMF(vc);
-  $('h-total').textContent=fMF(vc+vt);
-  $('h-detail').textContent='Vol. '+fmt(vol)+' m³ · '+fMF(vc)+(at?' + terrain '+fMF(vt):'')+(pl?' +8%PL':'')+(qi?' +12%quai':'');
-}
-
-function initAll(){
-  buildEQ();tChange();toggleEDT();toggleEau();calcM();calcA();calcL();calcH();
-}
+// ---- INIT ----
+fdcUpdateActivite();
+calcTerrain();calcMaison();calcAppart();calcLocPro();
 </script>
-<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
-<script>window.addEventListener('scroll',function(){document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>300);});</script>
 </body>
 </html>

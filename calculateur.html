@@ -184,6 +184,8 @@ optgroup{font-style:normal}
       <summary style="font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gris);cursor:pointer;padding:8px 0">Critères avancés ▾</summary>
       <div style="margin-top:10px">
       <label class="check-row"><input type="checkbox" class="t-crit" value="0.30" onchange="calcTerrain()"> Bord de route principale (+30%)</label>
+    <label class="check-row"><input type="checkbox" class="t-crit" value="0.25" onchange="calcTerrain()"> Usage commercial autorisé (+25%)</label>
+    <label class="check-row"><input type="checkbox" class="t-crit" value="0.15" onchange="calcTerrain()"> R+3 ou plus autorisé (+15%)</label>
       <label class="check-row"><input type="checkbox" class="t-crit" value="0.08" onchange="calcTerrain()"> Hauteur avec vue dégagée (+8%)</label>
       <label class="check-row"><input type="checkbox" class="t-crit" value="0.05" onchange="calcTerrain()"> Déjà viabilisé eau + EDT (+5%)</label>
       <label class="check-row"><input type="checkbox" class="t-crit" value="0.03" onchange="calcTerrain()"> Vue montagne (+3%)</label>
@@ -575,10 +577,10 @@ function calcAppart(){
   if(etV==='rdc_jardin') etCoef=0.05;       // RDC jardin +5%
   else if(etV==='rdc') etCoef=-0.05;         // RDC sans jardin -5%
   else if(etV==='1') etCoef=0;               // 1er = référence
-  else if(etV==='2') etCoef=as?0.05:0.03;    // 2e + vue
-  else if(etV==='3') etCoef=as?0.08:0.05;    // 3e + vue
-  else if(etV==='4') etCoef=as?0.10:0.06;    // 4e+ belle vue
-  else if(etV==='penthouse') etCoef=0.20;    // Penthouse +20%
+  else if(etV==='2') etCoef=as?0.07:0.05;    // 2e + vue
+  else if(etV==='3') etCoef=as?0.10:0.08;    // 3e + vue
+  else if(etV==='4') etCoef=as?0.14:0.12;    // 4e+ belle vue
+  else if(etV==='penthouse') etCoef=0.30;    // Penthouse +30% (données Marama)
   const np=parseInt($('a-parking').value)||0;
   const vm=$('a-vue').checked?0.08:0;
   const cu=$('a-cuisine').checked;
