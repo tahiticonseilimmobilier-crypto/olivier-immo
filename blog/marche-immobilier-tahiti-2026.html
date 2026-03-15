@@ -48,9 +48,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
 .sep{height:1px;background:var(--bord);margin:32px 0}
 .breadcrumb{font-size:.72rem;color:var(--gris);margin-bottom:24px}
 .breadcrumb a{color:var(--coral);text-decoration:none}
-footer{background:var(--noir);padding:28px 24px;text-align:center}
-footer p{font-size:.7rem;color:rgba(255,255,255,.25);line-height:1.6}
-footer a{color:rgba(255,255,255,.4);text-decoration:none}
+footer{background:#080b10;padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:'Libre Baskerville',serif;color:rgba(255,255,255,.4);font-size:.8rem}
+.footer-logo em{color:var(--coral);font-style:normal}
+.footer-links{display:flex;gap:20px}
+.footer-links a{color:rgba(255,255,255,.25);font-size:.75rem;text-decoration:none}
+.footer-links a:hover{color:rgba(255,255,255,.5)}
+@media(max-width:560px){footer{flex-direction:column;text-align:center}}
 @media(max-width:600px){}
 
 /* Scroll to top */
@@ -108,8 +112,15 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
 </div>
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
 <script>window.addEventListener('scroll',function(){document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>300);});</script>
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
+<script>window.addEventListener('scroll',function(){document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>300);});</script>
 <footer>
-  <p>© 2026 Olivier BLAISE — Cabinet LEVY · <a href="/mentions-legales">Mentions légales</a> · <a href="/politique-de-confidentialite">Confidentialité</a> · <a href="/calculateur">Calculateur</a></p>
+  <span class="footer-logo">Cabinet <em>LEVY</em> — Olivier BLAISE · olivierimmopolynesie.com</span>
+  <div class="footer-links">
+    <a href="/mentions-legales">Mentions légales</a>
+    <a href="/politique-de-confidentialite">Confidentialité</a>
+    <a href="/calculateur">Calculateur</a>
+  </div>
 </footer>
 </body>
 </html>
