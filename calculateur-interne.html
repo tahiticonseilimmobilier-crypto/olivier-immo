@@ -964,7 +964,6 @@ function calcTerrain(){
   const surf=parseFloat($('t-surf')?.value)||500;
   if($('t-spc')&&cos>0){$('t-spc').value=Math.round(surf*cos)+' m² plancher constructible';}
   else if($('t-spc')){$('t-spc').value='Renseignez le COS';}
-  const surf=parseFloat($('t-surf').value)||500;
   const bas=Math.max(0,Math.round(bv*typ*(1+delta)));
   const cen=Math.max(0,Math.round(cv*typ*(1+delta)));
   const hau=Math.max(0,Math.round(hv*typ*(1+delta)));
