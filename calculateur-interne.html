@@ -231,13 +231,13 @@ tr.sh td:last-child{color:var(--gold)}
     <!-- VUE / SITUATION -->
     <div class="card-title" style="margin-top:4px;font-size:.78rem;color:rgba(255,255,255,.5);padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.05)">Vue / Situation</div>
     <div class="checks-grid">
-      <label class="check-row"><input type="checkbox" id="c-vue-deg" onchange="calcT()"> Vue mer dégagée (+8 000/m²)</label>
-      <label class="check-row"><input type="checkbox" id="c-vue-part" onchange="calcT()"> Vue mer partielle (+4 000/m²)</label>
-      <label class="check-row"><input type="checkbox" id="c-bord-mer" onchange="calcT()"> Bord de mer / lagon (+15 000/m²)</label>
-      <label class="check-row"><input type="checkbox" id="c-bord-route" onchange="calcT()"> Bord de route principale (+8 000/m²)</label>
-      <label class="check-row"><input type="checkbox" id="c-hauteur" onchange="calcT()"> Hauteur vue dégagée (+5 000/m²)</label>
-      <label class="check-row"><input type="checkbox" id="c-cloture" onchange="calcT()"> Clôturé / sécurisé (+2 000/m²)</label>
-      <label class="check-row"><input type="checkbox" id="c-inondable" onchange="calcT()"> Zone inondable / risque (−5 000/m²)</label>
+      <label class="check-row"><input type="checkbox" id="c-vue-deg" onchange="calcT()"> Vue mer dégagée (+20%)</label>
+      <label class="check-row"><input type="checkbox" id="c-vue-part" onchange="calcT()"> Vue mer partielle (+10%)</label>
+      <label class="check-row"><input type="checkbox" id="c-bord-mer" onchange="calcT()"> Bord de mer / lagon (+50%)</label>
+      <label class="check-row"><input type="checkbox" id="c-bord-route" onchange="calcT()"> Bord de route principale (+30%)</label>
+      <label class="check-row"><input type="checkbox" id="c-hauteur" onchange="calcT()"> Hauteur vue dégagée (+8%)</label>
+      <label class="check-row"><input type="checkbox" id="c-cloture" onchange="calcT()"> Clôturé / sécurisé (+3%)</label>
+      <label class="check-row"><input type="checkbox" id="c-inondable" onchange="calcT()"> Zone inondable / risque (−15%)</label>
     </div>
 
     <!-- VIABILISATION EDT -->
@@ -396,10 +396,10 @@ tr.sh td:last-child{color:var(--gold)}
     <div class="field"><label>Commune du terrain</label>
       <select id="mt-commune" onchange="calcM()">
         <optgroup label="TAHITI · Agglo">
-          <option value="45000,50000,55000">Papeete</option>
-          <option value="40000,45000,50000">Pirae</option>
+          <option value="35000,40000,45000">Papeete</option>
+          <option value="30000,35000,40000">Pirae</option>
           <option value="35000,40000,45000">Faaa</option>
-          <option value="40000,45000,50000">Punaauia</option>
+          <option value="30000,35000,40000">Punaauia</option>
           <option value="35000,40000,45000">Arue</option>
           <option value="30000,35000,40000">Paea</option>
           <option value="25000,30000,35000">Mahina</option>
@@ -408,14 +408,14 @@ tr.sh td:last-child{color:var(--gold)}
           <option value="22500,27500,32500" selected>Papara</option>
           <option value="20000,25000,30000">Mataiea / Papeari</option>
           <option value="22500,27500,32500">Taravao</option>
-          <option value="15000,20000,25000">Toahotu / Afaahiti</option>
+          <option value="12500,17500,22500">Toahotu / Afaahiti</option>
           <option value="17500,22500,27500">Vairao / Teahupoo / Tautira</option>
           <option value="17500,22500,27500">Papenoo / Tiarei / Hitiaa / Faaone</option>
         </optgroup>
         <optgroup label="MOOREA">
-          <option value="22000,30000,45000">Moorea – Maharepa / Papetoai</option>
-          <option value="18000,25000,38000">Moorea – Haapiti / Paopao</option>
-          <option value="16000,22000,32000">Moorea – Afareaitu / Teavaro</option>
+          <option value="25000,30000,35000">Moorea – Maharepa / Papetoai</option>
+          <option value="20000,25000,30000">Moorea – Haapiti / Paopao</option>
+          <option value="15000,20000,25000">Moorea – Afareaitu / Teavaro</option>
         </optgroup>
       </select>
     </div>
@@ -688,10 +688,10 @@ tr.sh td:last-child{color:var(--gold)}
     <thead><tr><th>Option</th><th>Effet</th></tr></thead>
     <tbody>
       <tr class="sh"><td colspan="2">Valorisations</td></tr>
-      <tr><td>Vue mer dégagée</td><td>+8 000 XPF/m²</td></tr>
+      <tr><td>Vue mer dégagée</td><td>+20%/+30%</td></tr>
       <tr><td>Vue mer partielle</td><td>+4 000 XPF/m²</td></tr>
-      <tr><td>Bord de mer / lagon</td><td>+15 000 XPF/m²</td></tr>
-      <tr><td>Bord de route principale</td><td>+8 000 XPF/m²</td></tr>
+      <tr><td>Bord de mer / lagon</td><td>+50%</td></tr>
+      <tr><td>Bord de route principale</td><td>+20%/+30%</td></tr>
       <tr><td>Hauteur vue dégagée</td><td>+5 000 XPF/m²</td></tr>
       <tr><td>Terrain plat</td><td>+3 000 XPF/m²</td></tr>
       <tr><td>Accès route goudronnée</td><td>+2 000 XPF/m²</td></tr>
@@ -747,9 +747,9 @@ const COMMUNES={
   teahupoo:{bas:17500,mid:22500,haut:27500},
   tautira:{bas:17500,mid:22500,haut:27500},
   pueu:{bas:11000,mid:17500,haut:22000},
-  maharepa:{bas:22000,mid:30000,haut:45000},
-  haapiti:{bas:18000,mid:25000,haut:38000},
-  afareaitu:{bas:16000,mid:22000,haut:32000},
+  maharepa:{bas:25000,mid:30000,haut:35000},
+  haapiti:{bas:20000,mid:25000,haut:30000},
+  afareaitu:{bas:15000,mid:20000,haut:25000},
 };
 
 const EQUIPS=[
@@ -811,16 +811,17 @@ function calcT(){
   if(acces!==0){coeff+=acces;coeffLbls.push((acces>0?'+':'')+fmt(acces)+'/m² accès');}
 
   const checks=[
-    ['c-vue-deg',8000,'vue mer dégagée'],['c-vue-part',4000,'vue mer partielle'],
-    ['c-bord-mer',15000,'bord de mer'],['c-bord-route',8000,'bord route'],
-    ['c-hauteur',5000,'hauteur vue'],['c-cloture',2000,'clôturé'],
-    ['c-inondable',-5000,'risque inondable'],
+    ['c-vue-deg',0.20,'vue mer dégagée'],['c-vue-part',0.10,'vue mer partielle'],
+    ['c-bord-mer',0.50,'bord de mer'],['c-bord-route',0.30,'bord route'],
+    ['c-hauteur',0.08,'hauteur vue'],['c-cloture',0.03,'clôturé'],
+    ['c-inondable',-0.15,'risque inondable'],
   ];
+  let pct=0;
   checks.forEach(([id,val,lbl])=>{
-    if($(id)&&$(id).checked){coeff+=val;coeffLbls.push((val>0?'+':'')+fmt(val)+'/m² ('+lbl+')');}
+    if($(id)&&$(id).checked){pct+=val;coeffLbls.push((val>0?'+':'')+Math.round(val*100)+'% ('+lbl+')');}
   });
 
-  const pmBas=c.bas+coeff, pmMid=c.mid+coeff, pmHaut=c.haut+coeff;
+  const pmBas=Math.round((c.bas+coeff)*(1+pct)), pmMid=Math.round((c.mid+coeff)*(1+pct)), pmHaut=Math.round((c.haut+coeff)*(1+pct));
   const vBas=pmBas*surf, vMid=pmMid*surf, vHaut=pmHaut*surf;
 
   $('t-rbas').textContent=fMF(vBas);$('t-rbas-pm2').textContent=fmt(pmBas)+' XPF/m²';

@@ -102,10 +102,10 @@ optgroup{font-style:normal}
     <div class="field"><label>Commune / Secteur</label>
       <select id="t-commune" onchange="tCommuneChange()">
         <optgroup label="TAHITI · Agglo Papeete">
-          <option value="45000,50000,55000">Papeete</option>
-          <option value="40000,45000,50000">Pirae</option>
+          <option value="35000,40000,45000">Papeete</option>
+          <option value="30000,35000,40000">Pirae</option>
           <option value="35000,40000,45000">Faaa</option>
-          <option value="40000,45000,50000">Punaauia</option>
+          <option value="30000,35000,40000">Punaauia</option>
           <option value="35000,40000,45000">Arue</option>
           <option value="30000,35000,40000">Paea</option>
           <option value="25000,30000,35000">Mahina</option>
@@ -121,16 +121,16 @@ optgroup{font-style:normal}
           <option value="20000,25000,30000">Mataiea</option>
           <option value="20000,25000,30000">Papeari</option>
           <option value="22500,27500,32500">Taravao</option>
-          <option value="15000,20000,25000">Toahotu</option>
-          <option value="15000,20000,25000">Afaahiti (Taiarapu-Est)</option>
+          <option value="12500,17500,22500">Toahotu</option>
+          <option value="12500,17500,22500">Afaahiti (Taiarapu-Est)</option>
           <option value="17500,22500,27500">Vairao (Taiarapu-Ouest)</option>
           <option value="17500,22500,27500">Teahupoo</option>
           <option value="17500,22500,27500">Tautira / Pueu</option>
         </optgroup>
         <optgroup label="MOOREA">
-          <option value="22000,30000,45000">Moorea – Maharepa / Papetoai</option>
-          <option value="18000,25000,38000">Moorea – Haapiti / Paopao / Cook</option>
-          <option value="16000,22000,32000">Moorea – Afareaitu / Teavaro</option>
+          <option value="25000,30000,35000">Moorea – Maharepa / Papetoai</option>
+          <option value="20000,25000,30000">Moorea – Haapiti / Paopao / Cook</option>
+          <option value="15000,20000,25000">Moorea – Afareaitu / Teavaro</option>
         </optgroup>
         <optgroup label="ÎLES · Sur demande">
           <option value="ILES">Bora Bora / Îles Sous-le-Vent</option>
@@ -169,32 +169,32 @@ optgroup{font-style:normal}
     </div>
 
     <div class="field"><label>Caractéristiques principales</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="15000" onchange="calcTerrain()"> Bord de mer / accès lagon (+15 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="8000" onchange="calcTerrain()"> Vue mer dégagée / panoramique (+8 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="4000" onchange="calcTerrain()"> Vue mer partielle (+4 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="3000" onchange="calcTerrain()"> Terrain plat (+3 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-dec" value="5000" onchange="calcTerrain()"> Forte pente (−5 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-dec" value="3000" onchange="calcTerrain()"> Accès difficile (chemin / piste) (−3 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-dec" value="3000" onchange="calcTerrain()"> Zone PPR bleue (−3 000/m²)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.50" onchange="calcTerrain()"> Bord de mer / accès lagon (+50%)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.20" onchange="calcTerrain()"> Vue mer dégagée / panoramique (+20%)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.10" onchange="calcTerrain()"> Vue mer partielle (+10%)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.05" onchange="calcTerrain()"> Terrain plat (+5%)</label>
+      <label class="check-row"><input type="checkbox" class="t-dec" value="0.15" onchange="calcTerrain()"> Forte pente (−15%)</label>
+      <label class="check-row"><input type="checkbox" class="t-dec" value="0.10" onchange="calcTerrain()"> Accès difficile (chemin / piste) (−10%)</label>
+      <label class="check-row"><input type="checkbox" class="t-dec" value="0.08" onchange="calcTerrain()"> Zone PPR bleue (−8%)</label>
     </div>
     <details style="margin-bottom:14px">
       <summary style="font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gris);cursor:pointer;padding:8px 0">Critères avancés ▾</summary>
       <div style="margin-top:10px">
-      <label class="check-row"><input type="checkbox" class="t-crit" value="8000" onchange="calcTerrain()"> Bord de route principale (+8 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="5000" onchange="calcTerrain()"> Hauteur avec vue dégagée (+5 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="4000" onchange="calcTerrain()"> Déjà viabilisé eau + EDT (+4 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="2000" onchange="calcTerrain()"> Vue montagne (+2 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="2000" onchange="calcTerrain()"> Accès facile route goudronnée (+2 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="2000" onchange="calcTerrain()"> Clôturé / sécurisé (+2 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="2000" onchange="calcTerrain()"> En lotissement (+2 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="2000" onchange="calcTerrain()"> Quartier résidentiel calme (+2 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-crit" value="1500" onchange="calcTerrain()"> Proximité commerces / écoles (+1 500/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-dec" value="5000" onchange="calcTerrain()"> Quartier social (−5 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-dec" value="3000" onchange="calcTerrain()"> Quartier populaire (−3 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-dec" value="2000" onchange="calcTerrain()"> Pente douce (−2 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-dec" value="2000" onchange="calcTerrain()"> Terrassement à prévoir (−2 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-dec" value="2000" onchange="calcTerrain()"> En hauteur éloigné sans vue (−2 000/m²)</label>
-      <label class="check-row"><input type="checkbox" class="t-dec" value="1000" onchange="calcTerrain()"> Défrichage à prévoir (−1 000/m²)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.30" onchange="calcTerrain()"> Bord de route principale (+30%)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.08" onchange="calcTerrain()"> Hauteur avec vue dégagée (+8%)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.05" onchange="calcTerrain()"> Déjà viabilisé eau + EDT (+5%)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.03" onchange="calcTerrain()"> Vue montagne (+3%)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.03" onchange="calcTerrain()"> Accès facile route goudronnée (+3%)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.03" onchange="calcTerrain()"> Clôturé / sécurisé (+3%)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.05" onchange="calcTerrain()"> En lotissement (+5%)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.05" onchange="calcTerrain()"> Quartier résidentiel calme (+5%)</label>
+      <label class="check-row"><input type="checkbox" class="t-crit" value="0.03" onchange="calcTerrain()"> Proximité commerces / écoles (+3%)</label>
+      <label class="check-row"><input type="checkbox" class="t-dec" value="0.25" onchange="calcTerrain()"> Quartier social (−25%)</label>
+      <label class="check-row"><input type="checkbox" class="t-dec" value="0.15" onchange="calcTerrain()"> Quartier populaire (−15%)</label>
+      <label class="check-row"><input type="checkbox" class="t-dec" value="0.05" onchange="calcTerrain()"> Pente douce (−5%)</label>
+      <label class="check-row"><input type="checkbox" class="t-dec" value="0.08" onchange="calcTerrain()"> Terrassement à prévoir (−8%)</label>
+      <label class="check-row"><input type="checkbox" class="t-dec" value="0.10" onchange="calcTerrain()"> En hauteur éloigné sans vue (−10%)</label>
+      <label class="check-row"><input type="checkbox" class="t-dec" value="0.05" onchange="calcTerrain()"> Défrichage à prévoir (−5%)</label>
       </div>
     </details>
   </div>
@@ -223,7 +223,7 @@ optgroup{font-style:normal}
   <h3>Estimation officielle de votre terrain</h3>
   <p>Valeur vénale certifiée pour vente, achat, succession ou banque — rapport remis sous 48h.</p>
   <a href="/" class="cta-btn">Demander mon estimation →</a>
-  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43 · WhatsApp : 87 22 56 43</a>
+  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a> · <a href="mailto:olivier@levytahiti.com" class="cta-tel" style="text-decoration:none">olivier@levytahiti.com</a>
 </div>
 </div>
 
@@ -272,10 +272,10 @@ optgroup{font-style:normal}
     <div class="field"><label>Commune</label>
       <select id="mt-commune" onchange="calcMaison()">
         <optgroup label="TAHITI · Agglo">
-          <option value="45000,50000,55000">Papeete</option>
-          <option value="40000,45000,50000">Pirae</option>
+          <option value="35000,40000,45000">Papeete</option>
+          <option value="30000,35000,40000">Pirae</option>
           <option value="35000,40000,45000">Faaa</option>
-          <option value="40000,45000,50000">Punaauia</option>
+          <option value="30000,35000,40000">Punaauia</option>
           <option value="35000,40000,45000">Arue</option>
           <option value="30000,35000,40000">Paea</option>
           <option value="25000,30000,35000">Mahina</option>
@@ -284,14 +284,14 @@ optgroup{font-style:normal}
           <option value="22500,27500,32500" selected>Papara</option>
           <option value="20000,25000,30000">Mataiea / Papeari</option>
           <option value="22500,27500,32500">Taravao</option>
-          <option value="15000,20000,25000">Toahotu / Afaahiti</option>
+          <option value="12500,17500,22500">Toahotu / Afaahiti</option>
           <option value="17500,22500,27500">Vairao / Teahupoo / Tautira</option>
           <option value="17500,22500,27500">Papenoo / Tiarei / Hitiaa / Faaone</option>
         </optgroup>
         <optgroup label="MOOREA">
-          <option value="22000,30000,45000">Moorea – Maharepa / Papetoai</option>
-          <option value="18000,25000,38000">Moorea – Haapiti / Paopao</option>
-          <option value="16000,22000,32000">Moorea – Afareaitu / Teavaro</option>
+          <option value="25000,30000,35000">Moorea – Maharepa / Papetoai</option>
+          <option value="20000,25000,30000">Moorea – Haapiti / Paopao</option>
+          <option value="15000,20000,25000">Moorea – Afareaitu / Teavaro</option>
         </optgroup>
       </select>
     </div>
@@ -325,7 +325,7 @@ optgroup{font-style:normal}
   <h3>Valeur vénale certifiée</h3>
   <p>Valeur vénale : 35 000 XPF · Valeur locative : 15 000 XPF<br>Rapport remis sous 48h · Tahiti, Moorea, îles sur demande</p>
   <a href="/" class="cta-btn">Demander mon estimation →</a>
-  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43 · WhatsApp : 87 22 56 43</a>
+  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a> · <a href="mailto:olivier@levytahiti.com" class="cta-tel" style="text-decoration:none">olivier@levytahiti.com</a>
 </div>
 </div>
 
@@ -408,7 +408,7 @@ optgroup{font-style:normal}
   <h3>Besoin d'une valeur certifiée ?</h3>
   <p>Achat, vente, crédit, succession — rapport certifié sous 48h sur toute la Polynésie.</p>
   <a href="/" class="cta-btn">Demander mon estimation →</a>
-  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43 · WhatsApp : 87 22 56 43</a>
+  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a> · <a href="mailto:olivier@levytahiti.com" class="cta-tel" style="text-decoration:none">olivier@levytahiti.com</a>
 </div>
 </div>
 
@@ -431,7 +431,7 @@ optgroup{font-style:normal}
   <h3>Estimation officielle — Olivier BLAISE</h3>
   <p>Valeur vénale : 35 000 XPF · Valeur locative : 15 000 XPF<br>Tahiti et Moorea : visite sur place · Îles éloignées : sur dossier</p>
   <a href="/" class="cta-btn">Demander mon estimation →</a>
-  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43 · WhatsApp : 87 22 56 43</a>
+  <br><a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" class="cta-tel" style="text-decoration:none">WhatsApp 87 22 56 43</a> · <a href="mailto:olivier@levytahiti.com" class="cta-tel" style="text-decoration:none">olivier@levytahiti.com</a>
 </div>
 </div>
 
@@ -484,12 +484,12 @@ function calcTerrain(){
   const cat=$('t-cat').value;
   if(cat==='ag'){ bas=Math.round(bas*0.15); cen=Math.round(cen*0.15); hau=Math.round(hau*0.15); }
   else if(cat==='brut'){ bas=Math.round(bas*0.45); cen=Math.round(cen*0.45); hau=Math.round(hau*0.45); }
-  let bonus=0;
-  document.querySelectorAll('.t-crit').forEach(cb=>{ if(cb.checked) bonus+=parseInt(cb.value)||0; });
-  let malus=0;
-  document.querySelectorAll('.t-dec').forEach(cb=>{ if(cb.checked) malus+=parseInt(cb.value)||0; });
-  const delta=bonus-malus;
-  bas=Math.max(0, bas+delta); cen=Math.max(0, cen+delta); hau=Math.max(0, hau+delta);
+  let bonusPct=0;
+  document.querySelectorAll('.t-crit').forEach(cb=>{ if(cb.checked) bonusPct+=parseFloat(cb.value)||0; });
+  let malusPct=0;
+  document.querySelectorAll('.t-dec').forEach(cb=>{ if(cb.checked) malusPct+=parseFloat(cb.value)||0; });
+  const deltaPct=bonusPct-malusPct;
+  bas=Math.max(0, Math.round(bas*(1+deltaPct))); cen=Math.max(0, Math.round(cen*(1+deltaPct))); hau=Math.max(0, Math.round(hau*(1+deltaPct)));
   const surf=parseFloat($('t-surface').value)||0;
   $('t-pm2').textContent=fmt(cen)+' XPF/m²';
   $('t-surf-aff').textContent=fmt(surf);
@@ -497,7 +497,7 @@ function calcTerrain(){
   $('t-cen').textContent=fmtMF(cen*surf);
   $('t-hau').textContent=fmtMF(hau*surf);
   $('t-total').textContent=fmtMF(cen*surf);
-  $('t-detail').textContent=fmt(cen)+' XPF/m² × '+fmt(surf)+' m²'+(delta!==0?' (critères '+(delta>0?'+':'')+fmt(delta)+'/m²)':'');
+  $('t-detail').textContent=fmt(cen)+' XPF/m² × '+fmt(surf)+' m²'+(deltaPct!==0?' (critères '+(deltaPct>0?'+':'')+Math.round(deltaPct*100)+'%)':'');
   $('t-viab').style.display=(cat==='brut'||cat==='ag')?'block':'none';
 }
 function calcMaison(){
