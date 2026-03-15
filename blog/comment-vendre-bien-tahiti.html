@@ -251,6 +251,10 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none}
   </div>
 
 </div>
-
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
+<script>window.addEventListener('scroll',function(){document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>300);});</script>
 <footer>
-  <p>© 2026 Olivier BLAISE — Cabinet LEVY · <a href="/mentions-legales">Mentions légales</a> ·
+  <p>© 2026 Olivier BLAISE — Cabinet LEVY · <a href="/mentions-legales">Mentions légales</a> · <a href="/politique-de-confidentialite">Confidentialité</a> · <a href="/calculateur">Calculateur</a></p>
+</footer>
+</body>
+</html>
