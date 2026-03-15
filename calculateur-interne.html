@@ -1874,11 +1874,24 @@ function calcMaisonLoyer(){
     '200000,300000': [1200,1600,2000], // Moorea Afareaitu
   };
   const [lb,lc,lh]=loyerMap[commune]||[1200,1600,2000];
-  // Ajustements état
-  const etCorr=1+etat*0.5; // état a moins d'impact sur loyer que sur vente
-  const loyerCen=inflaLoyer(Math.round(lc*etCorr*surf));
-  const loyerBas=inflaLoyer(Math.round(lb*etCorr*surf));
-  const loyerHau=inflaLoyer(Math.round(lh*etCorr*surf));
+  // Construction
+  const mConstr=parseFloat($('m-constr')?.value)||0;
+  const mConstCoef=mConstr>=0.15?1.15:mConstr>=0?1.0:mConstr>=-0.08?0.97:0.90;
+  // État
+  const etCorr=1+etat*0.5;
+  // Équipements
+  const mPiscCoef=($('eq-piscine-cr')?.checked||$('eq-piscine-sf')?.checked)?1.15:1.0;
+  const mSolCoef=($('eq-solaire')?.checked)?1.05:1.0;
+  const mClimNb=parseInt($('m-clim')?.value)||0; const mClimCoef=mClimNb>0?1.05:1.0;
+  const mMeubleCoef=($('eq-meuble')?.checked)?1.15:1.0;
+  // Terrain — vue mer
+  let mTerrainCoef=1.0;
+  document.querySelectorAll('.mt-crit').forEach(cb=>{
+    if(cb.checked){const v=parseFloat(cb.value)||0;if(v>=0.20)mTerrainCoef=Math.max(mTerrainCoef,1.0+v*0.4);}
+  });
+  const loyerCen=inflaLoyer(Math.round(lc*etCorr*mConstCoef*mPiscCoef*mSolCoef*mClimCoef*mMeubleCoef*mTerrainCoef*surf));
+  const loyerBas=inflaLoyer(Math.round(lb*etCorr*mConstCoef*surf));
+  const loyerHau=inflaLoyer(Math.round(lh*etCorr*mConstCoef*mPiscCoef*mSolCoef*mClimCoef*mMeubleCoef*mTerrainCoef*surf));
   
   // Valeur vénale pour rendement
   const totalBien=parseInt($('m-total-bien').textContent.replace(/[^0-9]/g,''))||0;
@@ -1912,23 +1925,29 @@ function calcAppartLoyer(){
   };
   let [lb,lc,lh]=loyerMap[commune]||[1200,1800,2500];
   
-  // Correctif taille (petits apparts cher/m², grands moins)
+  // Correctif taille
   const surfCoef=surf<35?1.30:surf<50?1.15:surf<70?1.0:surf<100?0.90:0.80;
-  
   // Standing + vue
   const standV=parseFloat($('a-standing').value)||0;
-  const vueV=parseFloat(vue)||0;
-  
-  // Étage impact loyer (moins marqué que vente)
+  const vueV=parseFloat($('a-vue')?.value)||0;
+  // Étage
   let etCoef=0;
   if(etage==='rdc')etCoef=-0.03;
   else if(etage==='4')etCoef=0.05;
   else if(etage==='penthouse')etCoef=0.15;
+  // Équipements résidence
+  let resCoef=0;
+  document.querySelectorAll('.a-res').forEach(cb=>{if(cb.checked)resCoef+=parseFloat(cb.value)*0.5||0;});
+  // Équipements appartement
+  const aPkCoef=($('a-pk-couv')?.checked)?1.05:1.0;
+  const aCuisCoef=($('a-cuisine-eq')?.checked)?1.05:1.0;
+  const aMeubleCoef=($('a-meuble')?.checked)?1.15:1.0;
+  const aClimNb=parseInt($('a-clim')?.value)||0; const aClimCoef=aClimNb>0?1.04:1.0;
   
-  const corrTot=(1+standV*0.5+vueV*0.5+etCoef)*surfCoef;
-  const loyerCen=inflaLoyer(Math.round(lc*corrTot*surf));
+  const corrTot=(1+standV*0.5+vueV*0.5+etCoef+resCoef)*surfCoef;
+  const loyerCen=inflaLoyer(Math.round(lc*corrTot*aPkCoef*aCuisCoef*aMeubleCoef*aClimCoef*surf));
   const loyerBas=inflaLoyer(Math.round(lb*corrTot*surf));
-  const loyerHau=inflaLoyer(Math.round(lh*corrTot*surf));
+  const loyerHau=inflaLoyer(Math.round(lh*corrTot*aPkCoef*aCuisCoef*aMeubleCoef*aClimCoef*surf));
   
   const totalBien=parseInt($('a-total').textContent.replace(/[^0-9]/g,''))||0;
   const rdt=totalBien>0?((loyerCen*12/totalBien)*100).toFixed(1)+'%':'—';

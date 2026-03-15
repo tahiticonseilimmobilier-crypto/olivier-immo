@@ -335,6 +335,8 @@ optgroup{font-style:normal}
     <div class="result-main" id="m-total-bien">—</div>
     <div class="result-sub">Valeur totale estimée — construction + terrain</div>
     <div class="result-detail" id="m-infla">—</div>
+    <div id="m-loyer-ind" style="margin-top:8px;font-size:.78rem;color:#c9a84c;padding:7px 12px;background:rgba(201,168,76,.06);border-radius:6px;border:1px solid rgba(201,168,76,.12)">—</div>
+    <div id="m-loyer-ind" style="margin-top:8px;font-size:.78rem;color:#c9a84c;padding:7px 12px;background:rgba(201,168,76,.06);border-radius:6px;border:1px solid rgba(201,168,76,.12)">—</div>
   </div>
   <p class="note">Construction + terrain valeur centrale · Vétusté plafonnée à 70% · Inflation +3,5–5%/an</p>
   <div class="disclaimer">Résultat indicatif. Pour une valeur certifiée (banque, notaire, tribunal), une estimation officielle avec visite est indispensable.</div>
@@ -418,6 +420,8 @@ optgroup{font-style:normal}
     <div class="result-main" id="a-total">—</div>
     <div class="result-sub">Fourchette de valeur indicative (hors terrain)</div>
     <div class="result-detail" id="a-detail">—</div>
+    <div id="a-loyer-ind" style="margin-top:8px;font-size:.78rem;color:#c9a84c;padding:7px 12px;background:rgba(201,168,76,.06);border-radius:6px;border:1px solid rgba(201,168,76,.12)">—</div>
+    <div id="a-loyer-ind" style="margin-top:8px;font-size:.78rem;color:#c9a84c;padding:7px 12px;background:rgba(201,168,76,.06);border-radius:6px;border:1px solid rgba(201,168,76,.12)">—</div>
   </div>
   <p class="note">Décote étage : −15%/étage sans ascenseur · −5%/étage avec · Vue mer +8% · Médiane PF (Properstar déc. 2025) : 635 000 XPF/m²</p>
   <div class="disclaimer">Résultat indicatif · Pour une valeur certifiée banque/notaire, demandez une estimation officielle.</div>
@@ -457,6 +461,11 @@ optgroup{font-style:normal}
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const $=id=>document.getElementById(id);
+// Inflation auto invisible — base 2026 (Sources : ISPF PF)
+const _AN=Math.max(0,new Date().getFullYear()-2026);
+const _II=v=>Math.round(v*(1+0.04*_AN));  // marché immo +4%/an
+const _IC=v=>Math.round(v*(1+0.03*_AN));  // construction BTP +3%/an
+const _IL=v=>Math.round(v*(1+0.015*_AN)); // loyers IPC PF +1.5%/an
 const fmt=n=>Math.round(n).toLocaleString('fr-FR');
 const fmtMF=n=>(Math.round(n/100000)/10).toFixed(2)+' MF';
 
@@ -494,6 +503,17 @@ function tCommuneChange(){
   $('t-result').style.display=iles?'none':'block';
   if(!iles) calcTerrain();
 }
+// Loyers indicatifs base 2026 — Cabinet LEVY mars 2026
+const _LM={ // maison XPF/m²/mois
+  '35000,40000,45000':2200,'30000,35000,40000':2000,'22500,27500,32500':1700,
+  '25000,30000,35000':2000,'20000,25000,30000':1700,'15000,20000,25000':1500,
+  '12500,17500,22500':1300,'10000,15000,20000':1100,
+  '25000,30000,35000':2000,'20000,25000,30000':1700,'15000,20000,25000':1400
+};
+const _LA={ // appartement XPF/m²/mois
+  '350000,500000':2800,'300000,450000':2400,'250000,380000':1900,
+  '200000,320000':1500,'280000,420000':2200,'240000,370000':1800,'200000,300000':1500
+};
 function calcTerrain(){
   const v=$('t-commune').value;
   if(v==='ILES') return;
@@ -507,7 +527,7 @@ function calcTerrain(){
   let malusPct=0;
   document.querySelectorAll('.t-dec').forEach(cb=>{ if(cb.checked) malusPct+=parseFloat(cb.value)||0; });
   const deltaPct=bonusPct-malusPct;
-  bas=Math.max(0, Math.round(bas*(1+deltaPct))); cen=Math.max(0, Math.round(cen*(1+deltaPct))); hau=Math.max(0, Math.round(hau*(1+deltaPct)));
+  bas=Math.max(0,_II(Math.round(bas*(1+deltaPct)))); cen=Math.max(0,_II(Math.round(cen*(1+deltaPct)))); hau=Math.max(0,_II(Math.round(hau*(1+deltaPct))));
   const surf=parseFloat($('t-surface').value)||0;
   $('t-pm2').textContent=fmt(cen)+' XPF/m²';
   $('t-surf-aff').textContent=fmt(surf);
@@ -519,7 +539,7 @@ function calcTerrain(){
   $('t-viab').style.display=(cat==='brut'||cat==='ag')?'block':'none';
 }
 function calcMaison(){
-  const tp=parseInt($('m-type').value)||175000;
+  const tp=_IC(parseInt($('m-type').value)||175000);
   const an=parseInt($('m-annee').value)||2010;
   const sh=parseFloat($('m-surfhab').value)||0;
   const su=parseFloat($('m-surfutil').value)||0;
@@ -544,9 +564,9 @@ function calcMaison(){
   document.querySelectorAll('.mt-crit').forEach(cb=>{ if(cb.checked) mtBonusPct+=parseFloat(cb.value)||0; });
   document.querySelectorAll('.mt-dec').forEach(cb=>{ if(cb.checked) mtMalusPct+=parseFloat(cb.value)||0; });
   const mtDelta=mtBonusPct-mtMalusPct;
-  tbas=Math.max(0,Math.round(tbas*(1+mtDelta)));
-  tcen=Math.max(0,Math.round(tcen*(1+mtDelta)));
-  thau=Math.max(0,Math.round(thau*(1+mtDelta)));
+  tbas=Math.max(0,_II(Math.round(tbas*(1+mtDelta))));
+  tcen=Math.max(0,_II(Math.round(tcen*(1+mtDelta))));
+  thau=Math.max(0,_II(Math.round(thau*(1+mtDelta))));
   const tsurf=parseFloat($('mt-surf')?.value)||500;
   const totTerrain=tcen*tsurf;
   const totTerBas=tbas*tsurf;
@@ -560,6 +580,27 @@ function calcMaison(){
   $('m-terrain-range').textContent=fmtMF(totTerBas)+' – '+fmtMF(totTerHau);
   $('m-total-bien').textContent=fmtMF(totBien);
   $('m-infla').textContent='Construction : '+fmtMF(totConst)+' + Terrain : '+fmtMF(totTerBas)+' – '+fmtMF(totTerHau)+' · Dans 1 an : ~'+fmtMF(totBien*1.04);
+  const _mComm=($('mt-commune')?.value)||'15000,20000,25000';
+  const _mSurf=parseFloat($('m-surfhab')?.value)||120;
+  // Critères loyer maison — construction
+  const _mTp=parseInt($('m-type')?.value)||175000;
+  const _mConstCoef=_mTp>=200000?1.15:_mTp>=175000?1.0:_mTp>=150000?0.97:0.90; // standing: architecte>béton>métal>bois
+  // État
+  const _mVp=parseFloat($('m-vp')?.textContent)||0; // vétusté %
+  const _mEtatCoef=_mVp<10?1.10:_mVp<30?1.0:_mVp<50?0.92:0.85;
+  // Équipements qui valorisent le loyer
+  const _mPiscCoef=($('eq-piscine')?.checked)?1.15:1.0;
+  const _mSolCoef=($('eq-sol')?.checked)?1.05:1.0;
+  const _mClimCoef=($('eq-clim')?.checked)?1.05:1.0;
+  const _mMeubleCoef=($('eq-meuble')?.checked)?1.15:1.0;
+  // Terrain — vue mer
+  let _mTerrainCoef=1.0;
+  document.querySelectorAll('.mt-crit').forEach(cb=>{
+    if(cb.checked){const v=parseFloat(cb.value)||0;if(v>=0.20)_mTerrainCoef=Math.max(_mTerrainCoef,1.0+v*0.4);}
+  });
+  const _mBaseLoy=_LM[_mComm]||1500;
+  const _mLoy=_IL(Math.round(_mBaseLoy*_mConstCoef*_mEtatCoef*_mPiscCoef*_mSolCoef*_mClimCoef*_mMeubleCoef*_mTerrainCoef));
+  if($('m-loyer-ind'))$('m-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_mLoy*_mSurf)+' XPF/mois · '+fmt(_mLoy)+' XPF/m²';
 }
 function calcAppart(){
   const cv=$('a-commune').value;
@@ -594,6 +635,16 @@ function calcAppart(){
   $('a-vcuis').textContent=cu?fmtMF(vc):'—';
   $('a-total').textContent=fmtMF(mn)+' – '+fmtMF(mx);
   $('a-detail').textContent=(etCoef!==0?'Étage '+(etCoef>0?'+':'')+Math.round(etCoef*100)+'% · ':'')+(np>0?np+' parking(s) · ':'')+(cu?'Cuisine incluse':'');
+  const _aSurf=s||65;
+  const _aSC=_aSurf<40?1.20:_aSurf<60?1.05:_aSurf>100?0.85:1.0;
+  // Critères loyer appart — impact réduit vs vente (loyer moins sensible que prix)
+  const _aVueCoef=vm>0?1.15:1.0;           // vue mer +15%
+  const _aEtCoef=etCoef>0.10?1.08:etCoef>0?1.04:etCoef<0?0.97:1.0; // étage
+  const _aCuisCoef=cu?1.05:1.0;            // cuisine équipée +5%
+  const _aAscCoef=as&&etCoef>0?1.03:1.0;  // ascenseur +3%
+  const _aMeubleCoef=($('a-meuble')?.checked)?1.15:1.0; // meublé +15%
+  const _aLoy=_IL(Math.round((_LA[cv]||1800)*_aSC*_aVueCoef*_aEtCoef*_aCuisCoef*_aAscCoef*_aMeubleCoef));
+  if($('a-loyer-ind'))$('a-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_aLoy*_aSurf)+' XPF/mois · '+fmt(_aLoy)+' XPF/m²';
 }
 buildEQ();tCommuneChange();calcMaison();calcAppart();
 </script>
