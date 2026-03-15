@@ -118,23 +118,6 @@ footer{background:#080b10;padding:32px 40px;display:flex;align-items:center;just
   </div>
 </div>
 
-<!-- RESSOURCE PRIX COMMUNES -->
-<div style="background:#f0ebe2;padding:32px 0;border-top:1px solid #ddd7cd">
-  <div class="container" style="max-width:900px;margin:0 auto;padding:0 32px">
-    <div style="background:white;border:1px solid #ddd7cd;border-radius:14px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
-      <div style="display:flex;align-items:center;gap:18px">
-        <div style="font-size:2rem;line-height:1">📊</div>
-        <div>
-          <div style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:6px">Outil de référence</div>
-          <div style="font-family:'Libre Baskerville',serif;font-size:1.05rem;color:#0f1117;margin-bottom:4px">Prix immobilier par commune — Tahiti & Moorea</div>
-          <div style="font-size:.8rem;color:#7a7570">Terrains · Maisons · Appartements · Loyers — fourchettes réelles, mises à jour automatiquement</div>
-        </div>
-      </div>
-      <a href="/prix-communes" style="display:inline-block;background:#c0533a;color:white;font-size:.85rem;font-weight:700;padding:12px 24px;border-radius:8px;text-decoration:none;white-space:nowrap">Consulter les prix →</a>
-    </div>
-  </div>
-</div>
-
 <div class="blog-cta">
   <div class="container">
     <div class="blog-cta-inner">
@@ -156,6 +139,23 @@ footer{background:#080b10;padding:32px 40px;display:flex;align-items:center;just
   </div>
 </footer>
 
+
+<!-- RESSOURCE PRIX COMMUNES -->
+<div style="background:#f0ebe2;padding:32px 0;border-top:1px solid #ddd7cd">
+  <div class="container" style="max-width:900px;margin:0 auto;padding:0 32px">
+    <div style="background:white;border:1px solid #ddd7cd;border-radius:14px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;box-shadow:0 2px 12px rgba(0,0,0,.05)">
+      <div style="display:flex;align-items:center;gap:18px">
+        <div style="font-size:2rem;line-height:1">📊</div>
+        <div>
+          <div style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:6px">Outil de référence</div>
+          <div style="font-family:'Libre Baskerville',serif;font-size:1.05rem;color:#0f1117;margin-bottom:4px">Prix immobilier par commune — Tahiti & Moorea</div>
+          <div style="font-size:.8rem;color:#7a7570">Terrains · Maisons · Appartements · Loyers — fourchettes réelles, mises à jour automatiquement</div>
+        </div>
+      </div>
+      <a href="/prix-communes" style="display:inline-block;background:#c0533a;color:white;font-size:.85rem;font-weight:700;padding:12px 24px;border-radius:8px;text-decoration:none;white-space:nowrap">Consulter les prix →</a>
+    </div>
+  </div>
+</div>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/articles.js"></script>
 <script>
 (function(){
@@ -178,4 +178,13 @@ footer{background:#080b10;padding:32px 40px;display:flex;align-items:center;just
         <div class="card-cat">${a.cat}</div>
       </div>
       <div class="card-body">
-        <div class="card-d
+                <div class="card-date">${a.date} · ${a.lecture} de lecture</div>
+        <div class="card-title">${a.titre}</div>
+        <p class="card-excerpt">${a.extrait}</p>
+        <div class="card-link">Lire l'article →</div>
+      </div>
+    </a>`).join('');
+})();
+</script>
+</body>
+</html>
