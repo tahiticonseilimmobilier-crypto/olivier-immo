@@ -12,6 +12,7 @@
     { href: '/louer',               label: 'Louer' },
     { href: '/acheter',             label: 'Acheter' },
     { href: '/calculateur',         label: 'Calculateur' },
+    { href: '/prix-communes',         label: 'Prix & marché' },
     { href: '/blog',                label: 'Blog' },
     { href: '/a-propos',            label: 'À propos' },
   ];

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prix immobilier par commune — Tahiti & Moorea 2026 | Olivier BLAISE · Cabinet LEVY</title>
+<meta name="description" content="Prix au m² par commune pour les terrains, maisons et appartements à Tahiti et Moorea en 2026. Données calibrées par Olivier BLAISE, Cabinet LEVY — 10 ans d'expérience.">
+<link rel="canonical" href="https://www.olivierimmopolynesie.com/prix-communes">
+<meta property="og:title" content="Prix immobilier par commune — Tahiti & Moorea 2026">
+<meta property="og:description" content="Terrains, maisons, appartements — fourchettes de prix réels par commune, calibrées sur le marché actif polynésien.">
+<meta property="og:url" content="https://www.olivierimmopolynesie.com/prix-communes">
+<meta property="og:image" content="https://www.olivierimmopolynesie.com/og-image.png">
+<meta property="og:type" content="website">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KVPFP4QV');</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--noir:#0f1117;--coral:#c0533a;--sable:#f0ebe2;--bord:#ddd7cd;--gris:#7a7570;--vert:#1e6b45;--gold:#c9a84c}
+body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);padding-top:60px}
+
+/* NAV injectée par nav.js */
+
+.hero{background:var(--noir);padding:52px 40px 40px;text-align:center}
+.hero-tag{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:12px}
+.hero h1{font-family:'Libre Baskerville',serif;font-size:2rem;color:white;margin-bottom:10px}
+.hero .sub{color:rgba(255,255,255,.5);font-size:.9rem;max-width:580px;margin:0 auto 16px}
+.hero .annee{display:inline-block;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:.75rem;font-weight:700;letter-spacing:.1em;padding:5px 14px;border-radius:4px}
+
+.container{max-width:960px;margin:0 auto;padding:48px 32px 80px}
+
+/* TABS */
+.tabs-nav{display:flex;gap:0;border-bottom:2px solid var(--bord);margin-bottom:32px;overflow-x:auto}
+.tab-btn{padding:12px 24px;font-size:.85rem;font-weight:600;color:var(--gris);cursor:pointer;border:none;background:none;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .2s}
+.tab-btn.active{color:var(--coral);border-bottom-color:var(--coral)}
+.tab-btn:hover{color:var(--noir)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* SECTION */
+.section{margin-bottom:36px}
+.section-title{font-family:'Libre Baskerville',serif;font-size:1.05rem;color:var(--noir);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--bord);display:flex;align-items:center;gap:10px}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;border-radius:10px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+table{width:100%;border-collapse:collapse;background:white;font-size:.83rem}
+thead tr{background:var(--noir)}
+thead th{padding:11px 14px;text-align:left;color:rgba(255,255,255,.65);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+thead th:not(:first-child){text-align:center}
+tbody tr{border-bottom:1px solid var(--bord)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(201,168,76,.04)}
+td{padding:10px 14px;color:#333}
+td:not(:first-child){text-align:center;font-family:'Libre Baskerville',serif}
+td.bas{color:var(--vert);font-size:.85rem}
+td.mid{color:var(--noir);font-size:.92rem;font-weight:700}
+td.haut{color:var(--coral);font-size:.85rem}
+td.loyer{color:var(--gold);font-weight:600}
+.commune-name{font-weight:600}
+.tag-sm{display:inline-block;font-size:.65rem;font-weight:600;letter-spacing:.06em;background:rgba(192,83,58,.08);color:var(--coral);padding:2px 7px;border-radius:3px;margin-left:6px;vertical-align:middle}
+
+/* NOTE */
+.note-box{background:white;border:1px solid var(--bord);border-radius:10px;padding:18px 22px;margin-bottom:24px;font-size:.8rem;color:var(--gris);line-height:1.7}
+.note-box strong{color:var(--noir)}
+
+/* INFLATION BADGE */
+.infla-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:.7rem;font-weight:700;padding:4px 12px;border-radius:4px;margin-top:8px}
+
+/* CTA */
+.cta-box{background:var(--coral);border-radius:14px;padding:36px 40px;text-align:center;margin-top:48px}
+.cta-box h2{font-family:'Libre Baskerville',serif;font-size:1.5rem;color:white;margin-bottom:8px}
+.cta-box p{color:rgba(255,255,255,.7);font-size:.9rem;margin-bottom:20px}
+.cta-btn{display:inline-block;background:white;color:var(--coral);font-weight:700;font-size:.9rem;padding:12px 28px;border-radius:8px;text-decoration:none;transition:opacity .2s}
+.cta-btn:hover{opacity:.9}
+.cta-tel{display:block;color:rgba(255,255,255,.65);font-size:.8rem;margin-top:12px}
+
+/* FOOTER */
+footer{background:var(--noir);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.f-brand{font-family:'Libre Baskerville',serif;color:white;font-size:.82rem;font-weight:700}
+.f-brand em{color:var(--coral);font-style:normal}
+.f-links{display:flex;gap:18px}
+.f-links a{color:rgba(255,255,255,.3);font-size:.73rem;text-decoration:none}
+.f-links a:hover{color:rgba(255,255,255,.6)}
+.scroll-top{position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:var(--coral);color:white;border:none;border-radius:50%;font-size:20px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s;z-index:100;box-shadow:0 2px 8px rgba(192,83,58,.4)}
+.scroll-top.visible{opacity:1;pointer-events:auto}
+@media(max-width:600px){.container{padding:32px 16px 60px}.hero{padding:40px 20px 32px}.hero h1{font-size:1.5rem}footer{flex-direction:column;text-align:center}}
+</style>
+</head>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVPFP4QV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<body>
+<script src="/nav.js"></script>
+
+<div class="hero">
+  <div class="hero-tag">Marché immobilier · Polynésie française</div>
+  <h1>Prix immobilier par commune</h1>
+  <p class="sub">Terrains, maisons et appartements à Tahiti et Moorea — fourchettes de prix réels calibrées sur le marché actif.</p>
+  <div class="annee" id="annee-badge">Données 2026 · Calibrées par Olivier BLAISE · Cabinet LEVY</div>
+</div>
+
+<div class="container">
+
+  <div class="note-box">
+    <strong>Méthodologie :</strong> Les prix présentés correspondent à des biens standards sans caractéristique exceptionnelle (pas de vue mer, pas de pente forte, accès normal). Ils sont issus de l'expérience terrain d'Olivier BLAISE (Cabinet LEVY) recoupée avec les annonces des principaux portails polynésiens et les données de marché disponibles. 
+    <strong>Ces fourchettes sont mises à jour automatiquement</strong> chaque année selon l'inflation observée sur le marché polynésien.
+    Pour une valeur certifiée (crédit, succession, vente), <a href="/" style="color:var(--coral)">demandez une estimation officielle</a>. Ces données sont mises à jour automatiquement chaque année.
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="showTab('terrain',this)">🏕️ Terrains</button>
+    <button class="tab-btn" onclick="showTab('maison',this)">🏠 Maisons</button>
+    <button class="tab-btn" onclick="showTab('appart',this)">🏢 Appartements</button>
+    <button class="tab-btn" onclick="showTab('loyers',this)">📋 Loyers</button>
+  </div>
+
+  <!-- ==================== TERRAINS ==================== -->
+  <div id="tab-terrain" class="tab-pane active">
+    <div class="note-box">Terrain résidentiel viabilisé standard — constructible, accessible, sans vue particulière. <a href="/blog/prix-terrain-tahiti-2026" style="color:var(--coral)">→ Guide complet avec critères de valorisation</a></div>
+
+    <div class="section">
+      <div class="section-title">🏙️ Agglomération de Papeete</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Commune</th><th>Bas (XPF/m²)</th><th>Central (XPF/m²)</th><th>Haut (XPF/m²)</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Papeete</td><td class="bas" data-base="35000"></td><td class="mid" data-base="40000"></td><td class="haut" data-base="45000"></td></tr>
+          <tr><td class="commune-name">Pirae</td><td class="bas" data-base="30000"></td><td class="mid" data-base="35000"></td><td class="haut" data-base="40000"></td></tr>
+          <tr><td class="commune-name">Punaauia</td><td class="bas" data-base="30000"></td><td class="mid" data-base="35000"></td><td class="haut" data-base="40000"></td></tr>
+          <tr><td class="commune-name">Faaa</td><td class="bas" data-base="22500"></td><td class="mid" data-base="27500"></td><td class="haut" data-base="32500"></td></tr>
+          <tr><td class="commune-name">Arue</td><td class="bas" data-base="25000"></td><td class="mid" data-base="30000"></td><td class="haut" data-base="35000"></td></tr>
+          <tr><td class="commune-name">Paea</td><td class="bas" data-base="20000"></td><td class="mid" data-base="25000"></td><td class="haut" data-base="30000"></td></tr>
+          <tr><td class="commune-name">Mahina</td><td class="bas" data-base="15000"></td><td class="mid" data-base="20000"></td><td class="haut" data-base="25000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🌿 Côte Est</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Commune</th><th>Bas (XPF/m²)</th><th>Central (XPF/m²)</th><th>Haut (XPF/m²)</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Papenoo · Tiarei · Hitiaa · Faaone</td><td class="bas" data-base="10000"></td><td class="mid" data-base="15000"></td><td class="haut" data-base="20000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🌺 Sud & Presqu'île</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Commune</th><th>Bas (XPF/m²)</th><th>Central (XPF/m²)</th><th>Haut (XPF/m²)</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Papara</td><td class="bas" data-base="15000"></td><td class="mid" data-base="20000"></td><td class="haut" data-base="25000"></td></tr>
+          <tr><td class="commune-name">Mataiea · Papeari</td><td class="bas" data-base="12500"></td><td class="mid" data-base="17500"></td><td class="haut" data-base="22500"></td></tr>
+          <tr><td class="commune-name">Taravao</td><td class="bas" data-base="15000"></td><td class="mid" data-base="20000"></td><td class="haut" data-base="25000"></td></tr>
+          <tr><td class="commune-name">Toahotu · Afaahiti</td><td class="bas" data-base="12500"></td><td class="mid" data-base="17500"></td><td class="haut" data-base="22500"></td></tr>
+          <tr><td class="commune-name">Vairao · Teahupoo · Tautira · Pueu</td><td class="bas" data-base="10000"></td><td class="mid" data-base="15000"></td><td class="haut" data-base="20000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🏝️ Moorea</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Zone</th><th>Bas (XPF/m²)</th><th>Central (XPF/m²)</th><th>Haut (XPF/m²)</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Maharepa · Papetoai <span class="tag-sm">centre éco.</span></td><td class="bas" data-base="25000"></td><td class="mid" data-base="30000"></td><td class="haut" data-base="35000"></td></tr>
+          <tr><td class="commune-name">Haapiti · Paopao · Cook</td><td class="bas" data-base="20000"></td><td class="mid" data-base="25000"></td><td class="haut" data-base="30000"></td></tr>
+          <tr><td class="commune-name">Afareaitu · Teavaro</td><td class="bas" data-base="15000"></td><td class="mid" data-base="20000"></td><td class="haut" data-base="25000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ==================== MAISONS ==================== -->
+  <div id="tab-maison" class="tab-pane">
+    <div class="note-box">
+      <strong>Prix totaux terrain + construction inclus</strong> — fourchettes réelles par commune et type de bien. 
+      Calibrées sur les transactions et annonces actives du marché polynésien — mars 2026. 
+      Un même bien peut varier de 30 à 50% selon la vue, l'état et les équipements.
+    </div>
+
+    <div class="section">
+      <div class="section-title">🏙️ Papeete · Pirae</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Type</th><th>Surface hab.</th><th>Fourchette basse</th><th>Prix courant</th><th>Haut de gamme</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Maison F3</td><td>70–90 m²</td><td class="bas" data-base="45000000"></td><td class="mid" data-base="70000000"></td><td class="haut" data-base="120000000"></td></tr>
+          <tr><td class="commune-name">Maison F4</td><td>100–130 m²</td><td class="bas" data-base="65000000"></td><td class="mid" data-base="100000000"></td><td class="haut" data-base="180000000"></td></tr>
+          <tr><td class="commune-name">Maison F5+</td><td>140 m²+</td><td class="bas" data-base="90000000"></td><td class="mid" data-base="150000000"></td><td class="haut" data-base="300000000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🌿 Punaauia · Arue</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Type</th><th>Surface hab.</th><th>Fourchette basse</th><th>Prix courant</th><th>Haut de gamme</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Maison F3</td><td>70–90 m²</td><td class="bas" data-base="40000000"></td><td class="mid" data-base="60000000"></td><td class="haut" data-base="110000000"></td></tr>
+          <tr><td class="commune-name">Maison F4</td><td>100–130 m²</td><td class="bas" data-base="55000000"></td><td class="mid" data-base="85000000"></td><td class="haut" data-base="160000000"></td></tr>
+          <tr><td class="commune-name">Maison F5+</td><td>140 m²+</td><td class="bas" data-base="75000000"></td><td class="mid" data-base="120000000"></td><td class="haut" data-base="250000000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🌿 Faaa · Mahina · Paea</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Type</th><th>Surface hab.</th><th>Fourchette basse</th><th>Prix courant</th><th>Haut de gamme</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Maison F3</td><td>70–90 m²</td><td class="bas" data-base="30000000"></td><td class="mid" data-base="48000000"></td><td class="haut" data-base="80000000"></td></tr>
+          <tr><td class="commune-name">Maison F4</td><td>100–130 m²</td><td class="bas" data-base="42000000"></td><td class="mid" data-base="65000000"></td><td class="haut" data-base="120000000"></td></tr>
+          <tr><td class="commune-name">Maison F5+</td><td>140 m²+</td><td class="bas" data-base="60000000"></td><td class="mid" data-base="90000000"></td><td class="haut" data-base="180000000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🌺 Papara · Taravao</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Type</th><th>Surface hab.</th><th>Fourchette basse</th><th>Prix courant</th><th>Haut de gamme</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Maison F2–F3</td><td>60–90 m²</td><td class="bas" data-base="22000000"></td><td class="mid" data-base="38000000"></td><td class="haut" data-base="65000000"></td></tr>
+          <tr><td class="commune-name">Maison F4</td><td>100–130 m²</td><td class="bas" data-base="32000000"></td><td class="mid" data-base="52000000"></td><td class="haut" data-base="90000000"></td></tr>
+          <tr><td class="commune-name">Maison F5+</td><td>140 m²+</td><td class="bas" data-base="45000000"></td><td class="mid" data-base="70000000"></td><td class="haut" data-base="130000000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🌊 Presqu'île · Côte Est</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Type</th><th>Surface hab.</th><th>Fourchette basse</th><th>Prix courant</th><th>Haut de gamme</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Maison F2–F3</td><td>60–90 m²</td><td class="bas" data-base="18000000"></td><td class="mid" data-base="30000000"></td><td class="haut" data-base="55000000"></td></tr>
+          <tr><td class="commune-name">Maison F4</td><td>100–130 m²</td><td class="bas" data-base="25000000"></td><td class="mid" data-base="42000000"></td><td class="haut" data-base="80000000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🏝️ Moorea</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Zone · Type</th><th>Surface hab.</th><th>Fourchette basse</th><th>Prix courant</th><th>Haut de gamme</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Maharepa · F3–F4</td><td>80–120 m²</td><td class="bas" data-base="38000000"></td><td class="mid" data-base="65000000"></td><td class="haut" data-base="130000000"></td></tr>
+          <tr><td class="commune-name">Haapiti · Paopao · F3–F4</td><td>80–120 m²</td><td class="bas" data-base="30000000"></td><td class="mid" data-base="52000000"></td><td class="haut" data-base="110000000"></td></tr>
+          <tr><td class="commune-name">Afareaitu · Teavaro · F3</td><td>70–100 m²</td><td class="bas" data-base="22000000"></td><td class="mid" data-base="38000000"></td><td class="haut" data-base="75000000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="note-box" style="margin-top:20px">
+      ⚠️ Ces fourchettes intègrent terrain + construction. Un écart important peut exister selon la taille du terrain, la vue mer, l'état de la construction et les équipements (piscine, clim, solaire…).
+      <br><strong>Source :</strong> Données calibrées sur les transactions et annonces actives du marché polynésien — Olivier BLAISE · Cabinet LEVY, mars 2026.
+    </div>
+  </div>
+
+  <!-- ==================== APPARTEMENTS ==================== -->
+  <div id="tab-appart" class="tab-pane">
+    <div class="note-box">Prix au m² habitable · Appartement standard sans vue mer ni équipement exceptionnel · Source : Données calibrées sur les transactions et annonces actives du marché polynésien — Olivier BLAISE · Cabinet LEVY, mars 2026. <strong>Médiane marché PF (déc. 2025) : environ 635 000 XPF/m² · Les petites surfaces sont structurellement plus chères au m².</strong></div>
+
+    <div class="section">
+      <div class="section-title">🏙️ Tahiti — Appartements</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Commune</th><th>Bas (XPF/m²)</th><th>Central (XPF/m²)</th><th>Haut (XPF/m²)</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Papeete · Pirae <span class="tag-sm">petites surfaces F1-F2</span></td><td class="bas" data-base="450000"></td><td class="mid" data-base="650000"></td><td class="haut" data-base="900000"></td></tr>
+          <tr><td class="commune-name">Papeete · Pirae <span class="tag-sm">grandes surfaces F3+</span></td><td class="bas" data-base="350000"></td><td class="mid" data-base="500000"></td><td class="haut" data-base="700000"></td></tr>
+          <tr><td class="commune-name">Punaauia · Arue</td><td class="bas" data-base="300000"></td><td class="mid" data-base="480000"></td><td class="haut" data-base="680000"></td></tr>
+          <tr><td class="commune-name">Faaa · Mahina · Paea</td><td class="bas" data-base="240000"></td><td class="mid" data-base="380000"></td><td class="haut" data-base="550000"></td></tr>
+          <tr><td class="commune-name">Papara · Taravao · communes</td><td class="bas" data-base="200000"></td><td class="mid" data-base="320000"></td><td class="haut" data-base="450000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🏝️ Moorea — Appartements</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Zone</th><th>Bas (XPF/m²)</th><th>Central (XPF/m²)</th><th>Haut (XPF/m²)</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Maharepa · Papetoai</td><td class="bas" data-base="280000"></td><td class="mid" data-base="450000"></td><td class="haut" data-base="650000"></td></tr>
+          <tr><td class="commune-name">Haapiti · Paopao</td><td class="bas" data-base="240000"></td><td class="mid" data-base="380000"></td><td class="haut" data-base="550000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="note-box" style="margin-top:20px">
+      <strong>Penthouse / rooftop :</strong> +25 à +35% · <strong>Vue mer directe :</strong> +15 à +25% · <strong>4e étage et + :</strong> +8 à +12% · <strong>Résidence gardiennée / piscine :</strong> +5 à +10%
+    </div>
+  </div>
+
+  <!-- ==================== LOYERS ==================== -->
+  <div id="tab-loyers" class="tab-pane">
+    <div class="note-box">Loyers mensuels indicatifs · Biens non meublés, état correct · <strong>Source : Données calibrées sur les transactions et annonces actives du marché polynésien — Olivier BLAISE · Cabinet LEVY, mars 2026.</strong> Meublé : +15% · Piscine : +10 à +15% · Vue mer : +15%</div>
+
+    <div class="section">
+      <div class="section-title">🏠 Loyers maisons — XPF/mois (surface 80–120 m²)</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Commune</th><th>Bas</th><th>Central</th><th>Haut</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Papeete · Pirae</td><td class="bas loyer" data-base="140000"></td><td class="mid loyer" data-base="200000"></td><td class="haut loyer" data-base="280000"></td></tr>
+          <tr><td class="commune-name">Punaauia · Arue</td><td class="bas loyer" data-base="120000"></td><td class="mid loyer" data-base="175000"></td><td class="haut loyer" data-base="260000"></td></tr>
+          <tr><td class="commune-name">Faaa · Mahina · Paea</td><td class="bas loyer" data-base="100000"></td><td class="mid loyer" data-base="145000"></td><td class="haut loyer" data-base="210000"></td></tr>
+          <tr><td class="commune-name">Papara · Taravao</td><td class="bas loyer" data-base="80000"></td><td class="mid loyer" data-base="120000"></td><td class="haut loyer" data-base="175000"></td></tr>
+          <tr><td class="commune-name">Presqu'île · Côte Est</td><td class="bas loyer" data-base="65000"></td><td class="mid loyer" data-base="100000"></td><td class="haut loyer" data-base="145000"></td></tr>
+          <tr><td class="commune-name">Moorea</td><td class="bas loyer" data-base="120000"></td><td class="mid loyer" data-base="180000"></td><td class="haut loyer" data-base="280000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🏢 Loyers appartements — XPF/mois (surface 50–75 m²)</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Commune</th><th>Bas</th><th>Central</th><th>Haut</th></tr></thead>
+        <tbody>
+          <tr><td class="commune-name">Papeete · Pirae</td><td class="bas loyer" data-base="110000"></td><td class="mid loyer" data-base="155000"></td><td class="haut loyer" data-base="240000"></td></tr>
+          <tr><td class="commune-name">Punaauia · Arue</td><td class="bas loyer" data-base="95000"></td><td class="mid loyer" data-base="135000"></td><td class="haut loyer" data-base="200000"></td></tr>
+          <tr><td class="commune-name">Faaa · Mahina · Paea</td><td class="bas loyer" data-base="75000"></td><td class="mid loyer" data-base="110000"></td><td class="haut loyer" data-base="160000"></td></tr>
+          <tr><td class="commune-name">Papara · Taravao · communes</td><td class="bas loyer" data-base="60000"></td><td class="mid loyer" data-base="90000"></td><td class="haut loyer" data-base="130000"></td></tr>
+          <tr><td class="commune-name">Moorea</td><td class="bas loyer" data-base="90000"></td><td class="mid loyer" data-base="140000"></td><td class="haut loyer" data-base="220000"></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h2>Besoin d'une valeur précise ?</h2>
+    <p>Ces fourchettes sont un point de départ. Pour vendre, emprunter ou hériter, seule une estimation officielle a de la valeur.</p>
+    <a href="/" class="cta-btn">Demander mon estimation →</a>
+    <span class="cta-tel">📞 <a href="tel:+68989225643" style="color:inherit;text-decoration:none">89 22 56 43</a> · WhatsApp <a href="https://wa.me/68987225643" style="color:inherit;text-decoration:none">87 22 56 43</a></span>
+  </div>
+
+</div>
+
+<footer>
+  <span class="f-brand">Cabinet <em>LEVY</em> — Olivier BLAISE · olivierimmopolynesie.com</span>
+  <div class="f-links">
+    <a href="/mentions-legales">Mentions légales</a>
+    <a href="/politique-de-confidentialite">Confidentialité</a>
+    <a href="/calculateur">Calculateur</a>
+    <a href="/blog">Blog</a>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ---- INFLATION AUTO INVISIBLE ----
+// Base 2026 — Sources : ISPF BTP (+3%/an réel), marché immo Tahiti (+4%/an)
+const _AN = Math.max(0, new Date().getFullYear() - 2026);
+const _II = v => Math.round(v * (1 + 0.04 * _AN));  // immo +4%/an
+const _IL = v => Math.round(v * (1 + 0.015 * _AN)); // loyers +1.5%/an IPC PF
+const _fmt = n => n.toLocaleString('fr-FR') + ' XPF';
+
+// Appliquer l'inflation sur toutes les cellules avec data-base
+function applyInflation() {
+  const annee = 2026 + _AN;
+  // Mettre à jour le badge année
+  const badge = document.getElementById('annee-badge');
+  if (badge) badge.textContent = `Données ${annee} · Calibrées par Olivier BLAISE · Cabinet LEVY`;
+
+  document.querySelectorAll('[data-base]').forEach(td => {
+    const base = parseInt(td.getAttribute('data-base'));
+    const isLoyer = td.classList.contains('loyer');
+    const val = isLoyer ? _IL(base) : _II(base);
+    td.textContent = _fmt(val);
+  });
+}
+
+// ---- TABS ----
+function showTab(n, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + n).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ---- SCROLL TOP ----
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 300);
+});
+
+// ---- INIT ----
+applyInflation();
+</script>
+</body>
+</html>
