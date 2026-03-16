@@ -445,7 +445,7 @@ optgroup{font-style:normal}
     <div class="result-detail" id="a-detail">—</div>
     <div id="a-loyer-ind" style="margin-top:8px;font-size:.78rem;color:#c9a84c;padding:7px 12px;background:rgba(201,168,76,.06);border-radius:6px;border:1px solid rgba(201,168,76,.12)">—</div>
   </div>
-  <p class="note">Décote étage : −15%/étage sans ascenseur · −5%/étage avec · Vue mer +8% · Médiane PF (Properstar déc. 2025) : 635 000 XPF/m²</p>
+  <p class="note">Étage : RDC jardin +5% · 1er réf · 2e +4% · 3e +8% · 4e +12% · 5e +16% · Penthouse +30% · Vue mer +10 à +35% · Médiane PF (Properstar déc. <span id="prop-yr1"></span>) : <span id="prop-m2-apt"></span> XPF/m²</p>
   <div class="disclaimer">Résultat indicatif · Pour une valeur certifiée banque/notaire, demandez une estimation officielle.</div>
 </div>
 <div class="cta-box">
@@ -460,13 +460,13 @@ optgroup{font-style:normal}
 <div id="tab-methodo" style="display:none">
 <div class="card">
   <div class="card-title">Comment fonctionne ce calculateur ?</div>
-  <p style="font-size:.85rem;line-height:1.75;color:#444;margin-bottom:16px">Ce calculateur est basé sur ma méthode personnelle de valorisation, affinée sur plus de 10 ans d'activité à Tahiti et en Polynésie française, et recalibrée sur les données d'annonces réelles 2024-2025.</p>
+  <p style="font-size:.85rem;line-height:1.75;color:#444;margin-bottom:16px">Ce calculateur est basé sur ma méthode personnelle de valorisation, affinée sur plus de 10 ans d'activité à Tahiti et en Polynésie française, et recalibrée sur les données d'annonces réelles <span id='meth-yr'></span>.</p>
   <h4 style="font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--noir);margin:16px 0 8px">Terrains</h4>
   <p style="font-size:.82rem;line-height:1.7;color:#555">Les fourchettes de prix par commune sont les prix terrains résidentiels viabilisés standard calibrés par Olivier BLAISE sur le marché actif 2026 — terrains bien situés, constructibles, accessibles, sans vue particulière. Les annonces internet affichent souvent des prix plus bas car elles concernent de grandes parcelles en pente ou peu accessibles. Les critères de valorisation et de décote s'appliquent sur ces bases. Inflation terrain estimée à +3,5–5%/an hors spéculation. Ces fourchettes ne constituent pas une estimation officielle.</p>
   <h4 style="font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--noir);margin:16px 0 8px">Maisons</h4>
   <p style="font-size:.82rem;line-height:1.7;color:#555">Surface pondérée = surface habitable + (surfaces utiles × 0,5). Vétusté : 1%/an en état normal (0,5% rénové à 1,75% gros travaux), plafonnée à 70%. Les équipements (piscine, clôtures, solaire…) sont valorisés séparément.</p>
   <h4 style="font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--noir);margin:16px 0 8px">Appartements</h4>
-  <p style="font-size:.82rem;line-height:1.7;color:#555">Médiane marché PF (Properstar déc. 2025) : 635 000 XPF/m² pour les appartements, 561 000 XPF/m² pour les maisons. Décote par étage : −15% sans ascenseur, −5% avec. Vue mer et commune valorisées en pourcentage.</p>
+  <p style="font-size:.82rem;line-height:1.7;color:#555">Médiane marché PF (Properstar déc. <span id="prop-yr2"></span>) : <span id="prop-m2-apt2"></span> XPF/m² pour les appartements, <span id="prop-m2-mai"></span> XPF/m² pour les maisons. Étages valorisés de RDC jardin (+5%) à Penthouse (+30%). Vue mer et commune valorisées en pourcentage.</p>
   <h4 style="font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--noir);margin:16px 0 8px">Îles éloignées</h4>
   <p style="font-size:.82rem;line-height:1.7;color:#555">Pour Bora Bora, les Îles Sous-le-Vent, les Tuamotu, les Marquises et les Australes, le marché est trop hétérogène pour un calcul automatique fiable. Je réalise des estimations officielles sur dossier (plans, photos, actes) sans déplacement.</p>
   <div class="disclaimer" style="margin-top:16px">Ce calculateur fournit une valeur indicative uniquement. Pour toute transaction, financement bancaire, succession ou litige, seule une estimation officielle avec visite (ou analyse documentaire pour les îles) est valable.</div>
@@ -620,7 +620,7 @@ function calcMaison(){
   const tx=parseFloat($('m-etat').value)||1;
   const sp=sh+su*0.5;
   $('m-pond').textContent=sp.toFixed(1)+' m²';
-  const age=2026-an, vp=Math.min(age*tx,70);
+  const age=new Date().getFullYear()-an, vp=Math.min(age*tx,70);
   $('m-vp').textContent='−'+vp.toFixed(1)+'%';
   const vb=sp*tp, vv=vb*vp/100;
   let ve=0;
@@ -736,6 +736,16 @@ function calcAppart(){
   if($('a-loyer-ind'))$('a-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_aLoyMois)+' XPF/mois';
 }
 buildEQ();tCommuneChange();calcMaison();calcAppart();
+// Année méthodologie
+const _methYr=document.getElementById('meth-yr');
+// Properstar médiane — indexée inflation +4%/an base 2026
+const _propYr=new Date().getFullYear()-1; // "déc. 2025" en 2026, "déc. 2026" en 2027
+const _propApt=_II(635000), _propMai=_II(561000);
+const _fmtProp=v=>Math.round(v/1000)*1000;
+['prop-yr1','prop-yr2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=_propYr;});
+['prop-m2-apt','prop-m2-apt2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=_fmtProp(_propApt).toLocaleString('fr-FR');});
+const _pm2mai=document.getElementById('prop-m2-mai');if(_pm2mai)_pm2mai.textContent=_fmtProp(_propMai).toLocaleString('fr-FR');
+if(_methYr)_methYr.textContent=(new Date().getFullYear()-1)+'-'+new Date().getFullYear();
 // Année max dynamique
 const _curY=new Date().getFullYear();
 const _ma=document.getElementById('m-annee');if(_ma)_ma.max=_curY;
