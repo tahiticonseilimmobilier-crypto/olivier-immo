@@ -1951,7 +1951,8 @@ function calcMaisonLoyer(){
   const mVetReal=Math.min(Math.round((new Date().getFullYear()-mAnnee)*mEtatRate),70);
   // Surface terrain → impact loyer
   const mTsurf=parseFloat($('mt-surf')?.value)||500;
-  const mTsurfCoef=mTsurf<200?0.95:mTsurf<500?1.0:mTsurf<1000?1.05:mTsurf<2000?1.08:1.12;
+  // Progression linéaire surface terrain
+  const mTsurfCoef=mTsurf<=50?0.93:mTsurf>=2000?1.15:mTsurf<=500?0.93+((mTsurf-50)/450)*0.07:1.0+((mTsurf-500)/1500)*0.15;
   const loyerBase2=getLoyerMaison(commune,surf,mVuePct2,mPisc2,mMeuble2,mClimNb2,mVetReal,null);
   const loyerRaw=Math.round(loyerBase2*mConstrLoyer*mToitLoyer*mTsurfCoef*(1+mBonusLoyer*0.7)*(1-mRiskLoyer*0.7)*(1-mtDecLoyer*0.7));
   const mPlafondMap={'350000,500000':420000,'300000,450000':380000,'250000,380000':280000,

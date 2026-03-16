@@ -694,7 +694,8 @@ function calcMaison(){
   // _getLoyerMaison intègre l'état — on ne duplique pas _mEtatCoef
   const _mLoyBase=_getLoyerMaison(_mComm,_mSurf,_mVuePct,_mPisc,_mMeuble,_mClim,_mVp,null);
   const _mTsurf=parseFloat($('mt-surf')?.value)||500;
-  const _mTsurfCoef=_mTsurf<200?0.95:_mTsurf<500?1.0:_mTsurf<1000?1.05:_mTsurf<2000?1.08:1.12;
+  // Progression linéaire surface terrain : 50m²=0.93 → 500m²=1.0 → 2000m²=1.15
+  const _mTsurfCoef=_mTsurf<=50?0.93:_mTsurf>=2000?1.15:_mTsurf<=500?0.93+((_mTsurf-50)/450)*0.07:1.0+((_mTsurf-500)/1500)*0.15;
   const _mLoyRaw2=Math.round(_mLoyBase*_mConstCoef*_mDecCoef*_mTsurfCoef);
   // Plafond loyer maison par commune
   const _mPlafond_MAP={'35000,40000,45000':420000,'30000,35000,40000':380000,'25000,30000,35000':360000,
