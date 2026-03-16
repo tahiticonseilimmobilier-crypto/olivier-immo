@@ -644,24 +644,30 @@ function calcMaison(){
   $('m-infla').textContent='Construction : '+fmtMF(totConst)+' + Terrain : '+fmtMF(totTerBas)+' – '+fmtMF(totTerHau)+' · Dans 1 an : ~'+fmtMF(totBien*1.04);
   const _mComm=($('mt-commune')?.value)||'15000,20000,25000';
   const _mSurf=parseFloat($('m-surfhab')?.value)||120;
-  // Critères loyer maison — construction
+  // Construction → impact loyer
   const _mTp=parseInt($('m-type')?.value)||175000;
-  const _mConstCoef=_mTp>=200000?1.15:_mTp>=175000?1.0:_mTp>=150000?0.97:0.90; // standing: architecte>béton>métal>bois
-  // État
-  const _mVp=parseFloat($('m-vp')?.textContent)||0; // vétusté %
-  const _mEtatCoef=_mVp<10?1.10:_mVp<30?1.0:_mVp<50?0.92:0.85;
-  // Équipements qui valorisent le loyer
-  const _mPiscCoef=($('eq-piscine')?.checked)?1.15:1.0;
-  const _mSolCoef=($('eq-sol')?.checked)?1.05:1.0;
-  const _mClimCoef=($('eq-clim')?.checked)?1.05:1.0;
-  const _mMeubleCoef=($('eq-meuble')?.checked)?1.15:1.0;
-  // Terrain — vue mer
-  let _mTerrainCoef=1.0;
+  const _mConstCoef=_mTp>=200000?1.10:_mTp>=175000?1.0:_mTp>=160000?0.97:_mTp>=150000?0.93:0.88;
+  // Vétusté → état
+  const _mVp=parseFloat($('m-vp')?.textContent)||0;
+  const _mEtatCoef=_mVp<10?1.08:_mVp<30?1.0:_mVp<50?0.92:0.82;
+  // Équipements
+  const _mPisc=($('eq-piscine')?.checked)||false;
+  const _mMeuble=($('eq-meuble')?.checked)||false;
+  const _mClim=($('eq-clim')?.checked)?1:0;
+  // Vue mer terrain (critères .mt-crit)
+  let _mVuePct=0;
   document.querySelectorAll('.mt-crit').forEach(cb=>{
-    if(cb.checked){const v=parseFloat(cb.value)||0;if(v>=0.20)_mTerrainCoef=Math.max(_mTerrainCoef,1.0+v*0.4);}
+    if(cb.checked){const v=parseFloat(cb.value)||0;if(v>_mVuePct)_mVuePct=v;}
   });
-  const _mVueFin=_mTerrainCoef>1?(_mTerrainCoef-1)*2:0;
-  const _mLoyMois2=_IL(_getLoyerMaison(_mComm,_mSurf,_mVueFin,_mPiscCoef>1,_mMeubleCoef>1,_mClimCoef>1,parseFloat($('m-vp')?.textContent)||0,null));
+  // Décotes terrain (accès difficile, pente, PPR — .mt-dec)
+  let _mDecPct=0;
+  document.querySelectorAll('.mt-dec').forEach(cb=>{
+    if(cb.checked)_mDecPct+=parseFloat(cb.value)||0;
+  });
+  const _mDecCoef=Math.max(0.60,1-_mDecPct*0.7);
+  // Calcul loyer final
+  const _mLoyBase=_getLoyerMaison(_mComm,_mSurf,_mVuePct,_mPisc,_mMeuble,_mClim,_mVp,null);
+  const _mLoyMois2=_IL(Math.round(_mLoyBase*_mConstCoef*_mEtatCoef*_mDecCoef));
   if($('m-loyer-ind'))$('m-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_mLoyMois2)+' XPF/mois';
 }
 function calcAppart(){
