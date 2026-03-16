@@ -1953,7 +1953,12 @@ function calcMaisonLoyer(){
   const mTsurf=parseFloat($('mt-surf')?.value)||500;
   const mTsurfCoef=mTsurf<200?0.95:mTsurf<500?1.0:mTsurf<1000?1.05:mTsurf<2000?1.08:1.12;
   const loyerBase2=getLoyerMaison(commune,surf,mVuePct2,mPisc2,mMeuble2,mClimNb2,mVetReal,null);
-  const loyerCen=Math.round(loyerBase2*mConstrLoyer*mToitLoyer*mTsurfCoef*(1+mBonusLoyer*0.7)*(1-mRiskLoyer*0.7)*(1-mtDecLoyer*0.7));
+  const loyerRaw=Math.round(loyerBase2*mConstrLoyer*mToitLoyer*mTsurfCoef*(1+mBonusLoyer*0.7)*(1-mRiskLoyer*0.7)*(1-mtDecLoyer*0.7));
+  const mPlafondMap={'350000,500000':420000,'300000,450000':380000,'250000,380000':280000,
+    '200000,320000':220000,'180000,280000':190000,'160000,250000':170000,
+    '280000,420000':360000,'240000,370000':320000,'200000,300000':280000};
+  const mPlafond=mPlafondMap[commune]||420000;
+  const loyerCen=Math.min(loyerRaw,mPlafond);
   const loyerBas=Math.round(loyerCen*0.85);
   const loyerHau=Math.round(loyerCen*1.15);
   
