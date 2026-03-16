@@ -272,7 +272,13 @@ optgroup{font-style:normal}
           <div class="field"><label>Surface (m²)</label><input type="number" id="a-surf" value="70" min="20" oninput="calc()"></div>
           <div class="field"><label>Étage</label><input type="number" id="a-etage" value="0" min="0" oninput="calc()"></div>
         </div>
-        <label class="check-row"><input type="checkbox" id="a-vue" onchange="calc()"> Vue mer (+8%)</label>
+        <div class="field" style="margin-bottom:8px"><label style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#888">Vue</label>
+        <select id="a-vue-sel" onchange="calc()" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;font-size:.9rem">
+          <option value="0">Vue standard</option>
+          <option value="0.05">Vue mer partielle (+5%)</option>
+          <option value="0.10">Vue mer directe (+10%)</option>
+          <option value="0.15">Bord de mer / lagon (+15%)</option>
+        </select></div>
         <label class="check-row"><input type="checkbox" id="a-cuisine" onchange="calc()" checked> Cuisine équipée</label>
       </div>
 
@@ -406,7 +412,7 @@ function calc(){
     }
   } else if(cur==='maison'){
     const tp=parseInt($('m-type').value)||175000;
-    const age=new Date().getFullYear()-(parseInt($('m-annee').value)||2010);
+    const age=2026-(parseInt($('m-annee').value)||2010);
     const sp=(parseFloat($('m-hab').value)||0)+(parseFloat($('m-util').value)||0)*0.5;
     const vp=Math.min(age*(parseFloat($('m-etat').value)||1),70);
     const totConst=sp*tp*(1-vp/100);
@@ -422,9 +428,12 @@ function calc(){
     if(!iles){
       const [pn,px]=($('a-gamme').value||'350000,500000').split(',').map(Number);
       const mc=parseFloat(cv)||0,s=parseFloat($('a-surf').value)||0;
-      const et=parseInt($('a-etage').value)||0,dec=et>0?0.10*et:0;
-      const vm=$('a-vue').checked?0.08:0,cu=$('a-cuisine').checked;
-      const cf=(1+mc+vm)*(1-Math.min(dec,0.4));
+      const et=parseInt($('a-etage').value)||0;
+      // Étage : valorisation (pas décote) — logique tahitienne
+      const etCoef=et<=0?-0.03:et===1?0:et===2?0.03:et===3?0.05:et===4?0.07:et>=5?0.09:0;
+      const vm=parseFloat($('a-vue-sel')?.value)||0;
+      const cu=$('a-cuisine')?.checked||false;
+      const cf=(1+mc+vm+etCoef);
       const mn=s*pn*cf+(cu?2000000:0), mx=s*px*cf+(cu?3500000:0);
       $('result-val').textContent=fmtMF(mn)+' – '+fmtMF(mx);
       $('result-lbl').textContent='Appartement hors terrain';
