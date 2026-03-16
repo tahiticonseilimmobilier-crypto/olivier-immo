@@ -406,7 +406,7 @@ function calc(){
     }
   } else if(cur==='maison'){
     const tp=parseInt($('m-type').value)||175000;
-    const age=2026-(parseInt($('m-annee').value)||2010);
+    const age=new Date().getFullYear()-(parseInt($('m-annee').value)||2010);
     const sp=(parseFloat($('m-hab').value)||0)+(parseFloat($('m-util').value)||0)*0.5;
     const vp=Math.min(age*(parseFloat($('m-etat').value)||1),70);
     const totConst=sp*tp*(1-vp/100);
@@ -422,13 +422,9 @@ function calc(){
     if(!iles){
       const [pn,px]=($('a-gamme').value||'350000,500000').split(',').map(Number);
       const mc=parseFloat(cv)||0,s=parseFloat($('a-surf').value)||0;
-      const et=parseInt($('a-etage').value)||0;
-      // Coefficients étage calibrés sur données réelles Marama (Papeete)
-      const etCoef=et===0?0:et===1?0.05:et===2?0.08:et===3?0.12:et>=4?0.20:0;
-      // +30% pour penthouse (étage 99 ou >5)
-      const etFinal=et>5?0.30:etCoef;
+      const et=parseInt($('a-etage').value)||0,dec=et>0?0.10*et:0;
       const vm=$('a-vue').checked?0.08:0,cu=$('a-cuisine').checked;
-      const cf=(1+mc+vm+etFinal);
+      const cf=(1+mc+vm)*(1-Math.min(dec,0.4));
       const mn=s*pn*cf+(cu?2000000:0), mx=s*px*cf+(cu?3500000:0);
       $('result-val').textContent=fmtMF(mn)+' – '+fmtMF(mx);
       $('result-lbl').textContent='Appartement hors terrain';
