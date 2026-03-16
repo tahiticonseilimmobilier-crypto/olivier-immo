@@ -1865,9 +1865,10 @@ function aSwitchTab(t){
 // Base Papeete/agglo : Studio 100k · F2 140k · F3 180k · F4 220k · F5 260k · Penthouse 380k
 // Coefficients commune : Papeete=1.0, Faaa/Mahina/Paea=0.82, Papara=0.72, Taravao=0.70, Presquile=0.60, Moorea=1.05
 // ═══════════════════════════════════════════════════
-const LOYER_TYPE={studio:100000,f2:140000,f3:180000,f4:220000,f5:260000,penthouse:380000};
+const LOYER_TYPE={studio:80000,f2:120000,f3:160000,f4:200000,f5:240000,penthouse:340000};
 const LOYER_COMM={
-  '350000,500000':1.0,'300000,450000':1.0,  // Papeete/Pirae
+  '350000,500000':1.0,  // Papeete/Pirae
+  '300000,450000':0.92,  // Punaauia/Arue −8%
   '250000,380000':0.82,                      // Faaa/Mahina/Paea
   '200000,320000':0.72,                      // Papara/Taravao
   '180000,280000':0.65,                      // Mataiea/Toahotu
@@ -1878,7 +1879,7 @@ const LOYER_COMM={
 };
 function getLoyerBase(commune,surf){
   const t=surf<40?'studio':surf<60?'f2':surf<85?'f3':surf<110?'f4':surf<150?'f5':'penthouse';
-  const base=LOYER_TYPE[t]||180000;
+  const base=LOYER_TYPE[t]||160000;
   const comm=LOYER_COMM[commune]||1.0;
   return Math.round(base*comm);
 }
@@ -1948,8 +1949,11 @@ function calcMaisonLoyer(){
   const mEtatRate=parseFloat($('m-etat')?.value)||1;
   const mAnnee=parseInt($('m-annee')?.value)||2000;
   const mVetReal=Math.min(Math.round((new Date().getFullYear()-mAnnee)*mEtatRate),70);
+  // Surface terrain → impact loyer
+  const mTsurf=parseFloat($('mt-surf')?.value)||500;
+  const mTsurfCoef=mTsurf<200?0.95:mTsurf<500?1.0:mTsurf<1000?1.05:mTsurf<2000?1.08:1.12;
   const loyerBase2=getLoyerMaison(commune,surf,mVuePct2,mPisc2,mMeuble2,mClimNb2,mVetReal,null);
-  const loyerCen=Math.round(loyerBase2*mConstrLoyer*mToitLoyer*(1+mBonusLoyer*0.7)*(1-mRiskLoyer*0.7)*(1-mtDecLoyer*0.7));
+  const loyerCen=Math.round(loyerBase2*mConstrLoyer*mToitLoyer*mTsurfCoef*(1+mBonusLoyer*0.7)*(1-mRiskLoyer*0.7)*(1-mtDecLoyer*0.7));
   const loyerBas=Math.round(loyerCen*0.85);
   const loyerHau=Math.round(loyerCen*1.15);
   

@@ -531,7 +531,7 @@ function tCommuneChange(){
 // Loyers base Papeete/agglo par type (XPF/mois) — données Cabinet LEVY 2026
 // Studio:100k F2:140k F3:180k F4:220k F5:260k Penthouse:380k
 // Coefficients communaux : Papeete=1.0, Faaa/Mahina/Paea=0.82, Papara=0.72, Taravao=0.70, Presquile=0.60, Moorea=1.05
-const _LOYER_BASE_TYPE={studio:100000,f2:140000,f3:180000,f4:220000,f5:260000,penthouse:380000};
+const _LOYER_BASE_TYPE={studio:80000,f2:120000,f3:160000,f4:200000,f5:240000,penthouse:340000};
 const _LOYER_COEFF_COMM={
   '350000,500000':1.0,'300000,450000':1.0,'250000,380000':0.82,
   '200000,320000':0.72,'180000,280000':0.65,'160000,250000':0.60,
@@ -541,11 +541,11 @@ const _LOYER_COEFF_COMM={
 function _commLoyer(cv){
   const v=parseFloat(cv)||0;
   if(v>=0.20)return 1.0;      // Papeete/Pirae
-  if(v>=0.15)return 1.0;      // Punaauia/Arue
+  if(v>=0.15)return 0.92;     // Punaauia/Arue −8%
+  if(v>=0.12)return 1.05;     // Moorea centre +5%
   if(v>=0.10)return 0.82;     // Faaa/Mahina/Paea
+  if(v>=0.08)return 1.05;     // Moorea autres +5%
   if(v>=0.05)return 0.70;     // Taravao/Papenoo
-  if(v>=0.12)return 1.05;     // Moorea centre
-  if(v>=0.06)return 1.05;     // Moorea autres
   return 0.72;                 // Papara/Faaone base
 }
 
@@ -576,10 +576,22 @@ function _getLoyerAppart(cv,surf,etage,vue,standing,asc,cu,meuble,clim,typeForce
   const ascCoef=asc&&(etage==='2'||etage==='3'||etage==='4'||etage==='5'||etage==='6plus')?1.03:1.0;
   return Math.round(base*commCoef*vueCoef*etCoefL*cuCoef*mCoef*clCoef*stCoef*ascCoef);
 }
+
+// Coefficients loyer maison par commune (valeur terrain centrale)
+const _LOYER_COMM_MAISON={
+  '35000,40000,45000':1.0,   // Papeete
+  '30000,35000,40000':0.95,  // Pirae / Punaauia
+  '25000,30000,35000':0.90,  // Arue / Moorea Maharepa
+  '22500,27500,32500':0.82,  // Faaa
+  '20000,25000,30000':0.80,  // Paea / Mataiea / Moorea Haapiti
+  '15000,20000,25000':0.72,  // Mahina / Papara / Taravao / Moorea Afareaitu
+  '12500,17500,22500':0.65,  // Toahotu/Afaahiti
+  '10000,15000,20000':0.60,  // Vairao/Presquile/Cote Est
+};
 function _getLoyerMaison(cv,surf,vue,piscine,meuble,clim,etat,typeForce){
   const t=typeForce||(surf<45?'studio':surf<65?'f2':surf<90?'f3':surf<120?'f4':surf<150?'f5':'penthouse');
   const base=_LOYER_BASE_TYPE[t]||180000;
-  const commCoef=_LOYER_COEFF_COMM[cv]||_commLoyer(cv)||1.0;
+  const commCoef=_LOYER_COMM_MAISON[cv]||_LOYER_COEFF_COMM[cv]||_commLoyer(cv)||1.0;
   const vueCoef=vue>=0.50?1.35:vue>=0.20?1.20:vue>=0.10?1.10:vue>0?1.05:1.0;
   const piscCoef=piscine?1.15:1.0;
   const mCoef=meuble?1.15:1.0;
@@ -681,7 +693,9 @@ function calcMaison(){
   // Calcul loyer final
   // _getLoyerMaison intègre l'état — on ne duplique pas _mEtatCoef
   const _mLoyBase=_getLoyerMaison(_mComm,_mSurf,_mVuePct,_mPisc,_mMeuble,_mClim,_mVp,null);
-  const _mLoyMois2=_IL(Math.round(_mLoyBase*_mConstCoef*_mDecCoef));
+  const _mTsurf=parseFloat($('mt-surf')?.value)||500;
+  const _mTsurfCoef=_mTsurf<200?0.95:_mTsurf<500?1.0:_mTsurf<1000?1.05:_mTsurf<2000?1.08:1.12;
+  const _mLoyMois2=_IL(Math.round(_mLoyBase*_mConstCoef*_mDecCoef*_mTsurfCoef));
   if($('m-loyer-ind'))$('m-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_mLoyMois2)+' XPF/mois';
 }
 function calcAppart(){
