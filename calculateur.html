@@ -714,7 +714,11 @@ function calcAppart(){
   const _aAsc=as||false;
   const _aEtage=($('a-etage')?.value)||'1';
   const _aPiscRes=piscineRes?0.08:0;
-  const _aLoyMois=_IL(Math.round(_getLoyerAppart(cv,s,_aEtage,_aVue,standingV,_aAsc,cu,meubleA,0,null)*(1+_aPiscRes)));
+  // Gamme → multiplicateur loyer direct
+  const _aGammeCoef=($('a-gamme')?.value||'')==='500000,700000'?1.12:1.0;
+  const _aStanding=parseFloat($('a-standing')?.value)||0;
+  const _aLoyBase=_getLoyerAppart(cv,s,_aEtage,_aVue,_aStanding,_aAsc,cu,meubleA,0,null);
+  const _aLoyMois=_IL(Math.round(_aLoyBase*_aGammeCoef*(1+_aPiscRes)));
   if($('a-loyer-ind'))$('a-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_aLoyMois)+' XPF/mois';
 }
 buildEQ();tCommuneChange();calcMaison();calcAppart();
