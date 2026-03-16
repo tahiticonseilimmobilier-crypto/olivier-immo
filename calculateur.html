@@ -462,7 +462,7 @@ optgroup{font-style:normal}
   <div class="card-title">Comment fonctionne ce calculateur ?</div>
   <p style="font-size:.85rem;line-height:1.75;color:#444;margin-bottom:16px">Ce calculateur est basé sur ma méthode personnelle de valorisation, affinée sur plus de 10 ans d'activité à Tahiti et en Polynésie française, et recalibrée sur les données d'annonces réelles <span id='meth-yr'></span>.</p>
   <h4 style="font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--noir);margin:16px 0 8px">Terrains</h4>
-  <p style="font-size:.82rem;line-height:1.7;color:#555">Les fourchettes de prix par commune sont les prix terrains résidentiels viabilisés standard calibrés par Olivier BLAISE sur le marché actif 2026 — terrains bien situés, constructibles, accessibles, sans vue particulière. Les annonces internet affichent souvent des prix plus bas car elles concernent de grandes parcelles en pente ou peu accessibles. Les critères de valorisation et de décote s'appliquent sur ces bases. Inflation terrain estimée à +3,5–5%/an hors spéculation. Ces fourchettes ne constituent pas une estimation officielle.</p>
+  <p style="font-size:.82rem;line-height:1.7;color:#555">Les fourchettes de prix par commune sont les prix terrains résidentiels viabilisés standard calibrés par Olivier BLAISE sur le marché actif <span id='meth-yr2'></span> — terrains bien situés, constructibles, accessibles, sans vue particulière. Les annonces internet affichent souvent des prix plus bas car elles concernent de grandes parcelles en pente ou peu accessibles. Les critères de valorisation et de décote s'appliquent sur ces bases. Inflation terrain estimée à +3,5–5%/an hors spéculation. Ces fourchettes ne constituent pas une estimation officielle.</p>
   <h4 style="font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--noir);margin:16px 0 8px">Maisons</h4>
   <p style="font-size:.82rem;line-height:1.7;color:#555">Surface pondérée = surface habitable + (surfaces utiles × 0,5). Vétusté : 1%/an en état normal (0,5% rénové à 1,75% gros travaux), plafonnée à 70%. Les équipements (piscine, clôtures, solaire…) sont valorisés séparément.</p>
   <h4 style="font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--noir);margin:16px 0 8px">Appartements</h4>
@@ -746,6 +746,8 @@ const _fmtProp=v=>Math.round(v/1000)*1000;
 ['prop-m2-apt','prop-m2-apt2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=_fmtProp(_propApt).toLocaleString('fr-FR');});
 const _pm2mai=document.getElementById('prop-m2-mai');if(_pm2mai)_pm2mai.textContent=_fmtProp(_propMai).toLocaleString('fr-FR');
 if(_methYr)_methYr.textContent=(new Date().getFullYear()-1)+'-'+new Date().getFullYear();
+const _methYr2=document.getElementById('meth-yr2');
+if(_methYr2)_methYr2.textContent=new Date().getFullYear();
 // Année max dynamique
 const _curY=new Date().getFullYear();
 const _ma=document.getElementById('m-annee');if(_ma)_ma.max=_curY;
