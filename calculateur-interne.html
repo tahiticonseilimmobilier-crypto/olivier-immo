@@ -405,7 +405,7 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
       <input type="number" id="m-surf" value="120" min="20" oninput="calcMaison()">
     </div>
     <div class="field"><label>Année de construction</label>
-      <input type="number" id="m-annee" value="2005" min="1950" max="2026" oninput="calcMaison()">
+      <input type="number" id="m-annee" value="2005" min="1950" max="" id="dyn-max-annee"Maison()">
     </div>
   </div>
   <div class="g3" style="margin-top:14px">
@@ -673,7 +673,7 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
       <input type="number" id="a-surf" value="65" min="15" oninput="calcAppart()">
     </div>
     <div class="field"><label>Année construction résidence</label>
-      <input type="number" id="a-annee" value="2000" min="1960" max="2026" oninput="calcAppart()">
+      <input type="number" id="a-annee" value="2000" min="1960" max="" id="dyn-max-annee"Appart()">
     </div>
   </div>
   <div class="g4" style="margin-top:14px">
@@ -684,8 +684,10 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
         <option value="1">1er étage</option>
         <option value="2">2e étage</option>
         <option value="3">3e étage</option>
-        <option value="4">4e étage et +</option>
-        <option value="penthouse">Penthouse</option>
+        <option value="4">4e étage</option>
+        <option value="5">5e étage</option>
+        <option value="6plus">6e étage et +</option>
+        <option value="penthouse">Penthouse / Rooftop</option>
       </select>
     </div>
     <div class="field"><label>Nb chambres</label>
@@ -759,6 +761,7 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
       </div>
       <div class="section-label">Risques appartement</div>
       <div style="display:flex;flex-direction:column;gap:6px">
+        <label class="crit-item neg"><input type="checkbox" class="a-malus" value="0.20" onchange="calcAppart()"><span class="crit-txt">Quartier social / défavorisé</span><span class="crit-pct">−20%</span></label>
         <label class="crit-item neg"><input type="checkbox" class="a-malus" value="0.08" onchange="calcAppart()"><span class="crit-txt">Bruit route / aéroport</span><span class="crit-pct">−8%</span></label>
         <label class="crit-item neg"><input type="checkbox" class="a-malus" value="0.10" onchange="calcAppart()"><span class="crit-txt">Humidité / moisissures</span><span class="crit-pct">−10%</span></label>
         <label class="crit-item neg"><input type="checkbox" class="a-malus" value="0.08" onchange="calcAppart()"><span class="crit-txt">Syndic défaillant / copro dégradée</span><span class="crit-pct">−8%</span></label>
@@ -921,7 +924,7 @@ hr.sep{border:none;border-top:1px solid rgba(255,255,255,.07);margin:16px 0}
   <div class="result-main" id="lp-total">—</div>
   <div class="result-range" id="lp-range">—</div>
   <div class="detail-line" id="lp-detail">—</div>
-  <div class="note" id="lp-note">Estimation indicative · Données marché Cabinet LEVY 2026</div>
+  <div class="note" id="lp-note">Estimation indicative · Données marché Cabinet LEVY '+new Date().getFullYear()+'</div>
   <div style="margin-top:12px;padding:12px 16px;background:rgba(255,255,255,.03);border-radius:8px">
     <div style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px">Références vente murs — Cabinet LEVY 2026</div>
     <div style="font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.8">
@@ -1438,7 +1441,7 @@ function calcMaison(){
   const [pn,px]=[cv[0],cv[1]];
   const surf=parseFloat($('m-surf').value)||120;
   const annee=parseInt($('m-annee').value)||2000;
-  const age=2026-annee;
+  const age=new Date().getFullYear()-annee;
   // Vétusté linéaire
   const vet=Math.min(0.60,age*0.018);
   const constr=parseFloat($('m-constr').value)||0;
@@ -1515,7 +1518,7 @@ function calcAppart(){
   const [pn,px]=v.split(',').map(Number);
   const surf=parseFloat($('a-surf').value)||65;
   const annee=parseInt($('a-annee').value)||2000;
-  const age=2026-annee;
+  const age=new Date().getFullYear()-annee;
   const vet=Math.min(0.40,age*0.012);
   const standing=parseFloat($('a-standing').value)||0;
   const vue=parseFloat($('a-vue').value)||0;
@@ -1527,6 +1530,8 @@ function calcAppart(){
   else if(etV==='2')etC=0.05;
   else if(etV==='3')etC=0.08;
   else if(etV==='4')etC=0.12;
+  else if(etV==='5')etC=0.16;
+  else if(etV==='6plus')etC=0.20;
   else if(etV==='penthouse')etC=0.30;
   let resCrit=0,malus=0;
   document.querySelectorAll('.a-res').forEach(cb=>{if(cb.checked)resCrit+=parseFloat(cb.value)||0;});
@@ -1600,7 +1605,7 @@ function calcLocPro(){
     $('lp-pm2').textContent=loyerPm2+' XPF/m²/mois';
     $('lp-total').textContent=fmtMF(loyerUsed)+'/mois';
     $('lp-range').textContent='Fourchette : '+fmtMF(Math.round(loyerUsed*0.85))+'/mois – '+fmtMF(Math.round(loyerUsed*1.20))+'/mois';
-    $('lp-note').textContent='Loyer indicatif · Données marché Cabinet LEVY 2026 · '+$('lp-type').options[$('lp-type').selectedIndex].text;
+    $('lp-note').textContent='Loyer indicatif · Données marché Cabinet LEVY '+new Date().getFullYear()+' · '+$('lp-type').options[$('lp-type').selectedIndex].text;
   } else {
     // Vente murs — capitalisation
     const loyerAn=loyerUsed*12;
@@ -1614,7 +1619,7 @@ function calcLocPro(){
     $('lp-pm2').textContent=surf>0?fmt(Math.round(valCorr/surf))+' XPF/m²':'—';
     $('lp-total').textContent=fmtMF(valCorr);
     $('lp-range').textContent='Fourchette : '+fmtMF(Math.round(valCorr*0.85))+' — '+fmtMF(Math.round(valCorr*1.15));
-    $('lp-note').textContent='Méthode capitalisation · Taux rendement brut Tahiti · Données Cabinet LEVY 2026';
+    $('lp-note').textContent='Méthode capitalisation · Taux rendement brut Tahiti · Données Cabinet LEVY '+new Date().getFullYear()+'';
   }
   $('lp-detail').textContent=`${surf}m² · ${$('lp-type').options[$('lp-type').selectedIndex].text} · ${$('lp-empl').options[$('lp-empl').selectedIndex].text}`;
   $('lp-result').style.display='block';
@@ -1854,6 +1859,50 @@ function aSwitchTab(t){
   if(t==='location') calcAppartLoyer();
 }
 
+
+// ═══════════════════════════════════════════════════
+// LOYERS RECALIBRÉS — Cabinet LEVY mars 2026
+// Base Papeete/agglo : Studio 100k · F2 140k · F3 180k · F4 220k · F5 260k · Penthouse 380k
+// Coefficients commune : Papeete=1.0, Faaa/Mahina/Paea=0.82, Papara=0.72, Taravao=0.70, Presquile=0.60, Moorea=1.05
+// ═══════════════════════════════════════════════════
+const LOYER_TYPE={studio:100000,f2:140000,f3:180000,f4:220000,f5:260000,penthouse:380000};
+const LOYER_COMM={
+  '350000,500000':1.0,'300000,450000':1.0,  // Papeete/Pirae
+  '250000,380000':0.82,                      // Faaa/Mahina/Paea
+  '200000,320000':0.72,                      // Papara/Taravao
+  '180000,280000':0.65,                      // Mataiea/Toahotu
+  '160000,250000':0.60,                      // Vairao/Côte Est/Presquile
+  '280000,420000':1.05,                      // Moorea Maharepa
+  '240000,370000':1.05,                      // Moorea Haapiti
+  '200000,300000':1.0,                       // Moorea Afareaitu
+};
+function getLoyerBase(commune,surf){
+  const t=surf<40?'studio':surf<60?'f2':surf<85?'f3':surf<110?'f4':surf<150?'f5':'penthouse';
+  const base=LOYER_TYPE[t]||180000;
+  const comm=LOYER_COMM[commune]||1.0;
+  return Math.round(base*comm);
+}
+function getLoyerAppart(commune,surf,vue,etage,standing,asc,cuisine,meuble,clim,typeForce){
+  const base=typeForce?Math.round((LOYER_TYPE[typeForce]||LOYER_TYPE.f3)*(LOYER_COMM[commune]||1.0)):getLoyerBase(commune,surf);
+  const vueC=vue>=0.20?1.35:vue>=0.15?1.20:vue>=0.08?1.10:vue>=0.05?1.05:vue<0?0.95:1.0;
+  const etC=etage==='penthouse'?1.30:etage==='6plus'?1.20:etage==='5'?1.16:etage==='4'?1.12:etage==='3'?1.08:etage==='2'?1.04:etage==='rdc_jardin'?1.05:etage==='rdc'?0.97:1.0;
+  const stC=standing>=0.20?1.20:standing>=0.10?1.10:standing>0?1.05:standing<=-0.10?0.90:standing<0?0.95:1.0;
+  const ascC=asc&&(etage==='2'||etage==='3'||etage==='4'||etage==='5'||etage==='6plus')?1.03:1.0;
+  const cuC=cuisine?1.05:1.0;
+  const mC=meuble?1.15:1.0;
+  const clC=clim>0?1.08:1.0;
+  return inflaLoyer(Math.round(base*vueC*etC*stC*ascC*cuC*mC*clC));
+}
+function getLoyerMaison(commune,surf,vue,piscine,meuble,clim,vetPct,typeForce){
+  const base=typeForce?Math.round((LOYER_TYPE[typeForce]||LOYER_TYPE.f3)*(LOYER_COMM[commune]||1.0)):getLoyerBase(commune,surf);
+  const vueC=vue>=0.20?1.35:vue>=0.15?1.20:vue>=0.08?1.10:vue>=0.05?1.05:vue<0?0.95:1.0;
+  const pC=piscine?1.15:1.0;
+  const mC=meuble?1.15:1.0;
+  const clC=clim>0?1.08:1.0;
+  const eC=vetPct<15?1.10:vetPct<35?1.0:vetPct<55?0.90:0.82;
+  return inflaLoyer(Math.round(base*vueC*pC*mC*clC*eC));
+}
+
 function calcMaisonLoyer(){
   const surf=parseFloat($('m-surf').value)||120;
   const commune=$('m-commune').value||'250000,380000';
@@ -1873,32 +1922,43 @@ function calcMaisonLoyer(){
     '240000,370000': [1400,1800,2400], // Moorea Haapiti
     '200000,300000': [1200,1600,2000], // Moorea Afareaitu
   };
-  const [lb,lc,lh]=loyerMap[commune]||[1200,1600,2000];
-  // Construction
-  const mConstr=parseFloat($('m-constr')?.value)||0;
-  const mConstCoef=mConstr>=0.15?1.15:mConstr>=0?1.0:mConstr>=-0.08?0.97:0.90;
+  let mVuePct2=0;
+  document.querySelectorAll('.mt-crit').forEach(cb=>{if(cb.checked){const v=parseFloat(cb.value)||0;if(v>mVuePct2)mVuePct2=v;}});
+  const mPisc2=($('eq-piscine-cr')?.checked||$('eq-piscine-sf')?.checked)||false;
+  const mMeuble2=($('eq-meuble')?.checked)||false;
+  const mClimNb2=parseInt($('m-clim')?.value)||0;
+  const mTyp2=($('m-type-bien')?.value)||null;
+  // Critères impactant le loyer (70% du poids vénale)
+  let mRiskLoyer=0, mBonusLoyer=0;
+  document.querySelectorAll('.m-risk').forEach(cb=>{if(cb.checked)mRiskLoyer+=Math.abs(parseFloat(cb.value)||0);});
+  document.querySelectorAll('.m-bonus').forEach(cb=>{if(cb.checked)mBonusLoyer+=parseFloat(cb.value)||0;});
+  // Terrain : accès difficile, pente, PPR (mt-dec)
+  let mtDecLoyer=0;
+  document.querySelectorAll('.mt-dec').forEach(cb=>{if(cb.checked)mtDecLoyer+=parseFloat(cb.value)||0;});
+  // Construction : béton architecte/bois/métal
+  const mConstrV=parseFloat($('m-constr')?.value)||0;
+  const mConstrLoyer=mConstrV>=0.15?1.10:mConstrV>=-0.05?1.0:mConstrV>=-0.10?0.93:mConstrV>=-0.15?0.88:0.95;
+  // Toiture
+  const mToitV=parseFloat($('m-toit')?.value)||0;
+  const mToitLoyer=mToitV>=0.05?1.03:mToitV>=-0.02?1.0:mToitV>=-0.05?0.97:1.0;
   // État
-  const etCorr=1+etat*0.5;
-  // Équipements
-  const mPiscCoef=($('eq-piscine-cr')?.checked||$('eq-piscine-sf')?.checked)?1.15:1.0;
-  const mSolCoef=($('eq-solaire')?.checked)?1.05:1.0;
-  const mClimNb=parseInt($('m-clim')?.value)||0; const mClimCoef=mClimNb>0?1.05:1.0;
-  const mMeubleCoef=($('eq-meuble')?.checked)?1.15:1.0;
-  // Terrain — vue mer
-  let mTerrainCoef=1.0;
-  document.querySelectorAll('.mt-crit').forEach(cb=>{
-    if(cb.checked){const v=parseFloat(cb.value)||0;if(v>=0.20)mTerrainCoef=Math.max(mTerrainCoef,1.0+v*0.4);}
-  });
-  const loyerCen=inflaLoyer(Math.round(lc*etCorr*mConstCoef*mPiscCoef*mSolCoef*mClimCoef*mMeubleCoef*mTerrainCoef*surf));
-  const loyerBas=inflaLoyer(Math.round(lb*etCorr*mConstCoef*surf));
-  const loyerHau=inflaLoyer(Math.round(lh*etCorr*mConstCoef*mPiscCoef*mSolCoef*mClimCoef*mMeubleCoef*mTerrainCoef*surf));
+  const mEtatV=parseFloat($('m-etat')?.value)||0;
+  const mEtatLoyer=mEtatV>=0.10?1.08:mEtatV>=0?1.0:mEtatV>=-0.10?0.93:mEtatV>=-0.20?0.85:0.78;
+  const loyerBase2=getLoyerMaison(commune,surf,mVuePct2,mPisc2,mMeuble2,mClimNb2,0,null);
+  const loyerCen=Math.round(loyerBase2*mConstrLoyer*mToitLoyer*mEtatLoyer*(1+mBonusLoyer*0.7)*(1-mRiskLoyer*0.7)*(1-mtDecLoyer*0.7));
+  const loyerBas=Math.round(loyerCen*0.85);
+  const loyerHau=Math.round(loyerCen*1.15);
   
   // Valeur vénale pour rendement
-  const totalBien=parseInt($('m-total-bien').textContent.replace(/[^0-9]/g,''))||0;
+  // Déclencher le calcul vénale pour avoir le total
+  const mTotalEl=$('m-total-bien');
+  let totalBien=parseInt(mTotalEl?.textContent?.replace(/[^0-9]/g,'')||'0')||0;
+  if(!totalBien){calcMaison();totalBien=parseInt(mTotalEl?.textContent?.replace(/[^0-9]/g,'')||'0')||0;}
   const rdt=totalBien>0?((loyerCen*12/totalBien)*100).toFixed(1)+'%':'—';
   
   $('m-loyer-mois').textContent=fmtMF(loyerCen);
-  $('m-loyer-pm2-txt').textContent=Math.round(lc*etCorr)+' XPF/m²/mois';
+  const mSurf3=parseFloat($('m-surf')?.value)||120;
+  $('m-loyer-pm2-txt').textContent=Math.round(loyerCen/mSurf3)+' XPF/m²/mois';
   $('m-loyer-an').textContent=fmtMF(loyerCen*12);
   $('m-rendement').textContent=rdt+'/an';
   $('m-loyer-range').textContent='Fourchette : '+fmtMF(loyerBas)+'/mois – '+fmtMF(loyerHau)+'/mois';
@@ -1928,32 +1988,33 @@ function calcAppartLoyer(){
   // Correctif taille
   const surfCoef=surf<35?1.30:surf<50?1.15:surf<70?1.0:surf<100?0.90:0.80;
   // Standing + vue
-  const standV=parseFloat($('a-standing').value)||0;
+  const standV=parseFloat($('a-standing')?.value)||0;
   const vueV=parseFloat($('a-vue')?.value)||0;
-  // Étage
-  let etCoef=0;
-  if(etage==='rdc')etCoef=-0.03;
-  else if(etage==='4')etCoef=0.05;
-  else if(etage==='penthouse')etCoef=0.15;
-  // Équipements résidence
-  let resCoef=0;
-  document.querySelectorAll('.a-res').forEach(cb=>{if(cb.checked)resCoef+=parseFloat(cb.value)*0.5||0;});
-  // Équipements appartement
-  const aPkCoef=($('a-pk-couv')?.checked)?1.05:1.0;
-  const aCuisCoef=($('a-cuisine-eq')?.checked)?1.05:1.0;
-  const aMeubleCoef=($('a-meuble')?.checked)?1.15:1.0;
-  const aClimNb=parseInt($('a-clim')?.value)||0; const aClimCoef=aClimNb>0?1.04:1.0;
+  const etageA=$('a-etage')?.value||'1';
+  const ascA=$('a-asc')?.checked||false;
+  const cuA=$('a-cuisine-eq')?.checked||false;
+  const meubleA=$('a-meuble')?.checked||false;
+  const climNbA=parseInt($('a-clim')?.value)||0;
+  const aTyp2=($('a-type')?.value)||null;
+  // Équipements résidence → impact loyer (réduit vs vénale)
+  let aResLoyer=0;
+  document.querySelectorAll('.a-res').forEach(cb=>{if(cb.checked)aResLoyer+=parseFloat(cb.value)||0;});
+  // Malus → impact loyer
+  let aMalusLoyer=0;
+  document.querySelectorAll('.a-malus').forEach(cb=>{if(cb.checked)aMalusLoyer+=parseFloat(cb.value)||0;});
+  const loyerBase=getLoyerAppart(commune,surf,vueV,etageA,standV,ascA,cuA,meubleA,climNbA,null);
+  const loyerCen=Math.round(loyerBase*(1+aResLoyer*0.7)*(1-aMalusLoyer*0.7));
+  const loyerBas=Math.round(loyerCen*0.85);
+  const loyerHau=Math.round(loyerCen*1.15);
   
-  const corrTot=(1+standV*0.5+vueV*0.5+etCoef+resCoef)*surfCoef;
-  const loyerCen=inflaLoyer(Math.round(lc*corrTot*aPkCoef*aCuisCoef*aMeubleCoef*aClimCoef*surf));
-  const loyerBas=inflaLoyer(Math.round(lb*corrTot*surf));
-  const loyerHau=inflaLoyer(Math.round(lh*corrTot*aPkCoef*aCuisCoef*aMeubleCoef*aClimCoef*surf));
-  
-  const totalBien=parseInt($('a-total').textContent.replace(/[^0-9]/g,''))||0;
-  const rdt=totalBien>0?((loyerCen*12/totalBien)*100).toFixed(1)+'%':'—';
+  const aTotalEl=$('a-total');
+  let totalBienA=parseInt(aTotalEl?.textContent?.replace(/[^0-9]/g,'')||'0')||0;
+  if(!totalBienA){calcAppart();totalBienA=parseInt(aTotalEl?.textContent?.replace(/[^0-9]/g,'')||'0')||0;}
+  const rdt=totalBienA>0?((loyerCen*12/totalBienA)*100).toFixed(1)+'%':'—';
   
   $('a-loyer-mois').textContent=fmtMF(loyerCen);
-  $('a-loyer-pm2-txt').textContent=Math.round(lc*corrTot)+' XPF/m²/mois';
+  const aSurf2=parseFloat($('a-surf')?.value)||65;
+  $('a-loyer-pm2-txt').textContent=Math.round(loyerCen/aSurf2)+' XPF/m²/mois';
   $('a-loyer-an').textContent=fmtMF(loyerCen*12);
   $('a-rendement').textContent=rdt+'/an';
   $('a-loyer-range').textContent='Fourchette : '+fmtMF(loyerBas)+'/mois – '+fmtMF(loyerHau)+'/mois';
@@ -2052,7 +2113,7 @@ function applyInflation(){
   const statusEl=$('infla-status');
   if(statusEl){
     if(ans===0){
-      statusEl.textContent='Année 2026 — données de base';
+      statusEl.textContent='Année '+new Date().getFullYear()+' — données de base';
       statusEl.style.color='rgba(255,255,255,.25)';
     } else {
       statusEl.textContent=`Année ${anneeRef} — Immo +${(G_INFLA_IMMO*100).toFixed(1)}% · Construction +${(G_INFLA_CONST*100).toFixed(1)}% · Loyers +${(G_INFLA_LOYER*100).toFixed(1)}%`;
@@ -2072,7 +2133,10 @@ function inflaLoyer(v){ return Math.round(v*(1+G_INFLA_LOYER)); }
 
 // ---- INIT ----
 fdcUpdateActivite();calcBail();calcBailTerrain();
-calcTerrain();calcMaison();calcAppart();calcLocPro();calcBailTerrain();
+calcTerrain();calcMaison();calcAppart();calcLocPro();
+// Années max dynamiques
+(function(){const cy=new Date().getFullYear();
+document.querySelectorAll('input[type="number"]').forEach(i=>{if(parseInt(i.max)===2026)i.max=cy;});})();calcBailTerrain();
 </script>
 </body>
 </html>

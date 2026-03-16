@@ -246,7 +246,7 @@ optgroup{font-style:normal}
       </select>
     </div>
     <div class="field"><label>Année de construction</label>
-      <input type="number" id="m-annee" value="2010" min="1950" max="2026" oninput="calcMaison()">
+      <input type="number" id="m-annee" value="2010" min="1950" oninput="calcMaison()">
     </div>
   </div>
   <div class="grid-2">
@@ -336,7 +336,6 @@ optgroup{font-style:normal}
     <div class="result-sub">Valeur totale estimée — construction + terrain</div>
     <div class="result-detail" id="m-infla">—</div>
     <div id="m-loyer-ind" style="margin-top:8px;font-size:.78rem;color:#c9a84c;padding:7px 12px;background:rgba(201,168,76,.06);border-radius:6px;border:1px solid rgba(201,168,76,.12)">—</div>
-    <div id="m-loyer-ind" style="margin-top:8px;font-size:.78rem;color:#c9a84c;padding:7px 12px;background:rgba(201,168,76,.06);border-radius:6px;border:1px solid rgba(201,168,76,.12)">—</div>
   </div>
   <p class="note">Construction + terrain valeur centrale · Vétusté plafonnée à 70% · Inflation +3,5–5%/an</p>
   <div class="disclaimer">Résultat indicatif. Pour une valeur certifiée (banque, notaire, tribunal), une estimation officielle avec visite est indispensable.</div>
@@ -387,15 +386,40 @@ optgroup{font-style:normal}
         <option value="1" selected>1er étage (référence)</option>
         <option value="2">2e étage</option>
         <option value="3">3e étage</option>
-        <option value="4">4e étage et +</option>
+        <option value="4">4e étage</option>
+        <option value="5">5e étage</option>
+        <option value="6plus">6e étage et +</option>
         <option value="penthouse">Penthouse / Rooftop</option>
       </select>
     </div>
     <div class="field"><label>Places parking</label><input type="number" id="a-parking" value="1" min="0" oninput="calcAppart()"></div>
   </div>
-  <label class="check-row"><input type="checkbox" id="a-vue" onchange="calcAppart()"> Vue mer (+8%)</label>
-  <label class="check-row"><input type="checkbox" id="a-cuisine" onchange="calcAppart()" checked> Cuisine équipée</label>
-  <label class="check-row"><input type="checkbox" id="a-asc" onchange="calcAppart()"> Ascenseur</label>
+  <div class="grid-2" style="margin-top:14px">
+    <div class="field"><label>Standing résidence</label>
+      <select id="a-standing" onchange="calcAppart()">
+        <option value="-0.10">Quartier social / HLM</option>
+        <option value="0" selected>Standard</option>
+        <option value="0.10">Standing / résidence fermée</option>
+        <option value="0.20">Luxe / prestige</option>
+      </select>
+    </div>
+    <div class="field"><label>Vue</label>
+      <select id="a-vue-sel" onchange="calcAppart()">
+        <option value="0">Vue standard</option>
+        <option value="0.20">Vue mer / lagon directe</option>
+        <option value="0.10">Vue mer partielle</option>
+        <option value="0.05">Vue montagne / verdure</option>
+        <option value="-0.05">Vue masquée</option>
+      </select>
+    </div>
+  </div>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px">
+    <label class="check-row"><input type="checkbox" id="a-vue" onchange="calcAppart()" style="display:none"> Vue mer (+20%)</label>
+    <label class="check-row"><input type="checkbox" id="a-cuisine" onchange="calcAppart()" checked> Cuisine équipée</label>
+    <label class="check-row"><input type="checkbox" id="a-asc" onchange="calcAppart()"> Ascenseur</label>
+    <label class="check-row"><input type="checkbox" id="a-piscine-res" onchange="calcAppart()"> Piscine résidence (+8%)</label>
+    <label class="check-row"><input type="checkbox" id="a-meuble" onchange="calcAppart()"> Meublé (+15%)</label>
+  </div>
 </div>
 
 <div id="a-iles" style="display:none">
@@ -420,7 +444,6 @@ optgroup{font-style:normal}
     <div class="result-main" id="a-total">—</div>
     <div class="result-sub">Fourchette de valeur indicative (hors terrain)</div>
     <div class="result-detail" id="a-detail">—</div>
-    <div id="a-loyer-ind" style="margin-top:8px;font-size:.78rem;color:#c9a84c;padding:7px 12px;background:rgba(201,168,76,.06);border-radius:6px;border:1px solid rgba(201,168,76,.12)">—</div>
     <div id="a-loyer-ind" style="margin-top:8px;font-size:.78rem;color:#c9a84c;padding:7px 12px;background:rgba(201,168,76,.06);border-radius:6px;border:1px solid rgba(201,168,76,.12)">—</div>
   </div>
   <p class="note">Décote étage : −15%/étage sans ascenseur · −5%/étage avec · Vue mer +8% · Médiane PF (Properstar déc. 2025) : 635 000 XPF/m²</p>
@@ -463,6 +486,7 @@ optgroup{font-style:normal}
 const $=id=>document.getElementById(id);
 // Inflation auto invisible — base 2026 (Sources : ISPF PF)
 const _AN=Math.max(0,new Date().getFullYear()-2026);
+const _YR=new Date().getFullYear();
 const _II=v=>Math.round(v*(1+0.04*_AN));  // marché immo +4%/an
 const _IC=v=>Math.round(v*(1+0.03*_AN));  // construction BTP +3%/an
 const _IL=v=>Math.round(v*(1+0.015*_AN)); // loyers IPC PF +1.5%/an
@@ -504,16 +528,54 @@ function tCommuneChange(){
   if(!iles) calcTerrain();
 }
 // Loyers indicatifs base 2026 — Cabinet LEVY mars 2026
-const _LM={ // maison XPF/m²/mois
-  '35000,40000,45000':2200,'30000,35000,40000':2000,'22500,27500,32500':1700,
-  '25000,30000,35000':2000,'20000,25000,30000':1700,'15000,20000,25000':1500,
-  '12500,17500,22500':1300,'10000,15000,20000':1100,
-  '25000,30000,35000':2000,'20000,25000,30000':1700,'15000,20000,25000':1400
+
+// Loyers base Papeete/agglo par type (XPF/mois) — données Cabinet LEVY 2026
+// Studio:100k F2:140k F3:180k F4:220k F5:260k Penthouse:380k
+// Coefficients communaux : Papeete=1.0, Faaa/Mahina/Paea=0.82, Papara=0.72, Taravao=0.70, Presquile=0.60, Moorea=1.05
+const _LOYER_BASE_TYPE={studio:100000,f2:140000,f3:180000,f4:220000,f5:260000,penthouse:380000};
+const _LOYER_COEFF_COMM={
+  '350000,500000':1.0,'300000,450000':1.0,'250000,380000':0.82,
+  '200000,320000':0.72,'180000,280000':0.65,'160000,250000':0.60,
+  '280000,420000':1.05,'240000,370000':1.05,'200000,300000':1.0
 };
-const _LA={ // appartement XPF/m²/mois
-  '350000,500000':2800,'300000,450000':2400,'250000,380000':1900,
-  '200000,320000':1500,'280000,420000':2200,'240000,370000':1800,'200000,300000':1500
-};
+// Mapping commune public (valeurs % vénale → coefficient loyer)
+function _commLoyer(cv){
+  const v=parseFloat(cv)||0;
+  if(v>=0.20)return 1.0;      // Papeete/Pirae
+  if(v>=0.15)return 1.0;      // Punaauia/Arue
+  if(v>=0.10)return 0.82;     // Faaa/Mahina/Paea
+  if(v>=0.05)return 0.70;     // Taravao/Papenoo
+  if(v>=0.12)return 1.05;     // Moorea centre
+  if(v>=0.06)return 1.05;     // Moorea autres
+  return 0.72;                 // Papara/Faaone base
+}
+function _getLoyerAppart(cv,surf,etage,vue,standing,asc,cu,meuble,clim,typeForce){
+  const t=typeForce||(surf<40?'studio':surf<60?'f2':surf<85?'f3':surf<110?'f4':surf<140?'f5':'penthouse');
+  const base=_LOYER_BASE_TYPE[t]||180000;
+  const commCoef=_LOYER_COEFF_COMM[cv]||_commLoyer(cv)||1.0;
+  // Critères vue/mer
+  const vueCoef=vue>=0.20?1.35:vue>=0.15?1.20:vue>=0.08?1.10:vue>=0.05?1.05:vue<0?0.95:1.0;
+  // Equipements
+  const puCoef=1.0; // parking dans base
+  const cuCoef=cu?1.05:1.0;
+  const mCoef=meuble?1.15:1.0;
+  const clCoef=clim>0?1.08:1.0;
+  const stCoef=standing>=0.20?1.20:standing>=0.10?1.10:standing>0?1.05:standing<=-0.10?0.90:standing<0?0.95:1.0;
+  const etCoefL=etage==='penthouse'?1.30:etage==='6plus'?1.20:etage==='5'?1.16:etage==='4'?1.12:etage==='3'?1.08:etage==='2'?1.04:etage==='rdc_jardin'?1.05:etage==='rdc'?0.97:1.0;
+  const ascCoef=asc&&(etage==='2'||etage==='3'||etage==='4'||etage==='5'||etage==='6plus')?1.03:1.0;
+  return Math.round(base*commCoef*vueCoef*etCoefL*cuCoef*mCoef*clCoef*stCoef*ascCoef);
+}
+function _getLoyerMaison(cv,surf,vue,piscine,meuble,clim,etat,typeForce){
+  const t=typeForce||(surf<45?'studio':surf<65?'f2':surf<90?'f3':surf<120?'f4':surf<150?'f5':'penthouse');
+  const base=_LOYER_BASE_TYPE[t]||180000;
+  const commCoef=_LOYER_COEFF_COMM[cv]||_commLoyer(cv)||1.0;
+  const vueCoef=vue>=0.50?1.35:vue>=0.20?1.20:vue>=0.10?1.10:vue>0?1.05:1.0;
+  const piscCoef=piscine?1.15:1.0;
+  const mCoef=meuble?1.15:1.0;
+  const clCoef=clim>0?1.08:1.0;
+  const etatCoef=etat<0.15?1.10:etat<0.35?1.0:etat<0.55?0.90:0.82;
+  return Math.round(base*commCoef*vueCoef*piscCoef*mCoef*clCoef*etatCoef);
+}
 function calcTerrain(){
   const v=$('t-commune').value;
   if(v==='ILES') return;
@@ -598,9 +660,9 @@ function calcMaison(){
   document.querySelectorAll('.mt-crit').forEach(cb=>{
     if(cb.checked){const v=parseFloat(cb.value)||0;if(v>=0.20)_mTerrainCoef=Math.max(_mTerrainCoef,1.0+v*0.4);}
   });
-  const _mBaseLoy=_LM[_mComm]||1500;
-  const _mLoy=_IL(Math.round(_mBaseLoy*_mConstCoef*_mEtatCoef*_mPiscCoef*_mSolCoef*_mClimCoef*_mMeubleCoef*_mTerrainCoef));
-  if($('m-loyer-ind'))$('m-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_mLoy*_mSurf)+' XPF/mois · '+fmt(_mLoy)+' XPF/m²';
+  const _mVueFin=_mTerrainCoef>1?(_mTerrainCoef-1)*2:0;
+  const _mLoyMois2=_IL(_getLoyerMaison(_mComm,_mSurf,_mVueFin,_mPiscCoef>1,_mMeubleCoef>1,_mClimCoef>1,parseFloat($('m-vp')?.textContent)||0,null));
+  if($('m-loyer-ind'))$('m-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_mLoyMois2)+' XPF/mois';
 }
 function calcAppart(){
   const cv=$('a-commune').value;
@@ -618,12 +680,17 @@ function calcAppart(){
   if(etV==='rdc_jardin') etCoef=0.05;       // RDC jardin +5%
   else if(etV==='rdc') etCoef=-0.05;         // RDC sans jardin -5%
   else if(etV==='1') etCoef=0;               // 1er = référence
-  else if(etV==='2') etCoef=as?0.07:0.05;    // 2e + vue
-  else if(etV==='3') etCoef=as?0.10:0.08;    // 3e + vue
-  else if(etV==='4') etCoef=as?0.14:0.12;    // 4e+ belle vue
-  else if(etV==='penthouse') etCoef=0.30;    // Penthouse +30% (données Marama)
+  else if(etV==='2') etCoef=as?0.07:0.05;    // 2e +5%
+  else if(etV==='3') etCoef=as?0.10:0.08;    // 3e +8%
+  else if(etV==='4') etCoef=as?0.14:0.12;    // 4e +12%
+  else if(etV==='5') etCoef=as?0.18:0.16;    // 5e +16%
+  else if(etV==='6plus') etCoef=as?0.22:0.20;// 6e+ +20%
+  else if(etV==='penthouse') etCoef=0.30;    // Penthouse +30% (Marama calibré)
   const np=parseInt($('a-parking').value)||0;
-  const vm=$('a-vue').checked?0.08:0;
+  const vm=parseFloat($('a-vue-sel')?.value)||0;
+  const standingV=parseFloat($('a-standing')?.value)||0;
+  const piscineRes=$('a-piscine-res')?.checked||false;
+  const meubleA=$('a-meuble')?.checked||false;
   const cu=$('a-cuisine').checked;
   const dec=0; // remplacé par etCoef
   const cf=(1+mc+vm+etCoef);
@@ -635,18 +702,20 @@ function calcAppart(){
   $('a-vcuis').textContent=cu?fmtMF(vc):'—';
   $('a-total').textContent=fmtMF(mn)+' – '+fmtMF(mx);
   $('a-detail').textContent=(etCoef!==0?'Étage '+(etCoef>0?'+':'')+Math.round(etCoef*100)+'% · ':'')+(np>0?np+' parking(s) · ':'')+(cu?'Cuisine incluse':'');
-  const _aSurf=s||65;
-  const _aSC=_aSurf<40?1.20:_aSurf<60?1.05:_aSurf>100?0.85:1.0;
-  // Critères loyer appart — impact réduit vs vente (loyer moins sensible que prix)
-  const _aVueCoef=vm>0?1.15:1.0;           // vue mer +15%
-  const _aEtCoef=etCoef>0.10?1.08:etCoef>0?1.04:etCoef<0?0.97:1.0; // étage
-  const _aCuisCoef=cu?1.05:1.0;            // cuisine équipée +5%
-  const _aAscCoef=as&&etCoef>0?1.03:1.0;  // ascenseur +3%
-  const _aMeubleCoef=($('a-meuble')?.checked)?1.15:1.0; // meublé +15%
-  const _aLoy=_IL(Math.round((_LA[cv]||1800)*_aSC*_aVueCoef*_aEtCoef*_aCuisCoef*_aAscCoef*_aMeubleCoef));
-  if($('a-loyer-ind'))$('a-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_aLoy*_aSurf)+' XPF/mois · '+fmt(_aLoy)+' XPF/m²';
+  const _aVue=vm;
+  const _aAsc=as||false;
+  const _aEtage=($('a-etage')?.value)||'1';
+  const _aPiscRes=piscineRes?0.08:0;
+  const _aLoyMois=_IL(Math.round(_getLoyerAppart(cv,s,_aEtage,_aVue,standingV,_aAsc,cu,meubleA,0,null)*(1+_aPiscRes)));
+  if($('a-loyer-ind'))$('a-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_aLoyMois)+' XPF/mois';
 }
 buildEQ();tCommuneChange();calcMaison();calcAppart();
+// Année max dynamique
+const _curY=new Date().getFullYear();
+const _ma=document.getElementById('m-annee');if(_ma)_ma.max=_curY;
+const _ma2=document.getElementById('a-annee');if(_ma2)_ma2.max=_curY;
+// Dates automatiques
+document.querySelectorAll&&['pub-yr-1','pub-yr-2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=_YR;});
 </script>
 </body>
 </html>
