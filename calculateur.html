@@ -548,6 +548,18 @@ function _commLoyer(cv){
   if(v>=0.06)return 1.05;     // Moorea autres
   return 0.72;                 // Papara/Faaone base
 }
+
+// Plafonds loyer par commune — marché réel Cabinet LEVY 2026
+const _PLAFOND_COMM={
+  '0.20':340000, // Papeete/Pirae — penthouse vue mer max
+  '0.15':300000, // Punaauia/Arue
+  '0.10':240000, // Faaa/Mahina/Paea
+  '0.05':200000, // Taravao/Papenoo
+  '0':180000,    // Papara/Faaone
+  '0.12':300000, // Moorea centre
+  '0.08':280000, // Moorea Haapiti
+  '0.06':240000, // Moorea Afareaitu
+};
 function _getLoyerAppart(cv,surf,etage,vue,standing,asc,cu,meuble,clim,typeForce){
   const t=typeForce||(surf<40?'studio':surf<60?'f2':surf<85?'f3':surf<110?'f4':surf<140?'f5':'penthouse');
   const base=_LOYER_BASE_TYPE[t]||180000;
@@ -718,7 +730,9 @@ function calcAppart(){
   const _aGammeCoef=($('a-gamme')?.value||'')==='500000,700000'?1.12:1.0;
   const _aStanding=parseFloat($('a-standing')?.value)||0;
   const _aLoyBase=_getLoyerAppart(cv,s,_aEtage,_aVue,_aStanding,_aAsc,cu,meubleA,0,null);
-  const _aLoyMois=_IL(Math.round(_aLoyBase*_aGammeCoef*(1+_aPiscRes)));
+  const _aLoyRaw=Math.round(_aLoyBase*_aGammeCoef*(1+_aPiscRes));
+  const _aPlafond=_PLAFOND_COMM[cv]||340000;
+  const _aLoyMois=_IL(Math.min(_aLoyRaw,_aPlafond));
   if($('a-loyer-ind'))$('a-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_aLoyMois)+' XPF/mois';
 }
 buildEQ();tCommuneChange();calcMaison();calcAppart();
