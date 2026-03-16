@@ -573,7 +573,8 @@ function _getLoyerMaison(cv,surf,vue,piscine,meuble,clim,etat,typeForce){
   const piscCoef=piscine?1.15:1.0;
   const mCoef=meuble?1.15:1.0;
   const clCoef=clim>0?1.08:1.0;
-  const etatCoef=etat<0.15?1.10:etat<0.35?1.0:etat<0.55?0.90:0.82;
+  // etat = vétusté en % (0-70)
+  const etatCoef=etat<10?1.08:etat<30?1.0:etat<50?0.92:etat<65?0.82:0.75;
   return Math.round(base*commCoef*vueCoef*piscCoef*mCoef*clCoef*etatCoef);
 }
 function calcTerrain(){
@@ -648,7 +649,8 @@ function calcMaison(){
   const _mTp=parseInt($('m-type')?.value)||175000;
   const _mConstCoef=_mTp>=200000?1.10:_mTp>=175000?1.0:_mTp>=160000?0.97:_mTp>=150000?0.93:0.88;
   // Vétusté → état
-  const _mVp=parseFloat($('m-vp')?.textContent)||0;
+  const _mVpTxt=($('m-vp')?.textContent||'0').replace(/[^0-9.]/g,'');
+  const _mVp=parseFloat(_mVpTxt)||0; // vétusté en % (0-70)
   const _mEtatCoef=_mVp<10?1.08:_mVp<30?1.0:_mVp<50?0.92:0.82;
   // Équipements
   const _mPisc=($('eq-piscine')?.checked)||false;
@@ -666,8 +668,9 @@ function calcMaison(){
   });
   const _mDecCoef=Math.max(0.60,1-_mDecPct*0.7);
   // Calcul loyer final
+  // _getLoyerMaison intègre l'état — on ne duplique pas _mEtatCoef
   const _mLoyBase=_getLoyerMaison(_mComm,_mSurf,_mVuePct,_mPisc,_mMeuble,_mClim,_mVp,null);
-  const _mLoyMois2=_IL(Math.round(_mLoyBase*_mConstCoef*_mEtatCoef*_mDecCoef));
+  const _mLoyMois2=_IL(Math.round(_mLoyBase*_mConstCoef*_mDecCoef));
   if($('m-loyer-ind'))$('m-loyer-ind').textContent='📋 Valeur locative indicative : '+fmt(_mLoyMois2)+' XPF/mois';
 }
 function calcAppart(){
