@@ -7,7 +7,7 @@
 (function() {
   // ── Liens de navigation
   const NAV_LINKS = [
-    { href: '/estimation-interactive', label: 'Estimation' },
+    { href: '/',                    label: 'Estimation' },
     { href: '/vendre',              label: 'Vendre' },
     { href: '/louer',               label: 'Louer' },
     { href: '/acheter',             label: 'Acheter' },
@@ -54,7 +54,7 @@
     <style id="nav-styles">
       #site-header{position:fixed;top:0;left:0;right:0;z-index:100;background:#0f1117;height:60px;padding:0 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.07)}
       .h-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-      .h-logo-txt{font-family:'Libre Baskerville',serif;color:white;font-size:.82rem;font-weight:700;letter-spacing:.04em}
+      .h-logo-txt{font-family:'Libre Baskerville',serif;color:white;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
       .h-logo-txt em{color:#c0533a;font-style:normal}
       .h-nav{display:flex;align-items:center;gap:22px}
       .h-nav a{color:rgba(255,255,255,.45);font-size:.8rem;text-decoration:none;transition:color .2s}
