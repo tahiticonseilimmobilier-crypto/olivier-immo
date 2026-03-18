@@ -78,16 +78,15 @@ td.loyer{color:var(--gold);font-weight:600}
 .cta-tel{display:block;color:rgba(255,255,255,.65);font-size:.8rem;margin-top:12px}
 
 /* FOOTER */
+footer{background:var(--noir);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.f-brand{font-family:'Libre Baskerville',serif;color:white;font-size:.82rem;font-weight:700}
+.f-brand em{color:var(--coral);font-style:normal}
+.f-links{display:flex;gap:18px}
+.f-links a{color:rgba(255,255,255,.3);font-size:.73rem;text-decoration:none}
+.f-links a:hover{color:rgba(255,255,255,.6)}
 .scroll-top{position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:var(--coral);color:white;border:none;border-radius:50%;font-size:20px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s;z-index:100;box-shadow:0 2px 8px rgba(192,83,58,.4)}
 .scroll-top.visible{opacity:1;pointer-events:auto}
-@media(max-width:600px){.container{padding:32px 16px 60px}.hero{padding:40px 20px 32px}.hero h1{font-size:1.5rem}}
-footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
-.footer-logo{font-family:'Libre Baskerville',serif;color:rgba(255,255,255,.55);font-size:.8rem}
-.footer-logo em{color:#c0533a;font-style:normal}
-.footer-links{display:flex;gap:18px;flex-wrap:wrap}
-.footer-links a{color:rgba(255,255,255,.32);font-size:.73rem;text-decoration:none;transition:color .2s}
-.footer-links a:hover{color:white}
-@media(max-width:560px){footer{flex-direction:column;text-align:center}.footer-links{justify-content:center}}
+@media(max-width:600px){.container{padding:32px 16px 60px}.hero{padding:40px 20px 32px}.hero h1{font-size:1.5rem}footer{flex-direction:column;text-align:center}}
 </style>
 </head>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVPFP4QV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -261,7 +260,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
 
   <!-- ==================== APPARTEMENTS ==================== -->
   <div id="tab-appart" class="tab-pane">
-    <div class="note-box">Prix au m² habitable · Appartement standard sans vue mer ni équipement exceptionnel · Source : Données calibrées sur les transactions et annonces actives du marché polynésien — Olivier BLAISE · Cabinet LEVY, <span class='yr-note'></span>. <strong>Médiane marché PF (déc. 2025) : environ 635 000 XPF/m² · Les petites surfaces sont structurellement plus chères au m².</strong></div>
+    <div class="note-box">Prix au m² habitable · Appartement standard sans vue mer ni équipement exceptionnel · Source : Données calibrées sur les transactions et annonces actives du marché polynésien — Olivier BLAISE · Cabinet LEVY, <span class='yr-note'></span>. <strong>Médiane marché PF (<span class="yr-note"></span>) : environ 635 000 XPF/m² · Les petites surfaces sont structurellement plus chères au m².</strong></div>
 
     <div class="section">
       <div class="section-title">🏙️ Tahiti — Appartements</div>
@@ -337,16 +336,14 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
 </div>
 
 <footer>
-  <span class="footer-logo">Cabinet <em>LEVY</em> — Olivier BLAISE · olivierimmopolynesie.com</span>
-  <div class="footer-links">
+  <span class="f-brand">Cabinet <em>LEVY</em> — Olivier BLAISE · olivierimmopolynesie.com</span>
+  <div class="f-links">
     <a href="/mentions-legales">Mentions légales</a>
     <a href="/politique-de-confidentialite">Confidentialité</a>
-    <a href="/estimation-interactive">Estimation</a>
     <a href="/calculateur">Calculateur</a>
+    <a href="/blog">Blog</a>
   </div>
 </footer>
-
-
 
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
