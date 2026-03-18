@@ -98,13 +98,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
 .cta-o{background:transparent;color:white;border:1.5px solid rgba(255,255,255,.25);padding:12px 28px;border-radius:9px;font-size:.88rem;text-decoration:none;transition:border-color .15s}
 .cta-o:hover{border-color:white}
 
-footer{background:#080b10;padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.footer-logo{font-family:'Libre Baskerville',serif;color:rgba(255,255,255,.4);font-size:.8rem}
-.footer-logo em{color:var(--coral);font-style:normal}
-.footer-links{display:flex;gap:20px}
-.footer-links a{color:rgba(255,255,255,.25);font-size:.75rem;text-decoration:none}
-.footer-links a:hover{color:rgba(255,255,255,.5)}
-@media(max-width:560px){footer{flex-direction:column;text-align:center}}
+@media(max-width:560px){}
 
 optgroup{font-style:normal}
 @media(max-width:820px){.hero-inner{grid-template-columns:1fr}.tarifs-grid,.why-grid,.steps{grid-template-columns:1fr 1fr}.hero-left{padding-bottom:32px}}
@@ -113,6 +107,13 @@ optgroup{font-style:normal}
 .scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:var(--coral);color:white;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.2);z-index:200;transition:opacity .2s}
 .scroll-top.visible{display:flex}
 .scroll-top:hover{background:#a8432c}
+footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.footer-logo{font-family:'Libre Baskerville',serif;color:rgba(255,255,255,.55);font-size:.8rem}
+.footer-logo em{color:#c0533a;font-style:normal}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{color:rgba(255,255,255,.32);font-size:.73rem;text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:white}
+@media(max-width:560px){footer{flex-direction:column;text-align:center}.footer-links{justify-content:center}}
 </style>
 </head>
 <body>
