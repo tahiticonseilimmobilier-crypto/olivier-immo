@@ -11,7 +11,7 @@
 <meta name="description" content="Estimez votre bien immobilier en Polynésie française en 2 minutes. Toutes communes Tahiti, Moorea, îles sur demande. Estimation officielle certifiée par Olivier BLAISE, expert Tahiti.">
 <meta property="og:title" content="Estimation Immobilière Interactive — Tahiti & Polynésie française">
 <meta property="og:url" content="https://www.olivierimmopolynesie.com/estimation-interactive">
-<link rel="canonical" href="https://www.olivierimmopolynesie.com/calculateur">
+<link rel="canonical" href="https://www.olivierimmopolynesie.com/estimation-interactive">
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KVPFP4QV');</script>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
@@ -191,9 +191,26 @@ optgroup{font-style:normal}
             </select>
           </div>
         </div>
-        <label class="check-row"><input type="checkbox" id="t-vue" onchange="calc()"> Vue mer (+8 000 XPF/m²)</label>
-        <label class="check-row"><input type="checkbox" id="t-plat" onchange="calc()"> Terrain plat (+3 000 XPF/m²)</label>
-        <label class="check-row"><input type="checkbox" id="t-pente" onchange="calc()"> Forte pente (−5 000 XPF/m²)</label>
+        <div class="grid-2">
+          <div class="field"><label>Situation / Vue</label>
+            <select id="t-sit" onchange="calc()">
+              <option value="-0.15,0">Quartier populaire</option>
+              <option value="0,0" selected>Standard — sans vue</option>
+              <option value="0.05,0.05">Résidentiel · vue montagne</option>
+              <option value="0.08,0.12">Résidentiel · vue mer partielle</option>
+              <option value="0.15,0.25">Prestige · vue mer directe</option>
+              <option value="0.15,0.60">Prestige · bord de mer / lagon</option>
+            </select>
+          </div>
+          <div class="field"><label>Topographie</label>
+            <select id="t-topo" onchange="calc()">
+              <option value="0.03">Terrain plat (+3%)</option>
+              <option value="0" selected>Légère pente (standard)</option>
+              <option value="-0.10">Pente forte (−10%)</option>
+              <option value="-0.06">Zone à risque — inondation / glissement (−6%)</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <!-- MAISON -->
@@ -245,41 +262,52 @@ optgroup{font-style:normal}
 
       <!-- APPART -->
       <div id="form-appart" style="display:none">
-        <div class="field"><label>Gamme</label>
-          <select id="a-gamme" onchange="calc()">
-            <option value="350000,500000">Intermédiaire</option>
-            <option value="500000,700000">Standing</option>
-          </select>
-        </div>
-        <div class="field"><label>Commune</label>
-          <select id="a-commune" onchange="calc()">
-            <optgroup label="TAHITI">
-              <option value="0.20">Papeete / Pirae</option>
-              <option value="0.15">Punaauia / Arue</option>
-              <option value="0.10">Faaa / Mahina / Paea</option>
-              <option value="0.05">Papenoo / Taravao</option>
-              <option value="0">Papara / Faaone / Tautira</option>
-            </optgroup>
-            <optgroup label="MOOREA">
-              <option value="0.12">Maharepa / Papetoai</option>
-              <option value="0.08">Haapiti / Paopao</option>
-              <option value="0.06">Afareaitu / Teavaro</option>
-            </optgroup>
-            <optgroup label="ÎLES"><option value="ILES">Îles éloignées</option></optgroup>
-          </select>
+        <div class="grid-2">
+          <div class="field"><label>Commune</label>
+            <select id="a-commune" onchange="calc()">
+              <optgroup label="TAHITI">
+                <option value="Papeete">Papeete</option>
+                <option value="Pirae">Pirae</option>
+                <option value="Punaauia">Punaauia</option>
+                <option value="Faaa">Faaa</option>
+                <option value="Arue">Arue</option>
+                <option value="Paea">Paea</option>
+                <option value="Mahina">Mahina</option>
+                <option value="Papara">Papara</option>
+                <option value="Taravao">Taravao</option>
+                <option value="Presquile">Presqu'île (autres)</option>
+                <option value="Papenoo">Côte Est</option>
+              </optgroup>
+              <optgroup label="MOOREA">
+                <option value="Moorea_M">Moorea — Maharepa / Papetoai</option>
+                <option value="Moorea_H">Moorea — Haapiti / Paopao</option>
+                <option value="Moorea_A">Moorea — Afareaitu / Teavaro</option>
+              </optgroup>
+              <optgroup label="ÎLES"><option value="ILES">Îles éloignées</option></optgroup>
+            </select>
+          </div>
+          <div class="field"><label>Surface (m²)</label>
+            <input type="number" id="a-surf" value="70" min="20" oninput="calc()">
+          </div>
         </div>
         <div class="grid-2">
-          <div class="field"><label>Surface (m²)</label><input type="number" id="a-surf" value="70" min="20" oninput="calc()"></div>
-          <div class="field"><label>Étage</label><input type="number" id="a-etage" value="0" min="0" oninput="calc()"></div>
+          <div class="field"><label>Gamme de résidence</label>
+            <select id="a-gamme" onchange="calc()">
+              <option value="standard" selected>Intermédiaire — immeuble courant</option>
+              <option value="residence">Standard — bien entretenu, résidence normale</option>
+              <option value="standing">Standing — piscine, gardiennage, prestations</option>
+            </select>
+          </div>
+          <div class="field"><label>Situation / Vue</label>
+            <select id="a-sit" onchange="calc()">
+              <option value="-0.08,0">Quartier populaire — sans vue</option>
+              <option value="0,0" selected>Standard — sans vue</option>
+              <option value="0.05,0.06">Résidentiel · vue mer partielle</option>
+              <option value="0.10,0.10">Prestige · vue mer directe</option>
+              <option value="0.10,0.20">Prestige · bord de mer</option>
+            </select>
+          </div>
         </div>
-        <div class="field" style="margin-bottom:8px"><label style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#888">Vue</label>
-        <select id="a-vue-sel" onchange="calc()" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;font-size:.9rem">
-          <option value="0">Vue standard</option>
-          <option value="0.05">Vue mer partielle (+5%)</option>
-          <option value="0.10">Vue mer directe (+10%)</option>
-          <option value="0.15">Bord de mer / lagon (+15%)</option>
-        </select></div>
-        <label class="check-row"><input type="checkbox" id="a-cuisine" onchange="calc()" checked> Cuisine équipée</label>
       </div>
 
       <!-- ILES MESSAGE -->
@@ -291,14 +319,30 @@ optgroup{font-style:normal}
 
       <!-- RÉSULTAT -->
       <div id="calc-result-wrap">
-        <div class="result-mini">
-          <div>
-            <div class="result-mini-val" id="result-val">—</div>
-            <div class="result-mini-lbl" id="result-lbl">Valeur indicative</div>
+        <div class="result-mini" style="flex-direction:column;align-items:stretch;gap:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div class="result-mini-val" id="result-val">—</div>
+              <div class="result-mini-lbl" id="result-lbl">Valeur indicative</div>
+            </div>
+            <div class="result-mini-warn">⚠️ Estimation<br>indicative uniquement</div>
           </div>
-          <div class="result-mini-warn">⚠️ Estimation<br>indicative uniquement</div>
+          <div id="result-fourch" style="display:none;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;border-radius:7px;overflow:hidden">
+            <div style="background:rgba(255,255,255,.05);padding:8px 10px;text-align:center">
+              <div style="font-size:.55rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.25);margin-bottom:2px">Basse</div>
+              <div style="font-family:'Libre Baskerville',serif;font-size:.9rem;color:rgba(255,255,255,.6)" id="result-bas">—</div>
+            </div>
+            <div style="background:rgba(201,168,76,.1);padding:8px 10px;text-align:center">
+              <div style="font-size:.55rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(201,168,76,.5);margin-bottom:2px">Centrale</div>
+              <div style="font-family:'Libre Baskerville',serif;font-size:.9rem;color:var(--gold)" id="result-cen2">—</div>
+            </div>
+            <div style="background:rgba(255,255,255,.05);padding:8px 10px;text-align:center">
+              <div style="font-size:.55rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.25);margin-bottom:2px">Haute</div>
+              <div style="font-family:'Libre Baskerville',serif;font-size:.9rem;color:rgba(255,255,255,.6)" id="result-hau">—</div>
+            </div>
+          </div>
         </div>
-        <a href="/calculateur" class="btn-sec">→ Calculateur complet (équipements, locaux pro…)</a>
+        <a href="/calculateur" class="btn-sec">→ Calculateur complet (équipements, état, loyers…)</a>
         <a href="/" class="btn-full">Obtenir une estimation officielle →</a>
       </div>
     </div>
@@ -379,64 +423,94 @@ optgroup{font-style:normal}
 <script>
 const $=id=>document.getElementById(id);
 const fmt=n=>Math.round(n).toLocaleString('fr-FR');
-const fmtMF=n=>(Math.round(n/100000)/10).toFixed(2)+' MF';
-function majCom(v){return 0;} // deprecated - kept for compat
+const fMF=n=>(Math.round(n/100000)/10).toFixed(1);
+const _AN=Math.max(0,new Date().getFullYear()-2026);
+const _II=v=>Math.round(v*(1+0.04*_AN));
+const _IC=v=>Math.round(v*(1+0.03*_AN));
+
+// ABASE appartement — calibré Cabinet LEVY + annonces 2026
+const ABASE={Papeete:_IC(540000),Pirae:_IC(515000),Punaauia:_IC(440000),Faaa:_IC(335000),
+  Arue:_IC(415000),Paea:_IC(305000),Mahina:_IC(290000),Papara:_IC(210000),
+  Taravao:_IC(260000),Presquile:_IC(185000),Papenoo:_IC(170000),
+  Moorea_M:_IC(500000),Moorea_H:_IC(375000),Moorea_A:_IC(275000)};
+const AGMULT={standard:1.00,residence:1.15,standing:1.28};
+const VT_M={bois:0.012,metal:0.009,beton:0.008,archi:0.007};
 
 let cur='terrain';
 function setType(t,b){
   cur=t;
   ['terrain','maison','appart'].forEach(x=>$('form-'+x).style.display=x===t?'block':'none');
-  document.querySelectorAll('.type-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  document.querySelectorAll('.type-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
   calc();
 }
+
+function showFourch(bas,cen,hau,lbl){
+  $('result-val').textContent=fMF(cen)+' MF';
+  $('result-lbl').textContent=lbl;
+  if($('result-fourch')){
+    $('result-fourch').style.display='grid';
+    $('result-bas').textContent=fMF(bas)+' MF';
+    $('result-cen2').textContent=fMF(cen)+' MF';
+    $('result-hau').textContent=fMF(hau)+' MF';
+  }
+}
+
 function calc(){
   let iles=false;
+
   if(cur==='terrain'){
     const v=$('t-commune').value;
     iles=v==='ILES';
     if(!iles){
-      const parts=v.split(',').map(Number);
-      let cen=parts[1];
+      let [pb,pc,ph]=v.split(',').map(n=>_II(parseInt(n)));
       const cat=$('t-cat').value;
-      if(cat==='ag') cen=Math.round(cen*0.15);
-      else if(cat==='brut') cen=Math.round(cen*0.45);
-      let delta=0;
-      if($('t-vue').checked) delta+=8000;
-      if($('t-plat').checked) delta+=3000;
-      if($('t-pente').checked) delta-=5000;
-      cen=Math.max(0,cen+delta);
+      if(cat==='ag'){pb=Math.round(pb*0.15);pc=Math.round(pc*0.15);ph=Math.round(ph*0.15);}
+      else if(cat==='brut'){pb=Math.round(pb*0.45);pc=Math.round(pc*0.45);ph=Math.round(ph*0.45);}
+      const sit=$('t-sit')?.value||'0,0';
+      const [qrt,vue]=sit.split(',').map(Number);
+      const topo=parseFloat($('t-topo')?.value)||0;
+      const adj=qrt+vue+topo;
+      pb=pb*(1+adj); pc=pc*(1+adj); ph=ph*(1+adj);
       const surf=parseFloat($('t-surf').value)||0;
-      const tot=cen*surf;
-      $('result-val').textContent=tot>0?fmtMF(tot):'—';
-      $('result-lbl').textContent='Terrain '+fmt(surf)+' m² — '+fmt(cen)+' XPF/m²';
+      showFourch(pb*surf,pc*surf,ph*surf,
+        'Terrain '+fmt(surf)+' m² — '+fmt(Math.round(pc/1000)*1000)+' XPF/m²');
     }
+
   } else if(cur==='maison'){
-    const tp=parseInt($('m-type').value)||175000;
-    const age=2026-(parseInt($('m-annee').value)||2010);
+    const typeVal=$('m-type').value;
+    const typeMap={bois:[_IC(100000),_IC(155000)],metal:[_IC(148000),_IC(185000)],
+                   beton:[_IC(170000),_IC(210000)],archi:[_IC(210000),_IC(280000)]};
+    const [cmin,cmax]=typeMap[typeVal]||typeMap.beton;
+    const an=parseInt($('m-annee').value)||2010;
+    const age=Math.max(0,new Date().getFullYear()-an);
+    const vet=Math.min(age*(VT_M[typeVal]||0.008),0.45);
+    const etat=parseFloat($('m-etat').value)||1;
+    const vetE=etat===0.5?vet*0.5:etat===1.75?Math.min(vet*1.4,0.45):vet;
     const sp=(parseFloat($('m-hab').value)||0)+(parseFloat($('m-util').value)||0)*0.5;
-    const vp=Math.min(age*(parseFloat($('m-etat').value)||1),70);
-    const totConst=sp*tp*(1-vp/100);
-    const tcv=($('mt-commune')?.value||'22500,27500,32500').split(',').map(Number);
-    const tsurf=parseFloat($('mt-surf')?.value)||500;
-    const totTerrain=(tcv[1]||27500)*tsurf;
-    const tot=totConst+totTerrain;
-    $('result-val').textContent=tot>0?fmtMF(tot):'—';
-    $('result-lbl').textContent='Construction '+fmtMF(totConst)+' + Terrain '+fmtMF(totTerrain);
+    const pm2c=(cmin+cmax)/2*(1-vetE);
+    const valC=sp*pm2c;
+    const tcv=($('mt-commune')?.value||'35000,40000,45000').split(',').map(n=>_II(parseInt(n)));
+    const tsurf=parseFloat($('mt-surf')?.value)||0;
+    const valT=tcv[1]*tsurf;
+    const cen=valC+valT;
+    showFourch(valC*0.87+tcv[0]*tsurf, cen, valC*1.13+tcv[2]*tsurf,
+      'Construction '+fMF(valC)+'MF'+(tsurf>0?' + Terrain '+fMF(valT)+'MF':''));
+
   } else {
     const cv=$('a-commune').value;
     iles=cv==='ILES';
     if(!iles){
-      const [pn,px]=($('a-gamme').value||'350000,500000').split(',').map(Number);
-      const mc=parseFloat(cv)||0,s=parseFloat($('a-surf').value)||0;
-      const et=parseInt($('a-etage').value)||0;
-      // Étage : valorisation (pas décote) — logique tahitienne
-      const etCoef=et<=0?-0.03:et===1?0:et===2?0.03:et===3?0.05:et===4?0.07:et>=5?0.09:0;
-      const vm=parseFloat($('a-vue-sel')?.value)||0;
-      const cu=$('a-cuisine')?.checked||false;
-      const cf=(1+mc+vm+etCoef);
-      const mn=s*pn*cf+(cu?2000000:0), mx=s*px*cf+(cu?3500000:0);
-      $('result-val').textContent=fmtMF(mn)+' – '+fmtMF(mx);
-      $('result-lbl').textContent='Appartement hors terrain';
+      const gam=$('a-gamme')?.value||'standard';
+      const s=parseFloat($('a-surf').value)||70;
+      const sit=$('a-sit')?.value||'0,0';
+      const [qrt,vue]=sit.split(',').map(Number);
+      const bpm2=ABASE[cv]||_IC(300000);
+      const gm=AGMULT[gam]||1;
+      const sfV=s<25?1.20:s<35?1.12:s<50?1.05:s<70?1.00:s<90?0.93:s<120?0.75:0.65;
+      const pm2=bpm2*gm*sfV*(1+vue+qrt);
+      const cen=s*pm2;
+      showFourch(cen*0.87, cen, cen*1.13, 'Appartement — '+fmt(Math.round(pm2/1000)*1000)+' XPF/m²');
     }
   }
   $('calc-iles').style.display=iles?'block':'none';
