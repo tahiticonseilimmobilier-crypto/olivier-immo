@@ -7,7 +7,7 @@
 (function() {
   // ── Liens de navigation
   const NAV_LINKS = [
-    { href: '/',                    label: 'Estimation' },
+    { href: '/estimation-interactive', label: 'Estimation' },
     { href: '/vendre',              label: 'Vendre' },
     { href: '/louer',               label: 'Louer' },
     { href: '/acheter',             label: 'Acheter' },
