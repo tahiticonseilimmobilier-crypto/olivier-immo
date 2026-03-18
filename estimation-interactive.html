@@ -124,7 +124,7 @@ optgroup{font-style:normal}
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <div class="hero-badge">Outil gratuit · Données réelles 2025-2026</div>
+      <div class="hero-badge">Outil gratuit · Données réelles <span id="ei-yr">2025</span>-<span id="ei-yr2"></span></div>
       <h1>Combien vaut votre bien<br>à <em>Tahiti</em> ?</h1>
       <p>Estimation immédiate pour toutes les communes de Tahiti et Moorea. Pour les îles éloignées — Bora Bora, Tuamotu, Marquises, Australes — je réalise des estimations officielles sur dossier, sans déplacement.</p>
       <div class="hero-kpis">
@@ -517,6 +517,9 @@ function calc(){
   $('calc-result-wrap').style.display=iles?'none':'block';
 }
 calc();
+// Dates dynamiques
+const _YRe=new Date().getFullYear();
+['ei-yr2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=_YRe;});
 </script>
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
 <script>window.addEventListener('scroll',function(){document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>300);});</script>

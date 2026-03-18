@@ -85,7 +85,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
 <script src="/nav.js"></script>
 
 <div class="hero">
-  <span class="badge badge-gold">Outil gratuit · Tahiti & Moorea · 2026</span>
+  <span class="badge badge-gold">Outil gratuit · Tahiti & Moorea · <span id="badge-annee"></span></span>
   <span class="badge badge-beta">BÊTA</span>
   <h1>Estimez votre bien</h1>
   <p>Terrain, maison ou appartement — fourchette indicative basée sur le marché polynésien réel.</p>
@@ -487,7 +487,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
 <div id="tab-x" style="display:none">
 <div class="card">
   <div class="card-title">Méthode de calcul</div>
-  <p style="font-size:.84rem;line-height:1.75;color:#444;margin-bottom:20px">Outil calibré par Olivier BLAISE (Cabinet LEVY) sur les transactions et annonces actives 2025-2026 en Polynésie française. Version BÊTA — résultats indicatifs.</p>
+  <p style="font-size:.84rem;line-height:1.75;color:#444;margin-bottom:20px">Outil calibré par Olivier BLAISE (Cabinet LEVY) sur les transactions et annonces actives <span id="meth-yr1">2025</span>-<span id="meth-yr2"></span> en Polynésie française. Version BÊTA — résultats indicatifs.</p>
 
   <h4 style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--coral);margin-bottom:6px">🏕️ Terrains</h4>
   <p style="font-size:.82rem;line-height:1.7;color:#555;margin-bottom:16px">Les fourchettes de prix par commune correspondent aux terrains résidentiels viabilisés standard — bien situés, constructibles, accessibles, sans vue particulière. Les annonces internet affichent souvent des prix plus bas car elles concernent de grandes parcelles en pente ou peu accessibles. Les critères de valorisation (vue, quartier, topographie, viabilisation) s'appliquent proportionnellement sur les 3 valeurs bas / central / haut. Inflation terrain estimée à +4%/an hors spéculation.</p>
@@ -496,7 +496,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
   <p style="font-size:.82rem;line-height:1.7;color:#555;margin-bottom:16px">La valeur totale est la somme de la valeur de construction et de la valeur du terrain. Surface pondérée = surface habitable + (terrasse/garage × 0,5). Vétusté : de 0,7%/an (architecte) à 1,2%/an (bois), plafonnée à 45%, corrigée par l'état du bien (rénové, parfait, à rénover…). Les équipements (piscine, climatisation, solaire, parking) sont valorisés séparément. Inflation construction +3%/an.</p>
 
   <h4 style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--coral);margin-bottom:6px">🏢 Appartements</h4>
-  <p style="font-size:.82rem;line-height:1.7;color:#555;margin-bottom:16px">Prix au m² de transaction calibré par commune sur les annonces actives du marché polynésien 2025-2026. Trois gammes : Intermédiaire / Standard / Standing. Dégressivité automatique de la valeur au m² selon la surface — un studio de 30m² a un m² structurellement plus cher qu'un F4 de 100m². La valeur locative est calculée sur les bases de loyers du marché PF, avec les mêmes correctifs commune, gamme et état.</p>
+  <p style="font-size:.82rem;line-height:1.7;color:#555;margin-bottom:16px">Prix au m² de transaction calibré par commune sur les annonces actives du marché polynésien <span id="meth-yr3">2025</span>-<span id="meth-yr4"></span>. Trois gammes : Intermédiaire / Standard / Standing. Dégressivité automatique de la valeur au m² selon la surface — un studio de 30m² a un m² structurellement plus cher qu'un F4 de 100m². La valeur locative est calculée sur les bases de loyers du marché PF, avec les mêmes correctifs commune, gamme et état.</p>
 
   <h4 style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--coral);margin-bottom:6px">🏝️ Immeubles de rapport et locaux professionnels</h4>
   <p style="font-size:.82rem;line-height:1.7;color:#555;margin-bottom:16px">Le Cabinet LEVY commercialise les fonds de commerce et les murs professionnels à Tahiti. Pour les locaux commerciaux et bureaux, l'estimation est réalisée sur demande par méthode de capitalisation. Contactez Olivier BLAISE pour une analyse personnalisée.</p>
@@ -729,6 +729,9 @@ function cA(){
 // Init
 $('m-an').max=new Date().getFullYear();
 $('a-an').max=new Date().getFullYear();
+const _YR=new Date().getFullYear();
+const _YR1=_YR-1;
+['badge-annee','meth-yr2','meth-yr4'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=_YR;});
 cT(); cM(); cA();
 </script>
 </body>
