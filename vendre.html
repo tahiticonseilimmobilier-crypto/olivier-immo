@@ -420,7 +420,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="cr">
         <div class="form-title">Demande d'estimation gratuite</div>
-        <form onsubmit="handleSubmit(event)">
+        <form id="vendre-form" onsubmit="handleSubmit(event)">>
           <div class="fr">
             <div class="fg"><label>Prénom *</label><input type="text" placeholder="Votre prénom" required></div>
             <div class="fg"><label>Nom *</label><input type="text" placeholder="Votre nom" required></div>
@@ -436,7 +436,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <option>Autre</option>
             </select>
           </div>
-          <div class="fg"><label>Localisation</label><input type="text" placeholder="Ex : Punaauia, Papeete, Moorea…"></div>
+          <div class="fg"><label>Commune</label><select id="vf-commune"><option value="">— Sélectionner —</option>
+              <optgroup label="Tahiti — Côte Ouest &amp; Centre">
+                <option>Papeete</option><option>Pirae</option><option>Arue</option>
+                <option>Faaa</option><option>Punaauia</option><option>Paea</option>
+                <option>Papara</option><option>Mataiea</option><option>Papeari</option>
+              </optgroup>
+              <optgroup label="Tahiti — Côte Est &amp; Nord">
+                <option>Mahina</option><option>Papenoo</option><option>Tiarei</option>
+                <option>Hitiaa / Mahaena</option><option>Faaone</option>
+              </optgroup>
+              <optgroup label="Tahiti — Presqu'île">
+                <option>Taravao</option><option>Toahotu</option><option>Afaahiti</option>
+                <option>Vairao</option><option>Teahupoo</option><option>Tautira / Pueu</option>
+              </optgroup>
+              <optgroup label="Moorea">
+                <option>Moorea — Maharepa / Papetoai</option>
+                <option>Moorea — Haapiti / Paopao</option>
+                <option>Moorea — Afareaitu / Teavaro</option>
+              </optgroup>
+              <option>Autres îles</option></select></div>
           <div class="fg"><label>Message (optionnel)</label><textarea placeholder="Décrivez rapidement votre bien et votre projet…"></textarea></div>
           <button type="submit" class="btn-submit">Envoyer ma demande →</button>
           <p class="form-note">Réponse sous 24h · Estimation gratuite et sans engagement · Confidentialité garantie</p>
@@ -462,9 +481,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 function handleSubmit(e) {
   e.preventDefault();
   const btn = e.target.querySelector('.btn-submit');
-  btn.textContent = '✅ Demande envoyée — Je vous rappelle sous 24h !';
-  btn.style.background = '#1e6b45';
-  btn.disabled = true;
+  const nom = e.target.querySelector('[placeholder*="prénom"],[placeholder*="Prénom"]')?.value||'';
+  const tel = e.target.querySelector('[type="tel"]')?.value||'';
+  const commune = document.getElementById('vf-commune')?.value||'';
+  const extra = e.target.querySelectorAll('input[type="text"]');
+  const details = Array.from(extra).map(i=>i.value).filter(Boolean).join(' | ');
+  if(!nom||!tel){alert('Merci de renseigner votre nom et téléphone.');return;}
+  btn.disabled=true; btn.textContent='Envoi en cours...';
+  fetch('https://api.web3forms.com/submit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      access_key:'b30c3522-dd13-4675-aedd-a6f6f14a15d0',
+      subject:'Nouveau propriétaire vendeur — '+nom,
+      from_name:'Site Olivier BLAISE',
+      nom:nom, telephone:tel, commune:commune, details:details,
+      page:'vendre'
+    })
+  }).then(r=>r.json()).then(d=>{
+    if(d.success){
+      btn.textContent='✅ Demande envoyée ! Je vous rappelle sous 24h.';
+      btn.style.background='#1e6b45';
+    }else{
+      btn.disabled=false; btn.textContent='Envoyer ma demande →';
+      alert('Erreur. Appelez le 89 22 56 43.');
+    }
+  }).catch(()=>{
+    btn.disabled=false; btn.textContent='Envoyer ma demande →';
+    alert('Erreur réseau. Appelez le 89 22 56 43.');
+  });
 }
 
 const obs = new IntersectionObserver((entries) => {

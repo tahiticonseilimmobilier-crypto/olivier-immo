@@ -509,7 +509,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="cr">
         <div class="form-title">Ma recherche immobilière</div>
-        <form onsubmit="handleSubmit(event)">
+        <form id="acheter-form" onsubmit="handleSubmit(event)">>
           <div class="fr">
             <div class="fg"><label>Prénom *</label><input type="text" placeholder="Votre prénom" required></div>
             <div class="fg"><label>Nom *</label><input type="text" placeholder="Votre nom" required></div>
@@ -525,7 +525,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </select>
           </div>
           <div class="fg"><label>Budget maximum</label><input type="text" placeholder="Ex : 50 000 000 XPF"></div>
-          <div class="fg"><label>Zone souhaitée</label><input type="text" placeholder="Ex : Punaauia, Papeete, Moorea…"></div>
+          <div class="fg"><label>Zone souhaitée</label><select id="af-commune"><option value="">— Sélectionner —</option>
+              <optgroup label="Tahiti — Côte Ouest &amp; Centre">
+                <option>Papeete</option><option>Pirae</option><option>Arue</option>
+                <option>Faaa</option><option>Punaauia</option><option>Paea</option>
+                <option>Papara</option><option>Mataiea</option><option>Papeari</option>
+              </optgroup>
+              <optgroup label="Tahiti — Côte Est &amp; Nord">
+                <option>Mahina</option><option>Papenoo</option><option>Tiarei</option>
+                <option>Hitiaa / Mahaena</option><option>Faaone</option>
+              </optgroup>
+              <optgroup label="Tahiti — Presqu'île">
+                <option>Taravao</option><option>Toahotu</option><option>Afaahiti</option>
+                <option>Vairao</option><option>Teahupoo</option><option>Tautira / Pueu</option>
+              </optgroup>
+              <optgroup label="Moorea">
+                <option>Moorea — Maharepa / Papetoai</option>
+                <option>Moorea — Haapiti / Paopao</option>
+                <option>Moorea — Afareaitu / Teavaro</option>
+              </optgroup>
+              <option>Autres îles</option></select></div>
           <div class="fg"><label>Votre projet</label><textarea placeholder="Décrivez votre recherche : surface, nombre de chambres, vue mer, piscine, proximité école…"></textarea></div>
           <button type="submit" class="btn-submit">Envoyer ma recherche →</button>
           <p class="form-note">Réponse sous 24h · Gratuit et sans engagement</p>
@@ -551,9 +570,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 function handleSubmit(e){
   e.preventDefault();
   const btn=e.target.querySelector('.btn-submit');
-  btn.textContent='✅ Recherche envoyée — Je reviens vers vous sous 24h !';
-  btn.style.background='#122d58';
-  btn.disabled=true;
+  const inputs=e.target.querySelectorAll('input');
+  const nom=inputs[0]?.value||'';
+  const tel=e.target.querySelector('[type="tel"]')?.value||'';
+  const commune=document.getElementById('af-commune')?.value||'';
+  const budget=Array.from(inputs).find(i=>i.type==='text'&&i!==inputs[0])?.value||'';
+  if(!nom||!tel){alert('Merci de renseigner votre nom et téléphone.');return;}
+  btn.disabled=true;btn.textContent='Envoi en cours...';
+  fetch('https://api.web3forms.com/submit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      access_key:'b30c3522-dd13-4675-aedd-a6f6f14a15d0',
+      subject:'Nouvel acheteur / investisseur — '+nom,
+      from_name:'Site Olivier BLAISE',
+      nom:nom,telephone:tel,commune:commune,budget:budget,page:'acheter'
+    })
+  }).then(r=>r.json()).then(d=>{
+    if(d.success){btn.textContent='✅ Recherche envoyée ! Je vous rappelle sous 24h.';btn.style.background='#1e6b45';}
+    else{btn.disabled=false;btn.textContent='Envoyer ma recherche →';alert('Erreur. Appelez le 89 22 56 43.');}
+  }).catch(()=>{btn.disabled=false;btn.textContent='Envoyer ma recherche →';alert('Erreur réseau. Appelez le 89 22 56 43.');});
 }
 const obs=new IntersectionObserver((entries)=>{
   entries.forEach(el=>{
