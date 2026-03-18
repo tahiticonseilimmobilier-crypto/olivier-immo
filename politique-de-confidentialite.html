@@ -52,14 +52,17 @@ ul li{color:#3a3530;font-size:.93rem;line-height:1.75;margin-bottom:6px}
 .nav-legal{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
 .nav-legal a{background:white;border:1px solid var(--bord);border-radius:8px;padding:9px 18px;font-size:.82rem;color:var(--gris);text-decoration:none;transition:all .2s}
 .nav-legal a:hover,.nav-legal a.active{background:var(--noir);color:white;border-color:var(--noir)}
-footer{background:var(--noir);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.f-brand{font-family:'Libre Baskerville',serif;color:white;font-size:.82rem;font-weight:700;letter-spacing:.06em}
-.f-brand em{color:var(--coral);font-style:normal}
-.f-copy{color:rgba(255,255,255,.25);font-size:.73rem}
-.f-links{display:flex;gap:18px}
-.f-links a{color:rgba(255,255,255,.35);font-size:.73rem;text-decoration:none;transition:color .2s}
-.f-links a:hover{color:rgba(255,255,255,.7)}
+
 @media(max-width:600px){.container{padding:40px 20px 80px}.nav-legal{flex-direction:column}}
+
+@media(max-width:560px){}
+footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.footer-logo{font-family:'Libre Baskerville',serif;color:rgba(255,255,255,.55);font-size:.8rem}
+.footer-logo em{color:#c0533a;font-style:normal}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{color:rgba(255,255,255,.32);font-size:.73rem;text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:white}
+@media(max-width:560px){footer{flex-direction:column;text-align:center}.footer-links{justify-content:center}}
 </style>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -147,14 +150,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p>Cette politique de confidentialité peut être mise à jour à tout moment. La date de dernière modification est indiquée en haut de cette page. Nous vous invitons à la consulter régulièrement.</p>
 </div>
 <footer>
-  <span class="f-brand">Cabinet <em>LEVY</em> — Olivier Blaise</span>
-  <span class="f-copy">© 2026 · Polynésie française · Tous droits réservés</span>
-  <div class="f-links">
+  <span class="footer-logo">Cabinet <em>LEVY</em> — Olivier BLAISE · olivierimmopolynesie.com</span>
+  <div class="footer-links">
     <a href="/mentions-legales">Mentions légales</a>
     <a href="/politique-de-confidentialite">Confidentialité</a>
-    <a href="/conditions-generales">CGU</a>
+    <a href="/estimation-interactive">Estimation</a>
+    <a href="/calculateur">Calculateur</a>
   </div>
 </footer>
+
 
 <script>
 function toggleMenu(){

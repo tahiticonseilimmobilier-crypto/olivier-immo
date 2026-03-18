@@ -143,14 +143,6 @@ h2 em{color:var(--gold);font-style:italic}
 .c-opt.green:hover{border-color:rgba(37,211,102,.4)}
 
 /* FOOTER */
-footer{background:#080a0e;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid rgba(255,255,255,.05)}
-.f-brand{font-family:'Libre Baskerville',serif;color:rgba(255,255,255,.5);font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
-.f-brand em{color:var(--coral);font-style:normal}
-.f-copy{color:rgba(255,255,255,.2);font-size:.72rem}
-.f-links{display:flex;gap:20px}
-.f-links a{color:rgba(255,255,255,.3);font-size:.72rem;text-decoration:none;transition:color .2s}
-.f-links a:hover{color:rgba(255,255,255,.7)}
-
 /* RESPONSIVE */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;min-height:auto}
@@ -177,6 +169,13 @@ footer{background:#080a0e;padding:28px 40px;display:flex;align-items:center;just
 .mobile-nav a{color:rgba(255,255,255,.55);font-size:.88rem;padding:14px 32px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05);transition:color .2s}
 .mobile-nav a:hover,.mobile-nav a.active{color:white}
 @media(max-width:960px){.burger{display:flex}}
+footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.footer-logo{font-family:'Libre Baskerville',serif;color:rgba(255,255,255,.55);font-size:.8rem}
+.footer-logo em{color:#c0533a;font-style:normal}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{color:rgba(255,255,255,.32);font-size:.73rem;text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:white}
+@media(max-width:560px){footer{flex-direction:column;text-align:center}.footer-links{justify-content:center}}
 </style>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -406,17 +405,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <footer>
-  <div class="f-left">
-    <span class="f-brand">Cabinet <em>LEVY</em> — Olivier Blaise</span>
-  </div>
-  <div class="f-copy">© 2026 · Immobilier Polynésie française · Tous droits réservés</div>
-  <div class="f-links">
-    <a href="https://www.tahiticonseilimmobilier.com/" target="_blank">Cabinet LEVY</a>
-    <a href="https://www.olivierimmopolynesie.com/">Estimation</a>
+  <span class="footer-logo">Cabinet <em>LEVY</em> — Olivier BLAISE · olivierimmopolynesie.com</span>
+  <div class="footer-links">
     <a href="/mentions-legales">Mentions légales</a>
     <a href="/politique-de-confidentialite">Confidentialité</a>
+    <a href="/estimation-interactive">Estimation</a>
+    <a href="/calculateur">Calculateur</a>
   </div>
 </footer>
+
+
 
 <script>
 document.querySelectorAll('.em-val').forEach(function(e){
