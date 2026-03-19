@@ -29,17 +29,6 @@
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);overflow-x:hidden}
 
-/* HEADER */
-header{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--noir);height:60px;padding:0 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.07)}
-.h-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.h-logo img{height:34px;width:34px;object-fit:cover;border-radius:5px}
-.h-logo-txt{font-family:'Libre Baskerville',serif;color:white;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.h-logo-txt em{color:var(--coral);font-style:normal}
-.h-nav{display:flex;align-items:center;gap:22px}
-.h-nav a{color:rgba(255,255,255,.45);font-size:.8rem;text-decoration:none;transition:color .2s}
-.h-nav a:hover,.h-nav a.active{color:white}
-.h-cta{background:var(--coral);color:white;font-size:.8rem;font-weight:700;padding:9px 20px;border-radius:7px;text-decoration:none;transition:background .2s}
-.h-cta:hover{background:#a8432c}
 
 /* HERO */
 .hero{min-height:90vh;padding-top:60px;background:var(--noir);display:grid;grid-template-columns:55% 45%;position:relative;overflow:hidden;align-items:center}
@@ -153,22 +142,9 @@ h2 em{color:var(--gold);font-style:italic}
   .valeurs-grid{grid-template-columns:1fr}
   .cabinet-inner{grid-template-columns:1fr}
   .contact-inner{grid-template-columns:1fr}
-  .h-nav{display:none}
-  .burger{display:flex}
-  .h-cta{display:none}
-}
+    }
 
 /* BURGER MENU MOBILE */
-.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
-.burger span{display:block;width:22px;height:2px;background:white;transition:all .3s}
-.burger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-.burger.open span:nth-child(2){opacity:0}
-.burger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-.mobile-nav{display:none;position:fixed;top:60px;left:0;right:0;background:var(--noir);border-top:1px solid rgba(255,255,255,.08);z-index:99;flex-direction:column;padding:16px 0}
-.mobile-nav.open{display:flex}
-.mobile-nav a{color:rgba(255,255,255,.55);font-size:.88rem;padding:14px 32px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05);transition:color .2s}
-.mobile-nav a:hover,.mobile-nav a.active{color:white}
-@media(max-width:960px){.burger{display:flex}}
 footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
 .footer-logo{font-family:'Libre Baskerville',serif;color:rgba(255,255,255,.55);font-size:.8rem}
 .footer-logo em{color:#c0533a;font-style:normal}
