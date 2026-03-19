@@ -21,6 +21,22 @@
 :root{--noir:#0f1117;--coral:#c0533a;--coral-dk:#a8432c;--gold:#c9a84c;--sable:#f0ebe2;--bord:#ddd7cd;--gris:#7a7570;--lagoon:#00838f}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);overflow-x:hidden}
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--noir);height:60px;padding:0 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.07)}
+.h-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.h-logo-txt{font-family:'Libre Baskerville',serif;color:white;font-size:.82rem;font-weight:700;letter-spacing:.04em}
+.h-logo-txt em{color:var(--coral);font-style:normal}
+.h-nav{display:flex;align-items:center;gap:22px}
+.h-nav a{color:rgba(255,255,255,.45);font-size:.8rem;text-decoration:none;transition:color .2s}
+.h-nav a:hover,.h-nav a.active{color:white}
+.h-cta{background:var(--coral);color:white;font-size:.8rem;font-weight:700;padding:9px 20px;border-radius:7px;text-decoration:none;transition:background .2s}
+.h-cta:hover{background:var(--coral-dk)}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.burger span{width:22px;height:2px;background:white;border-radius:2px}
+.mobile-nav{display:none;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:var(--noir);z-index:99;border-bottom:1px solid rgba(255,255,255,.08)}
+.mobile-nav.open{display:flex}
+.mobile-nav a{color:rgba(255,255,255,.55);font-size:.88rem;padding:14px 32px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05)}
+.mobile-nav a:hover{color:white}
+@media(max-width:900px){.burger{display:flex}.h-nav,.h-cta{display:none}}
 .blog-hero{padding:120px 0 72px;background:var(--noir);position:relative;overflow:hidden}
 .blog-hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1600&q=80');background-size:cover;background-position:center;opacity:.06}
 .container{max-width:1100px;margin:0 auto;padding:0 40px}
@@ -131,7 +147,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
       <h2>Votre projet immobilier en Polynésie ?</h2>
       <p>Estimation officielle, vente, achat ou location — je vous accompagne sur Tahiti, Moorea et toute la Polynésie française.</p>
       <a href="/" class="cta-btn">Demander mon estimation →</a>
-      <div class="cta-tel"><a href="tel:+68989225643" style="color:inherit;text-decoration:none">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" style="color:inherit;text-decoration:none">WhatsApp 87 22 56 43</a> · <a href="/cdn-cgi/l/email-protection#1e71727768777b6c5e727b68676a7f76776a77307d7173" style="color:inherit;text-decoration:none"><span class="__cf_email__" data-cfemail="640b080d120d0116240801121d10050c0d100d4a070b09">[email&#160;protected]</span></a></div>
+      <div class="cta-tel"><a href="tel:+68989225643" style="color:inherit;text-decoration:none">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643" style="color:inherit;text-decoration:none">WhatsApp 87 22 56 43</a> · <a href="/cdn-cgi/l/email-protection#3a5556534c535f487a565f4c434e5b52534e5314595557" style="color:inherit;text-decoration:none"><span class="__cf_email__" data-cfemail="a8c7c4c1dec1cddae8c4cdded1dcc9c0c1dcc186cbc7c5">[email&#160;protected]</span></a></div>
     </div>
   </div>
 </div>
@@ -148,7 +164,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
 
 
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
   const ARTICLES = [
     {
@@ -237,7 +253,15 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
         <div class="card-cat">${a.cat}</div>
       </div>
       <div class="card-body">
-        <div class="card-date"<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
+        <div class="card-date">${a.date} · ${a.lecture}</div>
+        <h3 class="card-title">${a.titre}</h3>
+        <p class="card-excerpt">${a.extrait}</p>
+        <span class="card-link">Lire →</span>
+      </div>
+    </a>`).join('');
+})();
+</script>
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
 <script>window.addEventListener('scroll',function(){document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>300);});</script>
 </body>
 </html>
