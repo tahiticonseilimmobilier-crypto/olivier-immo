@@ -73,6 +73,24 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
 .scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:var(--coral);color:white;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.2);z-index:200;transition:opacity .2s}
 .scroll-top.visible{display:flex}
 .scroll-top:hover{background:#a8432c}
+
+/* ── Nav styles inlines (sync nav.js) ── */
+#site-header{position:fixed;top:0;left:0;right:0;z-index:100;background:#0f1117;height:60px;padding:0 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.07)}
+.h-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.h-logo-txt{font-family:'Libre Baskerville',serif;color:white;font-size:.82rem;font-weight:700;letter-spacing:.04em}
+.h-logo-txt em{color:#c0533a;font-style:normal}
+.h-nav{display:flex;align-items:center;gap:22px}
+.h-nav a{color:rgba(255,255,255,.45);font-size:.8rem;text-decoration:none;transition:color .2s}
+.h-nav a:hover,.h-nav a.active{color:white}
+.h-cta{background:#c0533a;color:white;font-size:.8rem;font-weight:700;padding:9px 20px;border-radius:7px;text-decoration:none;white-space:nowrap}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.burger span{width:22px;height:2px;background:white;border-radius:2px}
+.mobile-nav{display:none;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:#0f1117;z-index:99;border-bottom:1px solid rgba(255,255,255,.08)}
+.mobile-nav.open{display:flex}
+.mobile-nav a{color:rgba(255,255,255,.55);font-size:.88rem;padding:14px 32px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.05)}
+.mobile-nav a:hover,.mobile-nav a.active{color:white}
+body{padding-top:60px}
+@media(max-width:900px){.burger{display:flex}.h-nav,.h-cta{display:none}}
 </style>
 </head>
 <body>
