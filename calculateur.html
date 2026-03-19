@@ -720,8 +720,8 @@ function cA(){
   const _etL={rdc:-0.03,rdc_j:0.02,milieu:0,haut:0.05,pent:0.15}[etage]||0;
   let _corr=(1+_standL+_vueL*0.4+_etL+aqrt*0.5)*(1+nuis*0.6)*(1-Math.min(ve*0.45,0.20));
   const lCen=_IL(Math.round(_lc*_sc*_corr*(hasMeu?1.12:1)*(hasPi?1.07:1)*(hasSec?1.03:1)*(hasCui?1.05:1)*sh/1000)*1000)+(hasPk?8000:0);
-  const lBas=_IL(Math.round(_lb*_sc*sh/1000)*1000);
-  const lHau=_IL(Math.round(_lh*_sc*_corr*(hasMeu?1.12:1)*(hasPi?1.07:1)*(hasSec?1.03:1)*(hasCui?1.05:1)*sh/1000)*1000);
+  const lBas=_IL(Math.round(lCen*0.80/1000)*1000);
+  const lHau=_IL(Math.round(lCen*1.20/1000)*1000);
   $('a-loy').textContent=fmt(lCen);
   $('a-lbas').textContent=fmt(lBas+(hasPk?8000:0));
   $('a-lhau').textContent=fmt(lHau+(hasPk?8000:0));
