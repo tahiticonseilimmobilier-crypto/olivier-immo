@@ -218,10 +218,10 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
         <div class="grid-2">
           <div class="field"><label>Construction</label>
             <select id="m-type" onchange="calc()">
-              <option value="125000">Bois</option>
-              <option value="150000">Métal</option>
-              <option value="175000" selected>Béton</option>
-              <option value="200000">Architecte</option>
+              <option value="bois">Bois / Fare</option>
+              <option value="metal">Ossature métal</option>
+              <option value="beton" selected>Béton</option>
+              <option value="archi">Architecte</option>
             </select>
           </div>
           <div class="field"><label>Année</label><input type="number" id="m-annee" value="2010" min="1950" max="2026" oninput="calc()"></div>
@@ -466,10 +466,12 @@ const _IC=v=>Math.round(v*(1+0.03*_AN));
 
 // ABASE appartement — calibré Cabinet LEVY + annonces 2026
 const ABASE={Papeete:_IC(540000),Pirae:_IC(515000),Punaauia:_IC(440000),Faaa:_IC(335000),
-  Arue:_IC(415000),Paea:_IC(305000),Mahina:_IC(290000),Papara:_IC(210000),
-  Mataiea:_IC(235000),Taravao:_IC(260000),Toahotu:_IC(200000),
-  Vairao:_IC(175000),Tautira:_IC(170000),Presquile:_IC(185000),Papenoo:_IC(170000),
-  Moorea_M:_IC(500000),Moorea_H:_IC(375000),Moorea_A:_IC(275000)};
+  Arue:_IC(415000),Paea:_IC(305000),Mahina:_IC(290000),
+  Papara:_IC(210000),Mataiea:_IC(235000),Papeari:_IC(235000),
+  Papenoo:_IC(170000),Tiarei:_IC(170000),Hitiaa:_IC(170000),Faaone:_IC(280000),
+  Taravao:_IC(260000),Toahotu:_IC(200000),Afaahiti:_IC(200000),
+  Vairao:_IC(175000),Teahupoo:_IC(175000),Tautira:_IC(175000),
+  Presquile:_IC(185000),Moorea_M:_IC(500000),Moorea_H:_IC(375000),Moorea_A:_IC(275000)};
 const AGMULT={standard:1.00,residence:1.06,standing:1.10};
 const VT_M={bois:0.012,metal:0.009,beton:0.008,archi:0.007};
 
@@ -514,8 +516,7 @@ function calc(){
 
   } else if(cur==='maison'){
     const typeVal=$('m-type').value;
-    const typeMap={bois:[_IC(100000),_IC(155000)],metal:[_IC(148000),_IC(185000)],
-                   beton:[_IC(170000),_IC(210000)],archi:[_IC(210000),_IC(280000)]};
+    const typeMap={bois:[_IC(100000),_IC(155000)],metal:[_IC(148000),_IC(185000)],beton:[_IC(175000),_IC(220000)],archi:[_IC(230000),_IC(310000)]};
     const [cmin,cmax]=typeMap[typeVal]||typeMap.beton;
     const an=parseInt($('m-annee').value)||2010;
     const age=Math.max(0,new Date().getFullYear()-an);
