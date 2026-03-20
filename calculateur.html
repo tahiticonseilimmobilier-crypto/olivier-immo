@@ -107,37 +107,37 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
     <div class="field"><label>Commune</label>
       <select id="t-com" onchange="cT()">
         <optgroup label="TAHITI — Agglomération">
-          <option value="35000,40000,45000">Papeete</option>
-          <option value="30000,35000,40000">Pirae</option>
-          <option value="30000,35000,40000">Punaauia</option>
-          <option value="22500,27500,32500">Faaa</option>
-          <option value="25000,30000,35000">Arue</option>
-          <option value="20000,25000,30000">Paea</option>
-          <option value="15000,20000,25000">Mahina</option>
+          <option value="35000,40000,45000,Papeete">Papeete</option>
+          <option value="30000,35000,40000,Pirae">Pirae</option>
+          <option value="30000,35000,40000,Punaauia">Punaauia</option>
+          <option value="22500,27500,32500,Faaa">Faaa</option>
+          <option value="25000,30000,35000,Arue">Arue</option>
+          <option value="20000,25000,30000,Paea">Paea</option>
+          <option value="15000,20000,25000,Mahina">Mahina</option>
         </optgroup>
         <optgroup label="TAHITI — Côte Ouest">
-          <option value="15000,20000,25000">Papara</option>
-          <option value="12500,17500,22500">Mataiea</option>
-          <option value="12500,17500,22500">Papeari</option>
+          <option value="15000,20000,25000,Papara">Papara</option>
+          <option value="12500,17500,22500,Mataiea">Mataiea</option>
+          <option value="12500,17500,22500,Papeari">Papeari</option>
         </optgroup>
         <optgroup label="TAHITI — Côte Est">
-          <option value="10000,15000,20000">Papenoo</option>
-          <option value="10000,15000,20000">Tiarei</option>
-          <option value="10000,15000,20000">Hitiaa / Mahaena</option>
-          <option value="10000,15000,20000">Faaone</option>
+          <option value="10000,15000,20000,Papenoo">Papenoo</option>
+          <option value="10000,15000,20000,Tiarei">Tiarei</option>
+          <option value="10000,15000,20000,Hitiaa">Hitiaa / Mahaena</option>
+          <option value="10000,15000,20000,Faaone">Faaone</option>
         </optgroup>
         <optgroup label="TAHITI — Presqu'île">
-          <option value="15000,20000,25000">Taravao</option>
-          <option value="12500,17500,22500">Toahotu</option>
-          <option value="12500,17500,22500">Afaahiti</option>
-          <option value="10000,15000,20000">Vairao</option>
-          <option value="10000,15000,20000">Teahupoo</option>
-          <option value="10000,15000,20000">Tautira / Pueu</option>
+          <option value="15000,20000,25000,Taravao">Taravao</option>
+          <option value="12500,17500,22500,Toahotu">Toahotu</option>
+          <option value="12500,17500,22500,Afaahiti">Afaahiti</option>
+          <option value="10000,15000,20000,Vairao">Vairao</option>
+          <option value="10000,15000,20000,Teahupoo">Teahupoo</option>
+          <option value="10000,15000,20000,Tautira">Tautira / Pueu</option>
         </optgroup>
         <optgroup label="MOOREA">
-          <option value="25000,30000,35000">Moorea — Maharepa / Papetoai</option>
-          <option value="20000,25000,30000">Moorea — Haapiti / Paopao</option>
-          <option value="15000,20000,25000">Moorea — Afareaitu / Teavaro</option>
+          <option value="25000,30000,35000,Moorea_M">Moorea — Maharepa / Papetoai</option>
+          <option value="20000,25000,30000,Moorea_H">Moorea — Haapiti / Paopao</option>
+          <option value="15000,20000,25000,Moorea_A">Moorea — Afareaitu / Teavaro</option>
         </optgroup>
         <optgroup label="ÎLES">
           <option value="ILES">Bora Bora / Sous-le-Vent</option>
@@ -215,34 +215,42 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
 
 <!-- ══════════ MAISON ══════════ -->
 <div id="tab-m" style="display:none">
+<div id="m-iles" style="display:none">
+  <div class="card"><div class="iles">
+    <h3>🌴 Îles éloignées</h3>
+    <p>Estimation sur dossier — délai 5 à 7 jours.</p>
+    <a href="/" class="cta-btn" style="background:var(--coral);color:white;font-size:.82rem">Demander une estimation →</a>
+  </div></div>
+</div>
+<div id="m-res">
 <div class="card">
   <div class="card-title">Votre maison</div>
   <div class="g2">
     <div class="field"><label>Commune</label>
       <select id="m-com" onchange="cM()">
         <optgroup label="TAHITI — Agglomération">
-          <option value="35000,40000,45000">Papeete</option>
-          <option value="30000,35000,40000">Pirae</option>
-          <option value="30000,35000,40000">Punaauia</option>
-          <option value="22500,27500,32500">Faaa</option>
-          <option value="25000,30000,35000">Arue</option>
-          <option value="20000,25000,30000">Paea</option>
-          <option value="15000,20000,25000">Mahina</option>
+          <option value="35000,40000,45000,Papeete">Papeete</option>
+          <option value="30000,35000,40000,Pirae">Pirae</option>
+          <option value="30000,35000,40000,Punaauia">Punaauia</option>
+          <option value="22500,27500,32500,Faaa">Faaa</option>
+          <option value="25000,30000,35000,Arue">Arue</option>
+          <option value="20000,25000,30000,Paea">Paea</option>
+          <option value="15000,20000,25000,Mahina">Mahina</option>
         </optgroup>
         <optgroup label="TAHITI — Côte Ouest">
-          <option value="15000,20000,25000">Papara</option>
-          <option value="12500,17500,22500">Mataiea · Papeari</option>
+          <option value="15000,20000,25000,Papara">Papara</option>
+          <option value="12500,17500,22500,Mataiea">Mataiea · Papeari</option>
         </optgroup>
         <optgroup label="TAHITI — Côte Est / Presqu'île">
-          <option value="10000,15000,20000">Papenoo · Tiarei · Hitiaa · Faaone</option>
-          <option value="15000,20000,25000">Taravao</option>
-          <option value="12500,17500,22500">Toahotu · Afaahiti</option>
-          <option value="10000,15000,20000">Vairao · Teahupoo · Tautira</option>
+          <option value="10000,15000,20000,Papenoo">Papenoo · Tiarei · Hitiaa · Faaone</option>
+          <option value="15000,20000,25000,Taravao">Taravao</option>
+          <option value="12500,17500,22500,Toahotu">Toahotu · Afaahiti</option>
+          <option value="10000,15000,20000,Vairao">Vairao · Teahupoo · Tautira</option>
         </optgroup>
         <optgroup label="MOOREA">
-          <option value="25000,30000,35000">Moorea — Maharepa / Papetoai</option>
-          <option value="20000,25000,30000">Moorea — Haapiti / Paopao</option>
-          <option value="15000,20000,25000">Moorea — Afareaitu / Teavaro</option>
+          <option value="25000,30000,35000,Moorea_M">Moorea — Maharepa / Papetoai</option>
+          <option value="20000,25000,30000,Moorea_H">Moorea — Haapiti / Paopao</option>
+          <option value="15000,20000,25000,Moorea_A">Moorea — Afareaitu / Teavaro</option>
         </optgroup>
         <optgroup label="ÎLES">
           <option value="ILES">Bora Bora / Sous-le-Vent</option>
@@ -264,13 +272,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
     <div class="field"><label>Quartier / Environnement</label>
       <select id="m-qrt" onchange="cM()">
         <option value="-0.12">Quartier populaire</option>
-        <option value="0" selected>Standard (référence)</option>
+        <option value="0" selected>Standard</option>
         <option value="0.07">Résidentiel calme</option>
         <option value="0.14">Prestige / vue / bord de mer</option>
       </select>
     </div>
+    <div class="field"><label>Année de construction</label>
+      <input type="number" id="m-an" value="2005" min="1950" oninput="cM()">
+    </div>
   </div>
-  <div class="g3">
+  <div class="g2">
     <div class="field"><label>Type de construction</label>
       <select id="m-type" onchange="cM()">
         <option value="bois">Bois / Fare</option>
@@ -278,9 +289,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
         <option value="beton" selected>Béton</option>
         <option value="archi">Architecte</option>
       </select>
-    </div>
-    <div class="field"><label>Année de construction</label>
-      <input type="number" id="m-an" value="2005" min="1950" oninput="cM()">
     </div>
     <div class="field"><label>État général</label>
       <select id="m-etat" onchange="cM()">
@@ -293,7 +301,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
       </select>
     </div>
   </div>
-  <div id="m-vet" class="ipill">Vétusté : <strong id="m-vv">—</strong></div>
+  <div id="m-vet" class="ipill" style="display:none">Vétusté : <strong id="m-vv">—</strong></div>
 
   <div class="sep-label">Surfaces</div>
   <div class="g3">
@@ -309,24 +317,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
   </div>
   <div id="m-pond" class="ipill">Surface pondérée : <strong id="m-pv">—</strong> m²</div>
 
-  <div class="sep-label">Équipements principaux</div>
-  <div class="ck-row">
-    <label class="ck" id="ck-mpi"><input type="checkbox" onchange="ckOn(this,'ck-mpi');cM()"> 🏊 Piscine</label>
-    <label class="ck" id="ck-mcl"><input type="checkbox" onchange="ckOn(this,'ck-mcl');cM()"> ❄️ Climatisation</label>
-    <label class="ck" id="ck-mso"><input type="checkbox" onchange="ckOn(this,'ck-mso');cM()"> ☀️ Solaire</label>
-    <label class="ck" id="ck-mpk"><input type="checkbox" onchange="ckOn(this,'ck-mpk');cM()"> 🚗 Parking couvert</label>
+  <div class="sep-label">Équipements</div>
+  <div class="g2">
+    <div class="field"><label>❄️ Climatisation</label>
+      <select id="m-clim" onchange="cM()">
+        <option value="0">Sans climatisation</option>
+        <option value="partial">Partielle (1–2 pièces)</option>
+        <option value="full">Complète (tout climatisé)</option>
+      </select>
+    </div>
+    <div class="field"><label>Équipements</label>
+      <div class="ck-row" style="margin-top:6px">
+        <label class="ck" id="ck-mpi"><input type="checkbox" onchange="ckOn(this,'ck-mpi');cM()"> 🏊 Piscine</label>
+        <label class="ck" id="ck-mso"><input type="checkbox" onchange="ckOn(this,'ck-mso');cM()"> ☀️ Solaire</label>
+      </div>
+    </div>
   </div>
 </div>
 
-<div id="m-iles" style="display:none">
-  <div class="card"><div class="iles">
-    <h3>🌴 Îles éloignées</h3>
-    <p>Bora Bora, Îles Sous-le-Vent, Tuamotu, Marquises… marché trop spécifique pour un calcul automatique.</p>
-    <a href="/" class="cta-btn" style="background:var(--coral);color:white;font-size:.82rem">Demander une estimation →</a>
-  </div></div>
-</div>
-
-<div id="m-res">
 <div class="rbox">
   <div class="rl">Valeur vénale indicative</div>
   <div class="rv" id="m-cen">—</div>
@@ -345,8 +353,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
 </div>
 <p class="note">Construction + terrain · Vétusté automatique · Données marché 2026.</p>
 <div class="disc">Résultat indicatif. Pour une valeur certifiée, une estimation officielle avec visite est indispensable.</div>
-</div><!-- /rbox -->
-</div><!-- /m-res -->
+</div>
 
 <!-- ══════════ APPARTEMENT ══════════ -->
 <div id="tab-a" style="display:none">
@@ -392,9 +399,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
     </div>
     <div class="field"><label>Gamme de résidence</label>
       <select id="a-gam" onchange="cA()">
-        <option value="standard" selected>Intermédiaire — immeuble courant</option>
-        <option value="residence">Standard — bien entretenu, résidence normale</option>
-        <option value="standing">Standing — piscine, gardiennage, prestations</option>
+        <option value="standard" selected>Basique — finitions simples</option>
+        <option value="residence">Standard — belles finitions, sans prestation</option>
+        <option value="standing">Standing — gardien, piscine, prestations</option>
       </select>
     </div>
   </div>
@@ -402,14 +409,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
     <div class="field"><label>Surface habitable (m²)</label>
       <input type="number" id="a-sh" value="70" min="15" oninput="cA()">
     </div>
-    <div class="field"><label>Terrasse / Balcon (m²) <span style="color:var(--gris);font-weight:400">× 0.15</span></label>
+    <div class="field"><label>Terrasse / Balcon (m²)</label>
       <input type="number" id="a-terr" value="0" min="0" oninput="cA()">
     </div>
     <div class="field"><label>Année de construction</label>
       <input type="number" id="a-an" value="2010" min="1960" oninput="cA()">
     </div>
   </div>
-  <div id="a-vet" class="ipill">Surface pondérée : <strong id="a-pond-val">—</strong> m² · Vétusté : <strong id="a-vv">—</strong></div>
+  <div id="a-vet" class="ipill">Surface pondérée : <strong id="a-pond-val">—</strong> m²</div>
 
   <div class="sep-label">Bien</div>
   <div class="g2">
@@ -435,12 +442,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
 
   <div class="sep-label">Options</div>
   <div class="ck-row">
-    <label class="ck" id="ck-api"><input type="checkbox" onchange="ckOn(this,'ck-api');cA()"> 🏊 Piscine résidence</label>
     <label class="ck" id="ck-ame"><input type="checkbox" onchange="ckOn(this,'ck-ame');cA()"> 🛋️ Meublé / équipé</label>
-    <label class="ck" id="ck-ase"><input type="checkbox" onchange="ckOn(this,'ck-ase');cA()"> 🔒 Sécurisé / gardien</label>
-    <label class="ck" id="ck-apk"><input type="checkbox" onchange="ckOn(this,'ck-apk');cA()"> 🚗 Parking</label>
-    <label class="ck" id="ck-acui"><input type="checkbox" onchange="ckOn(this,'ck-acui');cA()"> 🍳 Cuisine équipée</label>
     <label class="ck" id="ck-acav"><input type="checkbox" onchange="ckOn(this,'ck-acav');cA()"> 📦 Cave / storage</label>
+    <label class="ck" id="ck-api"><input type="checkbox" onchange="ckOn(this,'ck-api');cA()"> 🏊 Piscine résidence</label>
+  </div>
+  <div class="g2" style="margin-top:10px">
+    <div class="field"><label>❄️ Climatisation</label>
+      <select id="a-clim" onchange="cA()">
+        <option value="0">Sans climatisation</option>
+        <option value="partial">Partielle (1–2 pièces)</option>
+        <option value="full">Complète (tout climatisé)</option>
+      </select>
+    </div>
+    <div class="field"><label>🚗 Parking</label>
+      <select id="a-pk" onchange="cA()">
+        <option value="0">Aucune place</option>
+        <option value="1">1 place</option>
+        <option value="2">2 places</option>
+      </select>
+    </div>
   </div>
   <div class="g2" style="margin-top:10px">
     <div class="field"><label>État général</label>
@@ -462,16 +482,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
       </select>
     </div>
   </div>
-  <div class="g2" style="margin-top:4px">
-    <div class="field"><label>Décote éventuelle</label>
-      <select id="a-nuis" onchange="cA()">
-        <option value="0" selected>Aucune décote</option>
-        <option value="-0.06">Bruit route / aéroport</option>
-        <option value="-0.08">Charges copro très élevées</option>
-        <option value="-0.10">Vis-à-vis fort / sans lumière</option>
-        <option value="-0.12">Humidité / travaux lourds</option>
-      </select>
-    </div>
+  <div class="field" style="margin-top:14px">
+    <label>Décote éventuelle</label>
+    <select id="a-nuis" onchange="cA()">
+      <option value="0" selected>Aucune décote</option>
+      <option value="-0.06">Bruit route / aéroport</option>
+      <option value="-0.08">Charges copro très élevées</option>
+      <option value="-0.10">Vis-à-vis fort / sans lumière</option>
+      <option value="-0.12">Humidité / travaux lourds</option>
+    </select>
   </div>
 </div>
 
@@ -606,7 +625,9 @@ function cM(){
   const cv=$('m-com').value;
   if(cv==='ILES'){$('m-iles').style.display='block';$('m-res').style.display='none';return;}
   $('m-iles').style.display='none';$('m-res').style.display='block';
-  let [tb,tc,th]=cv.split(',').map(n=>_II(parseInt(n)));
+  const cvParts=cv.split(',');
+  let [tb,tc,th]=[_II(parseInt(cvParts[0])),_II(parseInt(cvParts[1])),_II(parseInt(cvParts[2]))];
+  const mAlbKey=cvParts[3]||'Papeete';
   const type=$('m-type').value;
   const annee=parseInt($('m-an').value)||2005;
   const etat=$('m-etat').value;
@@ -624,9 +645,10 @@ function cM(){
   const pm2=(cmin+cmax)/2*(1-ve)*(1+vue*0.8+qrt);
   let vc=sp*pm2;
   if($('ck-mpi')?.querySelector('input')?.checked) vc+=_II(4500000);
-  if($('ck-mcl')?.querySelector('input')?.checked) vc+=_II(800000);
   if($('ck-mso')?.querySelector('input')?.checked) vc+=_II(900000);
-  if($('ck-mpk')?.querySelector('input')?.checked) vc+=_II(1750000);
+  const mClim=$('m-clim')?.value||'0';
+  if(mClim==='partial') vc+=_II(400000);
+  if(mClim==='full')    vc+=_II(900000);
   // Terrain
   const adjT=vue*0.6;
   const vtb=tb*(1+adjT)*ts, vtc=tc*(1+adjT)*ts, vth=th*(1+adjT)*ts;
@@ -638,8 +660,13 @@ function cM(){
   const sfL=sh<60?1.10:sh<80?1.05:sh<100?1.00:sh<130?0.95:0.88;
   let lpm2=(lb+lh)/2*sfL*(1-vetL)*(1+vue*0.4+qrt*0.4);
   if($('ck-mpi')?.querySelector('input')?.checked) lpm2*=1.07;
-  const commL=tc>35000?1.00:tc>25000?0.95:tc>20000?0.88:tc>15000?0.82:tc>12000?0.76:0.70;
-  const loy=_IL(Math.round(lpm2*sh*commL/1000)*1000);
+  if($('ck-mso')?.querySelector('input')?.checked) lpm2*=1.03;
+  if(mClim==='partial') lpm2*=1.03;
+  if(mClim==='full')    lpm2*=1.07;
+  const albBase=ALB[mAlbKey]||ALB['Papeete'];
+  const albRef=ALB['Papeete'];
+  const commL=albBase/albRef;
+  const loy=_IL(Math.round(lpm2*sp*commL/1000)*1000);
   $('m-loy').textContent=fmt(loy);
   $('m-lbas').textContent=fmt(Math.round(loy*0.85/1000)*1000);
   $('m-lhau').textContent=fmt(Math.round(loy*1.15/1000)*1000);
@@ -647,6 +674,10 @@ function cM(){
   const pills=[{bois:'Bois/Fare',metal:'Métal',beton:'Béton',archi:'Architecte'}[type],
     annee+' · '+eL[etat],sp.toFixed(0)+'m² pond.'];
   if(ts>0) pills.push('Terrain '+fmt(ts)+'m²');
+  if($('ck-mpi')?.querySelector('input')?.checked) pills.push('Piscine');
+  if(mClim==='partial') pills.push('Clim partielle');
+  if(mClim==='full') pills.push('Clim complète');
+  if($('ck-mso')?.querySelector('input')?.checked) pills.push('Solaire');
   $('m-pills').innerHTML=pills.map(p=>`<span class="rpill">${p}</span>`).join('');
   $('m-dtl').textContent='Construction '+fMF(vc)+' MF'+(ts>0?' + Terrain '+fMF(vtc)+' MF':'');
 }
@@ -684,32 +715,38 @@ function cA(){
   const terr=parseFloat($('a-terr')?.value)||0;
   const sp=Math.round((sh+terr*0.15)*10)/10;
   if($('a-pond-val')) $('a-pond-val').textContent=sp.toFixed(1);
-  const hasPk=$('ck-apk')?.querySelector('input')?.checked;
+  const aPk=parseInt($('a-pk')?.value)||0;
+  const hasPk=aPk>0; // rétrocompat
   const hasPi=$('ck-api')?.querySelector('input')?.checked;
   const hasMeu=$('ck-ame')?.querySelector('input')?.checked;
-  const hasSec=$('ck-ase')?.querySelector('input')?.checked;
-  const hasCui=$('ck-acui')?.querySelector('input')?.checked;
+  const hasSec=false; // sécurisé couvert par gamme standing
+  const hasCui=hasMeu; // cuisine incluse dans meublé/équipé
   const hasCav=$('ck-acav')?.querySelector('input')?.checked;
   const nuis=parseFloat($('a-nuis')?.value)||0;
   const aqrt=parseFloat($('a-qrt')?.value)||0;
   // Vétusté
   const ve=vetEff(gam,annee,etat);
-  $('a-vv').textContent=eL[etat]+' · −'+Math.round(ve*100)+'%';
+  if($('a-vv')) $('a-vv').textContent=eL[etat]+' · −'+Math.round(ve*100)+'%';
   // Prix vente
   const bpm2=ABASE[cv]||_IC(300000);
   const gm=AGMULT[gam]||1;
   // Dégressivité surface : le m² est plus élevé pour les petites surfaces
   const sfV=sh<25?1.20:sh<35?1.12:sh<50?1.05:sh<70?1.00:sh<90?0.93:sh<120?0.75:0.65;
   let pm2=bpm2*gm*(1-ve)*sfV*(1+ET_V[etage])*(1+vue+aqrt)*(1+nuis);
+  const aClim=$('a-clim')?.value||'0';
   let opt=1;
   if(hasPi) opt*=1.03;
   if(hasSec) opt*=1.02;
-  opt=Math.min(opt,1.06);
+  if(aClim==='partial') opt*=1.02;
+  if(aClim==='full')    opt*=1.04;
+  opt=Math.min(opt,1.10);
   pm2*=opt;
-  const pkV=hasPk?_II(1750000):0;
+  // clim vente
+  const climV=aClim==='partial'?_II(400000):aClim==='full'?_II(900000):0;
+  const pkV=_II(1750000)*aPk;
   const cuiV=hasCui?_II(1500000):0;
   const cavV=hasCav?_II(400000):0;
-  const vCen=sp*pm2+pkV+cuiV+cavV;
+  const vCen=sp*pm2+pkV+cuiV+cavV+climV;
   $('a-cen').textContent=fMF(vCen);
   $('a-bas').textContent=fMF(vCen*0.87)+' MF';
   $('a-hau').textContent=fMF(vCen*1.13)+' MF';
@@ -725,26 +762,29 @@ function cA(){
     Presquile:[850,1200,1800],Moorea_M:[1400,2000,3000],Moorea_H:[1200,1700,2500],Moorea_A:[1000,1400,2100]};
   const [_lb,_lc,_lh]=_ALM[cv]||[1600,2300,3800];
   // Dégressivité surface (petits apparts = loyer/m² plus élevé)
-  const _sc=sh<35?1.25:sh<50?1.10:sh<70?1.00:sh<100?0.90:0.82;
+  const _sc=sp<35?1.25:sp<50?1.10:sp<70?1.00:sp<100?0.90:0.82;
   // Correctifs
   const _standL=gam==='standing'?0.08:gam==='residence'?0.04:0;
   const _vueL=parseFloat($('a-vue')?.value)||0;
   const _etL={rdc:-0.03,rdc_j:0.02,milieu:0,haut:0.05,pent:0.15}[etage]||0;
   let _corr=(1+_standL+_vueL*0.4+_etL+aqrt*0.5)*(1+nuis*0.6)*(1-Math.min(ve*0.45,0.20));
-  const lCen=_IL(Math.round(_lc*_sc*_corr*(hasMeu?1.12:1)*(hasPi?1.07:1)*(hasSec?1.03:1)*(hasCui?1.05:1)*sh/1000)*1000)+(hasPk?8000:0);
+  const lCen=_IL(Math.round(_lc*_sc*_corr*(hasMeu?1.12:1)*(hasPi?1.07:1)*(hasSec?1.03:1)*(hasCui?1.05:1)*(aClim==='partial'?1.03:aClim==='full'?1.05:1)*sp/1000)*1000)+(_II(8000)*aPk);
   const lBas=_IL(Math.round(lCen*0.80/1000)*1000);
   const lHau=_IL(Math.round(lCen*1.20/1000)*1000);
   $('a-loy').textContent=fmt(lCen);
-  $('a-lbas').textContent=fmt(lBas+(hasPk?8000:0));
-  $('a-lhau').textContent=fmt(lHau+(hasPk?8000:0));
+  $('a-lbas').textContent=fmt(lBas);
+  $('a-lhau').textContent=fmt(lHau);
   // Pills
   const pills=[{standard:'Intermédiaire',residence:'Standard',standing:'Standing'}[gam],
     sh+'m²',annee+' · '+eL[etat]];
   if(vue>0.08) pills.push('Vue mer');
   else if(vue>0) pills.push('Vue');
   if(hasMeu) pills.push('Meublé');
-  if(hasPk) pills.push('Parking');
-  if(hasCui) pills.push('Cuisine éq.');
+  if(aClim==='partial') pills.push('Clim partielle');
+  if(aClim==='full') pills.push('Clim complète');
+  if(aPk===1) pills.push('Parking ×1');
+  if(aPk===2) pills.push('Parking ×2');
+  // cuisine couverte par Meublé
   if(hasCav) pills.push('Cave');
   if(nuis<0) pills.push('Nuisance');
   $('a-pills').innerHTML=pills.map(p=>`<span class="rpill">${p}</span>`).join('');

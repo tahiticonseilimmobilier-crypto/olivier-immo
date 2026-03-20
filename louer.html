@@ -532,7 +532,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 function handleSubmit(e) {
   e.preventDefault();
   const btn = e.target.querySelector('.btn-submit');
@@ -545,7 +545,7 @@ const obs = new IntersectionObserver((entries) => {
     if (el.isIntersecting) { el.target.style.opacity='1'; el.target.style.transform='translateY(0)'; }
   });
 }, {threshold:0.1});
-doerySelectorAll('.av,.step,.ch,.temo,.card-f').forEach(el=>{
+document.querySelectorAll('.av,.step,.ch,.temo,.card-f').forEach(el=>{
   el.style.opacity='0';
   el.style.transform='translateY(20px)';
   el.style.transition='opacity .5s ease, transform .5s ease';
