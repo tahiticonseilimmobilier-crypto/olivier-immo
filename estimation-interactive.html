@@ -146,41 +146,39 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
       <div id="form-terrain">
         <div class="field"><label>Commune</label>
           <select id="t-commune" onchange="calc()">
-            <optgroup label="TAHITI · Agglo">
-              <option value="35000,40000,45000">Papeete</option>
-              <option value="30000,35000,40000">Pirae</option>
-              <option value="22500,27500,32500">Faaa</option>
-              <option value="30000,35000,40000">Punaauia</option>
-              <option value="25000,30000,35000">Arue</option>
-              <option value="20000,25000,30000">Paea</option>
-              <option value="15000,20000,25000">Mahina</option>
-            </optgroup>
-            <optgroup label="TAHITI · Côte Est">
-              <option value="10000,15000,20000">Papenoo</option>
-              <option value="10000,15000,20000">Tiarei</option>
-              <option value="10000,15000,20000">Hitiaa / Mahaena</option>
-              <option value="10000,15000,20000">Faaone</option>
-            </optgroup>
-            <optgroup label="TAHITI · Sud / Presqu'île">
-              <option value="15000,20000,25000">Papara</option>
-              <option value="12500,17500,22500">Mataiea / Papeari</option>
-              <option value="15000,20000,25000">Taravao</option>
-              <option value="12500,17500,22500">Toahotu / Afaahiti</option>
-              <option value="10000,15000,20000">Vairao / Teahupoo</option>
-              <option value="10000,15000,20000">Tautira / Pueu</option>
-            </optgroup>
-            <optgroup label="MOOREA">
-              <option value="25000,30000,35000">Moorea – Maharepa / Papetoai</option>
-              <option value="20000,25000,30000">Moorea – Haapiti / Paopao / Cook</option>
-              <option value="15000,20000,25000">Moorea – Afareaitu / Teavaro</option>
-            </optgroup>
-            <optgroup label="ÎLES · Sur demande">
-              <option value="ILES">Bora Bora / Sous-le-Vent</option>
-              <option value="ILES">Tuamotu / Gambier</option>
-              <option value="ILES">Marquises</option>
-              <option value="ILES">Australes</option>
-            </optgroup>
-          </select>
+                <optgroup label="TAHITI — Agglomération">
+                  <option value="35000,40000,45000">Papeete</option>
+                  <option value="30000,35000,40000">Pirae</option>
+                  <option value="30000,35000,40000">Punaauia</option>
+                  <option value="22500,27500,32500">Faaa</option>
+                  <option value="25000,30000,35000">Arue</option>
+                  <option value="20000,25000,30000">Paea</option>
+                  <option value="15000,20000,25000">Mahina</option>
+                </optgroup>
+                <optgroup label="TAHITI — Côte Ouest">
+                  <option value="15000,20000,25000">Papara</option>
+                  <option value="12500,17500,22500">Mataiea / Papeari</option>
+                </optgroup>
+                <optgroup label="TAHITI — Côte Est / Presqu'île">
+                  <option value="10000,15000,20000">Papenoo · Tiarei · Hitiaa · Faaone</option>
+                  <option value="15000,20000,25000">Taravao</option>
+                  <option value="12500,17500,22500">Toahotu / Afaahiti</option>
+                  <option value="10000,15000,20000">Vairao / Teahupoo</option>
+                  <option value="10000,15000,20000">Tautira / Pueu</option>
+                  <option value="12500,17500,22500">Presqu'île (autres)</option>
+                </optgroup>
+                <optgroup label="MOOREA">
+                  <option value="25000,30000,35000">Moorea — Maharepa / Papetoai</option>
+                  <option value="20000,25000,30000">Moorea — Haapiti / Paopao</option>
+                  <option value="15000,20000,25000">Moorea — Afareaitu / Teavaro</option>
+                </optgroup>
+                <optgroup label="ÎLES · Sur demande">
+                  <option value="ILES">Bora Bora / Sous-le-Vent</option>
+                  <option value="ILES">Tuamotu / Gambier</option>
+                  <option value="ILES">Marquises</option>
+                  <option value="ILES">Australes</option>
+                </optgroup>
+              </select>
         </div>
         <div class="grid-2">
           <div class="field"><label>Superficie (m²)</label><input type="number" id="t-surf" value="500" min="50" oninput="calc()"></div>
@@ -269,6 +267,12 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
                   <option value="20000,25000,30000">Moorea — Haapiti / Paopao</option>
                   <option value="15000,20000,25000">Moorea — Afareaitu / Teavaro</option>
                 </optgroup>
+                <optgroup label="ÎLES · Sur demande">
+                  <option value="ILES">Bora Bora / Sous-le-Vent</option>
+                  <option value="ILES">Tuamotu / Gambier</option>
+                  <option value="ILES">Marquises</option>
+                  <option value="ILES">Australes</option>
+                </optgroup>
               </select>
             </div>
             <div class="field"><label>Terrain (m²)</label>
@@ -283,32 +287,38 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
         <div class="grid-2">
           <div class="field"><label>Commune</label>
             <select id="a-commune" onchange="calc()">
-              <optgroup label="TAHITI — Agglomération">
-                <option value="Papeete">Papeete</option>
-                <option value="Pirae">Pirae</option>
-                <option value="Punaauia">Punaauia</option>
-                <option value="Faaa">Faaa</option>
-                <option value="Arue">Arue</option>
-                <option value="Paea">Paea</option>
-                <option value="Mahina">Mahina</option>
-              </optgroup>
-              <optgroup label="TAHITI — Côte Ouest">
-                <option value="Papara">Papara</option>
-                <option value="Mataiea">Mataiea / Papeari</option>
-              </optgroup>
-              <optgroup label="TAHITI — Côte Est / Presqu'île">
-                <option value="Papenoo">Papenoo · Tiarei · Hitiaa · Faaone</option>
-                <option value="Taravao">Taravao</option>
-                <option value="Toahotu">Toahotu / Afaahiti</option>
-                <option value="Vairao">Vairao / Teahupoo / Tautira</option>
-                <option value="Presquile">Presqu'île (autres)</option>
-              </optgroup>
-              <optgroup label="MOOREA">
-                <option value="Moorea_M">Moorea — Maharepa / Papetoai</option>
-                <option value="Moorea_H">Moorea — Haapiti / Paopao</option>
-                <option value="Moorea_A">Moorea — Afareaitu / Teavaro</option>
-              </optgroup>
-              <optgroup label="ÎLES"><option value="ILES">Îles éloignées</option></optgroup>
+                <optgroup label="TAHITI — Agglomération">
+                  <option value="Papeete">Papeete</option>
+                  <option value="Pirae">Pirae</option>
+                  <option value="Punaauia">Punaauia</option>
+                  <option value="Faaa">Faaa</option>
+                  <option value="Arue">Arue</option>
+                  <option value="Paea">Paea</option>
+                  <option value="Mahina">Mahina</option>
+                </optgroup>
+                <optgroup label="TAHITI — Côte Ouest">
+                  <option value="Papara">Papara</option>
+                  <option value="Mataiea">Mataiea / Papeari</option>
+                </optgroup>
+                <optgroup label="TAHITI — Côte Est / Presqu'île">
+                  <option value="Papenoo">Papenoo · Tiarei · Hitiaa · Faaone</option>
+                  <option value="Taravao">Taravao</option>
+                  <option value="Toahotu">Toahotu / Afaahiti</option>
+                  <option value="Vairao">Vairao / Teahupoo</option>
+                  <option value="Tautira">Tautira / Pueu</option>
+                  <option value="Presquile">Presqu'île (autres)</option>
+                </optgroup>
+                <optgroup label="MOOREA">
+                  <option value="Moorea_M">Moorea — Maharepa / Papetoai</option>
+                  <option value="Moorea_H">Moorea — Haapiti / Paopao</option>
+                  <option value="Moorea_A">Moorea — Afareaitu / Teavaro</option>
+                </optgroup>
+                <optgroup label="ÎLES · Sur demande">
+                  <option value="ILES">Bora Bora / Sous-le-Vent</option>
+                  <option value="ILES">Tuamotu / Gambier</option>
+                  <option value="ILES">Marquises</option>
+                  <option value="ILES">Australes</option>
+                </optgroup>
             </select>
           </div>
           <div class="field"><label>Surface (m²)</label>
@@ -458,7 +468,7 @@ const _IC=v=>Math.round(v*(1+0.03*_AN));
 const ABASE={Papeete:_IC(540000),Pirae:_IC(515000),Punaauia:_IC(440000),Faaa:_IC(335000),
   Arue:_IC(415000),Paea:_IC(305000),Mahina:_IC(290000),Papara:_IC(210000),
   Mataiea:_IC(235000),Taravao:_IC(260000),Toahotu:_IC(200000),
-  Vairao:_IC(175000),Presquile:_IC(185000),Papenoo:_IC(170000),
+  Vairao:_IC(175000),Tautira:_IC(170000),Presquile:_IC(185000),Papenoo:_IC(170000),
   Moorea_M:_IC(500000),Moorea_H:_IC(375000),Moorea_A:_IC(275000)};
 const AGMULT={standard:1.00,residence:1.06,standing:1.10};
 const VT_M={bois:0.012,metal:0.009,beton:0.008,archi:0.007};
