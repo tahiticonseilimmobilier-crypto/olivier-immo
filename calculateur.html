@@ -318,6 +318,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
   </div>
 </div>
 
+<div id="m-iles" style="display:none">
+  <div class="card"><div class="iles">
+    <h3>🌴 Îles éloignées</h3>
+    <p>Bora Bora, Îles Sous-le-Vent, Tuamotu, Marquises… marché trop spécifique pour un calcul automatique.</p>
+    <a href="/" class="cta-btn" style="background:var(--coral);color:white;font-size:.82rem">Demander une estimation →</a>
+  </div></div>
+</div>
+
+<div id="m-res">
 <div class="rbox">
   <div class="rl">Valeur vénale indicative</div>
   <div class="rv" id="m-cen">—</div>
@@ -336,7 +345,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
 </div>
 <p class="note">Construction + terrain · Vétusté automatique · Données marché 2026.</p>
 <div class="disc">Résultat indicatif. Pour une valeur certifiée, une estimation officielle avec visite est indispensable.</div>
-</div>
+</div><!-- /rbox -->
+</div><!-- /m-res -->
 
 <!-- ══════════ APPARTEMENT ══════════ -->
 <div id="tab-a" style="display:none">
@@ -524,7 +534,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
 <!-- CTA global — unique -->
 <div class="cta">
   <h3>Votre bien mérite une estimation sérieuse</h3>
-  <p>Valeur vénale : 35 000 XPF · Valeur locative : 15 000 XPF<br>Rapport officiel · Tahiti & Moorea : délai 48h · Îles sur dossier : 5 à 7 jours</p>
+  <p>Valeur vénale : 35 000 XPF · Valeur locative : 15 000 XPF<br>Rapport officiel · Tahiti & Moorea sur place · Îles sur dossier · Délai 48h</p>
   <a href="/" class="cta-btn">Demander mon estimation →</a><br>
   <a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> &nbsp;·&nbsp;
   <a href="https://wa.me/68987225643" class="cta-tel">WhatsApp 87 22 56 43</a>
@@ -594,6 +604,8 @@ const LB_M={bois:[1100,1700],metal:[1400,2100],beton:[1600,2400],archi:[1800,280
 
 function cM(){
   const cv=$('m-com').value;
+  if(cv==='ILES'){$('m-iles').style.display='block';$('m-res').style.display='none';return;}
+  $('m-iles').style.display='none';$('m-res').style.display='block';
   let [tb,tc,th]=cv.split(',').map(n=>_II(parseInt(n)));
   const type=$('m-type').value;
   const annee=parseInt($('m-an').value)||2005;
