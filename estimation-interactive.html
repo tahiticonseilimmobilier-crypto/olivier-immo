@@ -184,11 +184,12 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
         </div>
         <div class="grid-2">
           <div class="field"><label>Superficie (m²)</label><input type="number" id="t-surf" value="500" min="50" oninput="calc()"></div>
-          <div class="field"><label>Type</label>
-            <select id="t-cat" onchange="calc()">
-              <option value="ag">Agricole / Naturel</option>
-              <option value="brut">UC brut / non viabilisé</option>
-              <option value="std" selected>Résidentiel viabilisé</option>
+          <div class="field"><label>Viabilisation</label>
+            <select id="t-viab" onchange="calc()">
+              <option value="0" selected>Viabilisé — eau + EDT</option>
+              <option value="0.05">Compteur eau + EDT existant</option>
+              <option value="-0.10">Loin du réseau — coût à prévoir</option>
+              <option value="-0.25">Autonomie totale solaire + cuve</option>
             </select>
           </div>
         </div>
@@ -205,10 +206,10 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
           </div>
           <div class="field"><label>Topographie</label>
             <select id="t-topo" onchange="calc()">
-              <option value="0.03">Terrain plat (+3%)</option>
+              <option value="0.03">Terrain plat</option>
               <option value="0" selected>Légère pente (standard)</option>
-              <option value="-0.10">Pente forte (−10%)</option>
-              <option value="-0.06">Zone à risque — inondation / glissement (−6%)</option>
+              <option value="-0.10">Pente forte</option>
+              <option value="-0.06">Zone à risque — inondation / glissement</option>
             </select>
           </div>
         </div>
@@ -242,16 +243,32 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
           <div class="grid-2">
             <div class="field"><label>Commune (terrain)</label>
               <select id="mt-commune" onchange="calc()">
-                <option value="35000,40000,45000">Papeete</option>
-                <option value="30000,35000,40000">Pirae / Punaauia</option>
-                <option value="22500,27500,32500">Faaa / Arue</option>
-                <option value="20000,25000,30000">Paea</option>
-                <option value="15000,20000,25000">Mahina</option>
-                <option value="15000,20000,25000">Papara / Taravao</option>
-                <option value="12500,17500,22500">Mataiea / Toahotu</option>
-                <option value="10000,15000,20000">Vairao / Tautira / Côte Est</option>
-                <option value="22000,30000,45000">Moorea – Maharepa</option>
-                <option value="20000,25000,30000">Moorea – Haapiti / Paopao</option>
+                <optgroup label="TAHITI — Agglomération">
+                  <option value="35000,40000,45000">Papeete</option>
+                  <option value="30000,35000,40000">Pirae</option>
+                  <option value="30000,35000,40000">Punaauia</option>
+                  <option value="22500,27500,32500">Faaa</option>
+                  <option value="25000,30000,35000">Arue</option>
+                  <option value="20000,25000,30000">Paea</option>
+                  <option value="15000,20000,25000">Mahina</option>
+                </optgroup>
+                <optgroup label="TAHITI — Côte Ouest">
+                  <option value="15000,20000,25000">Papara</option>
+                  <option value="12500,17500,22500">Mataiea / Papeari</option>
+                </optgroup>
+                <optgroup label="TAHITI — Côte Est / Presqu'île">
+                  <option value="10000,15000,20000">Papenoo · Tiarei · Hitiaa · Faaone</option>
+                  <option value="15000,20000,25000">Taravao</option>
+                  <option value="12500,17500,22500">Toahotu / Afaahiti</option>
+                  <option value="10000,15000,20000">Vairao / Teahupoo</option>
+                  <option value="10000,15000,20000">Tautira / Pueu</option>
+                  <option value="12500,17500,22500">Presqu'île (autres)</option>
+                </optgroup>
+                <optgroup label="MOOREA">
+                  <option value="25000,30000,35000">Moorea — Maharepa / Papetoai</option>
+                  <option value="20000,25000,30000">Moorea — Haapiti / Paopao</option>
+                  <option value="15000,20000,25000">Moorea — Afareaitu / Teavaro</option>
+                </optgroup>
               </select>
             </div>
             <div class="field"><label>Terrain (m²)</label>
@@ -266,7 +283,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
         <div class="grid-2">
           <div class="field"><label>Commune</label>
             <select id="a-commune" onchange="calc()">
-              <optgroup label="TAHITI">
+              <optgroup label="TAHITI — Agglomération">
                 <option value="Papeete">Papeete</option>
                 <option value="Pirae">Pirae</option>
                 <option value="Punaauia">Punaauia</option>
@@ -274,10 +291,17 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
                 <option value="Arue">Arue</option>
                 <option value="Paea">Paea</option>
                 <option value="Mahina">Mahina</option>
+              </optgroup>
+              <optgroup label="TAHITI — Côte Ouest">
                 <option value="Papara">Papara</option>
+                <option value="Mataiea">Mataiea / Papeari</option>
+              </optgroup>
+              <optgroup label="TAHITI — Côte Est / Presqu'île">
+                <option value="Papenoo">Papenoo · Tiarei · Hitiaa · Faaone</option>
                 <option value="Taravao">Taravao</option>
+                <option value="Toahotu">Toahotu / Afaahiti</option>
+                <option value="Vairao">Vairao / Teahupoo / Tautira</option>
                 <option value="Presquile">Presqu'île (autres)</option>
-                <option value="Papenoo">Côte Est</option>
               </optgroup>
               <optgroup label="MOOREA">
                 <option value="Moorea_M">Moorea — Maharepa / Papetoai</option>
@@ -417,6 +441,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
   <div class="footer-links">
     <a href="/mentions-legales">Mentions légales</a>
     <a href="/politique-de-confidentialite">Confidentialité</a>
+    <a href="/estimation-interactive">Estimation</a>
     <a href="/calculateur">Calculateur</a>
   </div>
 </footer>
@@ -432,9 +457,10 @@ const _IC=v=>Math.round(v*(1+0.03*_AN));
 // ABASE appartement — calibré Cabinet LEVY + annonces 2026
 const ABASE={Papeete:_IC(540000),Pirae:_IC(515000),Punaauia:_IC(440000),Faaa:_IC(335000),
   Arue:_IC(415000),Paea:_IC(305000),Mahina:_IC(290000),Papara:_IC(210000),
-  Taravao:_IC(260000),Presquile:_IC(185000),Papenoo:_IC(170000),
+  Mataiea:_IC(235000),Taravao:_IC(260000),Toahotu:_IC(200000),
+  Vairao:_IC(175000),Presquile:_IC(185000),Papenoo:_IC(170000),
   Moorea_M:_IC(500000),Moorea_H:_IC(375000),Moorea_A:_IC(275000)};
-const AGMULT={standard:1.00,residence:1.15,standing:1.28};
+const AGMULT={standard:1.00,residence:1.06,standing:1.10};
 const VT_M={bois:0.012,metal:0.009,beton:0.008,archi:0.007};
 
 let cur='terrain';
@@ -465,13 +491,11 @@ function calc(){
     iles=v==='ILES';
     if(!iles){
       let [pb,pc,ph]=v.split(',').map(n=>_II(parseInt(n)));
-      const cat=$('t-cat').value;
-      if(cat==='ag'){pb=Math.round(pb*0.15);pc=Math.round(pc*0.15);ph=Math.round(ph*0.15);}
-      else if(cat==='brut'){pb=Math.round(pb*0.45);pc=Math.round(pc*0.45);ph=Math.round(ph*0.45);}
+      const viab=parseFloat($('t-viab')?.value)||0;
       const sit=$('t-sit')?.value||'0,0';
       const [qrt,vue]=sit.split(',').map(Number);
       const topo=parseFloat($('t-topo')?.value)||0;
-      const adj=qrt+vue+topo;
+      const adj=qrt+vue+topo+viab;
       pb=pb*(1+adj); pc=pc*(1+adj); ph=ph*(1+adj);
       const surf=parseFloat($('t-surf').value)||0;
       showFourch(pb*surf,pc*surf,ph*surf,
