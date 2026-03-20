@@ -186,8 +186,8 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
           <div class="field"><label>Superficie (m²)</label><input type="number" id="t-surf" value="500" min="50" oninput="calc()"></div>
           <div class="field"><label>Viabilisation</label>
             <select id="t-viab" onchange="calc()">
-              <option value="0" selected>Viabilisé — eau + EDT</option>
               <option value="0.05">Compteur eau + EDT existant</option>
+              <option value="0" selected>En bordure — raccordable (réf.)</option>
               <option value="-0.10">Loin du réseau — coût à prévoir</option>
               <option value="-0.25">Autonomie totale solaire + cuve</option>
             </select>
