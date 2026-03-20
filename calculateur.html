@@ -173,18 +173,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
   <div class="g2">
     <div class="field"><label>Topographie</label>
       <select id="t-topo" onchange="cT()">
-        <option value="0.03">Plat ou quasi-plat (+3%)</option>
+        <option value="0.03">Plat ou quasi-plat</option>
         <option value="0" selected>Légère pente (référence)</option>
-        <option value="-0.12">Pente forte (−12%)</option>
-        <option value="-0.06">Zone à risque — inondation / glissement (−6%)</option>
+        <option value="-0.12">Pente forte</option>
+        <option value="-0.06">Zone à risque — inondation / glissement</option>
       </select>
     </div>
     <div class="field"><label>Viabilisation</label>
       <select id="t-viab" onchange="cT()">
-        <option value="0.05">Compteur eau + EDT existant (+5%)</option>
+        <option value="0.05">Compteur eau + EDT existant</option>
         <option value="0" selected>En bordure — raccordable (réf.)</option>
-        <option value="-0.10">Loin du réseau — coût à prévoir (−10%)</option>
-        <option value="-0.25">Autonomie totale solaire + cuve (−25%)</option>
+        <option value="-0.10">Loin du réseau — coût à prévoir</option>
+        <option value="-0.25">Autonomie totale solaire + cuve</option>
       </select>
     </div>
   </div>
@@ -263,10 +263,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
     </div>
     <div class="field"><label>Quartier / Environnement</label>
       <select id="m-qrt" onchange="cM()">
-        <option value="-0.12">Quartier populaire (−12%)</option>
+        <option value="-0.12">Quartier populaire</option>
         <option value="0" selected>Standard (référence)</option>
-        <option value="0.07">Résidentiel calme (+7%)</option>
-        <option value="0.14">Prestige / vue / bord de mer (+14%)</option>
+        <option value="0.07">Résidentiel calme</option>
+        <option value="0.14">Prestige / vue / bord de mer</option>
       </select>
     </div>
   </div>
@@ -429,8 +429,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
     <label class="ck" id="ck-ame"><input type="checkbox" onchange="ckOn(this,'ck-ame');cA()"> 🛋️ Meublé / équipé</label>
     <label class="ck" id="ck-ase"><input type="checkbox" onchange="ckOn(this,'ck-ase');cA()"> 🔒 Sécurisé / gardien</label>
     <label class="ck" id="ck-apk"><input type="checkbox" onchange="ckOn(this,'ck-apk');cA()"> 🚗 Parking</label>
-    <label class="ck" id="ck-acui"><input type="checkbox" onchange="ckOn(this,'ck-acui');cA()"> 🍳 Cuisine équipée (+1.5 MF)</label>
-    <label class="ck" id="ck-acav"><input type="checkbox" onchange="ckOn(this,'ck-acav');cA()"> 📦 Cave / storage (+400k)</label>
+    <label class="ck" id="ck-acui"><input type="checkbox" onchange="ckOn(this,'ck-acui');cA()"> 🍳 Cuisine équipée</label>
+    <label class="ck" id="ck-acav"><input type="checkbox" onchange="ckOn(this,'ck-acav');cA()"> 📦 Cave / storage</label>
   </div>
   <div class="g2" style="margin-top:10px">
     <div class="field"><label>État général</label>
@@ -445,10 +445,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
     </div>
     <div class="field"><label>Localisation / Quartier</label>
       <select id="a-qrt" onchange="cA()">
-        <option value="-0.08">Quartier populaire / difficile (−8%)</option>
+        <option value="-0.08">Quartier populaire / difficile</option>
         <option value="0" selected>Standard (référence)</option>
-        <option value="0.05">Résidentiel calme / lotissement (+5%)</option>
-        <option value="0.10">Centre-ville / quartier prisé (+10%)</option>
+        <option value="0.05">Résidentiel calme / lotissement</option>
+        <option value="0.10">Centre-ville / quartier prisé</option>
       </select>
     </div>
   </div>
@@ -456,10 +456,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
     <div class="field"><label>Décote éventuelle</label>
       <select id="a-nuis" onchange="cA()">
         <option value="0" selected>Aucune décote</option>
-        <option value="-0.06">Bruit route / aéroport (−6%)</option>
-        <option value="-0.08">Charges copro très élevées (−8%)</option>
-        <option value="-0.10">Vis-à-vis fort / sans lumière (−10%)</option>
-        <option value="-0.12">Humidité / travaux lourds (−12%)</option>
+        <option value="-0.06">Bruit route / aéroport</option>
+        <option value="-0.08">Charges copro très élevées</option>
+        <option value="-0.10">Vis-à-vis fort / sans lumière</option>
+        <option value="-0.12">Humidité / travaux lourds</option>
       </select>
     </div>
   </div>
@@ -524,7 +524,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--noir);
 <!-- CTA global — unique -->
 <div class="cta">
   <h3>Votre bien mérite une estimation sérieuse</h3>
-  <p>Valeur vénale : 35 000 XPF · Valeur locative : 15 000 XPF<br>Rapport officiel · Tahiti & Moorea sur place · Îles sur dossier · Délai 48h</p>
+  <p>Valeur vénale : 35 000 XPF · Valeur locative : 15 000 XPF<br>Rapport officiel · Tahiti & Moorea : délai 48h · Îles sur dossier : 5 à 7 jours</p>
   <a href="/" class="cta-btn">Demander mon estimation →</a><br>
   <a href="tel:+68989225643" class="cta-tel">📞 89 22 56 43</a> &nbsp;·&nbsp;
   <a href="https://wa.me/68987225643" class="cta-tel">WhatsApp 87 22 56 43</a>
