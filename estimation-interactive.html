@@ -193,22 +193,30 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
           </div>
         </div>
         <div class="grid-2">
-          <div class="field"><label>Situation / Vue</label>
-            <select id="t-sit" onchange="calc()">
-              <option value="-0.15,0">Quartier populaire</option>
-              <option value="0,0" selected>Standard — sans vue</option>
-              <option value="0.05,0.05">Résidentiel · vue montagne</option>
-              <option value="0.08,0.12">Résidentiel · vue mer partielle</option>
-              <option value="0.15,0.25">Prestige · vue mer directe</option>
-              <option value="0.15,0.60">Prestige · bord de mer / lagon</option>
-            </select>
-          </div>
+          <div class="field"><label>Quartier / Localisation</label>
+      <select id="t-qrt" onchange="calc()">
+        <option value="-0.12">Quartier populaire</option>
+        <option value="0" selected>Standard (référence)</option>
+        <option value="0.10">Résidentiel calme / prisé</option>
+        <option value="0.20">Accès mer / touristique</option>
+        <option value="0.35">Bord de mer / lagon</option>
+      </select>
+    </div>
+    <div class="field"><label>Vue</label>
+      <select id="t-vue" onchange="calc()">
+        <option value="0" selected>Sans vue particulière</option>
+        <option value="0.08">Vue montagne</option>
+        <option value="0.18">Vue mer partielle</option>
+        <option value="0.30">Vue mer directe</option>
+        <option value="0.50">Vue lagon directe</option>
+      </select>
+    </div>
           <div class="field"><label>Topographie</label>
             <select id="t-topo" onchange="calc()">
-              <option value="0.03">Terrain plat</option>
+              <option value="0.03">Terrain plat (+3%)</option>
               <option value="0" selected>Légère pente (standard)</option>
-              <option value="-0.10">Pente forte</option>
-              <option value="-0.06">Zone à risque — inondation / glissement</option>
+              <option value="-0.10">Pente forte (−10%)</option>
+              <option value="-0.06">Zone à risque — inondation / glissement (−6%)</option>
             </select>
           </div>
         </div>
@@ -219,10 +227,10 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
         <div class="grid-2">
           <div class="field"><label>Construction</label>
             <select id="m-type" onchange="calc()">
-              <option value="125000">Bois</option>
-              <option value="150000">Métal</option>
-              <option value="175000" selected>Béton</option>
-              <option value="200000">Architecte</option>
+              <option value="bois">Bois / Fare</option>
+              <option value="metal">Métal</option>
+              <option value="beton" selected>Béton / Dur</option>
+              <option value="archi">Architecte</option>
             </select>
           </div>
           <div class="field"><label>Année</label><input type="number" id="m-annee" value="2010" min="1950" max="2026" oninput="calc()"></div>
@@ -233,9 +241,12 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
         </div>
         <div class="field"><label>État</label>
           <select id="m-etat" onchange="calc()">
-            <option value="0.5">Très bon / rénové</option>
-            <option value="1" selected>Normal</option>
-            <option value="1.75">Mauvais état</option>
+            <option value="parfait">✨ Neuf / parfait</option>
+            <option value="renove">🔨 Rénové récemment</option>
+            <option value="bon">👍 Bon état</option>
+            <option value="moyen" selected>😐 État moyen</option>
+            <option value="renover">🔧 À rénover</option>
+            <option value="mauvais">💀 Mauvais état</option>
           </select>
         </div>
         <div style="border-top:1px solid var(--bord);padding-top:12px;margin-top:4px">
@@ -252,16 +263,30 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
                 <option value="10000,15000,20000">Vairao / Tautira / Côte Est</option>
                 <option value="22000,30000,45000">Moorea – Maharepa</option>
                 <option value="20000,25000,30000">Moorea – Haapiti / Paopao</option>
-                <optgroup label="ÎLES · Sur demande">
-                  <option value="ILES">Bora Bora / Sous-le-Vent</option>
-                  <option value="ILES">Tuamotu / Gambier</option>
-                  <option value="ILES">Marquises</option>
-                  <option value="ILES">Australes</option>
-                </optgroup>
               </select>
             </div>
             <div class="field"><label>Terrain (m²)</label>
               <input type="number" id="mt-surf" value="500" min="50" oninput="calc()">
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="field"><label>Quartier / Localisation</label>
+              <select id="m-qrt" onchange="calc()">
+                <option value="-0.12">Quartier populaire</option>
+                <option value="0" selected>Standard (référence)</option>
+                <option value="0.10">Résidentiel calme / prisé</option>
+                <option value="0.20">Accès mer / touristique</option>
+                <option value="0.35">Bord de mer / lagon</option>
+              </select>
+            </div>
+            <div class="field"><label>Vue</label>
+              <select id="m-vue" onchange="calc()">
+                <option value="0" selected>Sans vue particulière</option>
+                <option value="0.08">Vue montagne</option>
+                <option value="0.18">Vue mer partielle</option>
+                <option value="0.30">Vue mer directe</option>
+                <option value="0.50">Vue lagon directe</option>
+              </select>
             </div>
           </div>
         </div>
@@ -305,15 +330,24 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
               <option value="standing">Standing — piscine, gardiennage, prestations</option>
             </select>
           </div>
-          <div class="field"><label>Situation / Vue</label>
-            <select id="a-sit" onchange="calc()">
-              <option value="-0.08,0">Quartier populaire — sans vue</option>
-              <option value="0,0" selected>Standard — sans vue</option>
-              <option value="0.05,0.06">Résidentiel · vue mer partielle</option>
-              <option value="0.10,0.10">Prestige · vue mer directe</option>
-              <option value="0.10,0.20">Prestige · bord de mer</option>
-            </select>
-          </div>
+          <div class="field"><label>Quartier / Localisation</label>
+      <select id="a-qrt" onchange="calc()">
+        <option value="-0.12">Quartier populaire</option>
+        <option value="0" selected>Standard (référence)</option>
+        <option value="0.10">Résidentiel calme / prisé</option>
+        <option value="0.20">Accès mer / touristique</option>
+        <option value="0.35">Bord de mer / lagon</option>
+      </select>
+    </div>
+    <div class="field"><label>Vue</label>
+      <select id="a-vue" onchange="calc()">
+        <option value="0" selected>Sans vue particulière</option>
+        <option value="0.08">Vue montagne</option>
+        <option value="0.18">Vue mer partielle</option>
+        <option value="0.30">Vue mer directe</option>
+        <option value="0.50">Vue lagon directe</option>
+      </select>
+    </div>
         </div>
       </div>
 
@@ -474,8 +508,8 @@ function calc(){
       const cat=$('t-cat').value;
       if(cat==='ag'){pb=Math.round(pb*0.15);pc=Math.round(pc*0.15);ph=Math.round(ph*0.15);}
       else if(cat==='brut'){pb=Math.round(pb*0.45);pc=Math.round(pc*0.45);ph=Math.round(ph*0.45);}
-      const sit=$('t-sit')?.value||'0,0';
-      const [qrt,vue]=sit.split(',').map(Number);
+      const qrt=parseFloat($('t-qrt')?.value)||0;
+      const vue=parseFloat($('t-vue')?.value)||0;
       const topo=parseFloat($('t-topo')?.value)||0;
       const adj=qrt+vue+topo;
       pb=pb*(1+adj); pc=pc*(1+adj); ph=ph*(1+adj);
@@ -485,28 +519,28 @@ function calc(){
     }
 
   } else if(cur==='maison'){
-    const mtcv=$('mt-commune')?.value||'35000,40000,45000';
-    if(mtcv==='ILES'){iles=true;}
-    else {
     const typeVal=$('m-type').value;
-    const typeMap={bois:[_IC(100000),_IC(155000)],metal:[_IC(148000),_IC(185000)],
-                   beton:[_IC(170000),_IC(210000)],archi:[_IC(210000),_IC(280000)]};
+    const typeMap={bois:[_IC(105000),_IC(150000)],metal:[_IC(130000),_IC(175000)],
+                   beton:[_IC(155000),_IC(205000)],archi:[_IC(200000),_IC(280000)]};
     const [cmin,cmax]=typeMap[typeVal]||typeMap.beton;
     const an=parseInt($('m-annee').value)||2010;
     const age=Math.max(0,new Date().getFullYear()-an);
-    const vet=Math.min(age*(VT_M[typeVal]||0.008),0.45);
-    const etat=parseFloat($('m-etat').value)||1;
-    const vetE=etat===0.5?vet*0.5:etat===1.75?Math.min(vet*1.4,0.45):vet;
+    const vet=Math.min(age*(VT_M[typeVal]||0.008),0.40);
+    const etatM=$('m-etat')?.value||'moyen';
+    const mVetMult={parfait:0.30,renove:0.05,bon:0.70,moyen:1.0,renover:1.30,mauvais:99};
+    const vetE=etatM==='mauvais'?0.30:Math.min(vet*(mVetMult[etatM]||1),0.40);
     const sp=(parseFloat($('m-hab').value)||0)+(parseFloat($('m-util').value)||0)*0.5;
     const pm2c=(cmin+cmax)/2*(1-vetE);
     const valC=sp*pm2c;
     const tcv=($('mt-commune')?.value||'35000,40000,45000').split(',').map(n=>_II(parseInt(n)));
     const tsurf=parseFloat($('mt-surf')?.value)||0;
-    const valT=tcv[1]*tsurf;
+    const mQrt=parseFloat($('m-qrt')?.value)||0;
+    const mVue=parseFloat($('m-vue')?.value)||0;
+    const mAdj=(mQrt+mVue)*1.0;
+    const valT=tcv[1]*(1+mAdj)*tsurf;
     const cen=valC+valT;
-    showFourch(valC*0.87+tcv[0]*tsurf, cen, valC*1.13+tcv[2]*tsurf,
+    showFourch(valC*0.87+tcv[0]*(1+mAdj)*tsurf, cen, valC*1.13+tcv[2]*(1+mAdj)*tsurf,
       'Construction '+fMF(valC)+'MF'+(tsurf>0?' + Terrain '+fMF(valT)+'MF':''));
-    } // end else iles maison
 
   } else {
     const cv=$('a-commune').value;
@@ -514,8 +548,8 @@ function calc(){
     if(!iles){
       const gam=$('a-gamme')?.value||'standard';
       const s=parseFloat($('a-surf').value)||70;
-      const sit=$('a-sit')?.value||'0,0';
-      const [qrt,vue]=sit.split(',').map(Number);
+      const qrt=parseFloat($('a-qrt')?.value)||0;
+      const vue=parseFloat($('a-vue')?.value)||0;
       const bpm2=ABASE[cv]||_IC(300000);
       const gm=AGMULT[gam]||1;
       const sfV=s<25?1.20:s<35?1.12:s<50?1.05:s<70?1.00:s<90?0.93:s<120?0.75:0.65;
