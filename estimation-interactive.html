@@ -184,13 +184,6 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
         </div>
         <div class="grid-2">
           <div class="field"><label>Superficie (m²)</label><input type="number" id="t-surf" value="500" min="50" oninput="calc()"></div>
-          <div class="field"><label>Type</label>
-            <select id="t-cat" onchange="calc()">
-              <option value="ag">Agricole / Naturel</option>
-              <option value="brut">UC brut / non viabilisé</option>
-              <option value="std" selected>Résidentiel viabilisé</option>
-            </select>
-          </div>
         </div>
         <div class="grid-2">
           <div class="field"><label>Quartier / Localisation</label>
@@ -560,9 +553,7 @@ function calc(){
     iles=v==='ILES';
     if(!iles){
       let [pb,pc,ph]=v.split(',').map(n=>_II(parseInt(n)));
-      const cat=$('t-cat').value;
-      if(cat==='ag'){pb=Math.round(pb*0.15);pc=Math.round(pc*0.15);ph=Math.round(ph*0.15);}
-      else if(cat==='brut'){pb=Math.round(pb*0.45);pc=Math.round(pc*0.45);ph=Math.round(ph*0.45);}
+      // t-cat supprimé — résidentiel viabilisé par défaut
       const qrt=parseFloat($('t-qrt')?.value)||0;
       const vue=parseFloat($('t-vue')?.value)||0;
       const topo=parseFloat($('t-topo')?.value)||0;
