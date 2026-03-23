@@ -215,7 +215,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
         <div class="grid-2">
           <div class="field"><label>Topographie</label>
             <select id="t-topo" onchange="calc()">
-              <option value="0.03">Terrain plat</option>
+              <option value="0.03">Plat ou quasi-plat</option>
               <option value="0" selected>Légère pente (référence)</option>
               <option value="-0.12">Pente forte</option>
               <option value="-0.06">Zone à risque — inondation / glissement</option>
@@ -223,9 +223,10 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
           </div>
           <div class="field"><label>Viabilisation</label>
             <select id="t-viab" onchange="calc()">
-              <option value="0">En bordure — raccordable (réf.)</option>
-              <option value="-0.08">Hors réseau — travaux nécessaires</option>
-              <option value="0.04">Déjà viabilisé / tout raccordé</option>
+              <option value="0.05">Compteur eau + EDT existant</option>
+              <option value="0" selected>En bordure — raccordable (réf.)</option>
+              <option value="-0.10">Loin du réseau — coût à prévoir</option>
+              <option value="-0.25">Autonomie totale solaire + cuve</option>
             </select>
           </div>
         </div>
@@ -250,13 +251,13 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
         </div>
         <div class="field"><label>État</label>
           <select id="m-etat" onchange="calc()">
-            <option value="parfait">✨ Neuf / parfait</option>
-            <option value="renove">🔨 Rénové récemment</option>
-            <option value="bon">👍 Bon état</option>
-            <option value="moyen" selected>😐 État moyen</option>
-            <option value="renover">🔧 À rénover</option>
-            <option value="mauvais">💀 Mauvais état</option>
-          </select>
+              <option value="parfait">✨ Parfait / récent</option>
+              <option value="renove">🔨 Rénové</option>
+              <option value="bon">👍 Bon état</option>
+              <option value="moyen" selected>📋 Moyen</option>
+              <option value="renover">🛠️ À rénover</option>
+              <option value="mauvais">⚠️ Mauvais état</option>
+            </select>
         </div>
         <div style="border-top:1px solid var(--bord);padding-top:12px;margin-top:4px">
           <div class="grid-2">
@@ -329,8 +330,8 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
           </div>
           <div class="field"><label>Gamme de résidence</label>
             <select id="a-gamme" onchange="calc()">
-              <option value="standard" selected>Immeuble basique</option>
-              <option value="residence">Résidence standard</option>
+              <option value="basique" selected>Immeuble basique</option>
+              <option value="standard">Résidence standard</option>
               <option value="standing">Résidence standing</option>
             </select>
           </div>
@@ -392,9 +393,9 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
             <select id="a-nuis" onchange="calc()">
               <option value="0" selected>Aucune décote</option>
               <option value="-0.06">Bruit route / aéroport</option>
-              <option value="-0.08">Charges copro très élevées</option>
-              <option value="-0.10">Vis-à-vis fort / sans lumière</option>
-              <option value="-0.12">Humidité / travaux lourds</option>
+              <option value="-0.08">Charges copro élevées</option>
+              <option value="-0.10">Vis-à-vis / sans lumière</option>
+              <option value="-0.12">Humidité / travaux</option>
             </select>
           </div>
         </div>
@@ -415,7 +416,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
               <div class="result-mini-val" id="result-val">—</div>
               <div class="result-mini-lbl" id="result-lbl">Valeur indicative</div>
             </div>
-            <div class="result-mini-warn">Résultat indicatif · Chaque bien est unique</div>
+            <div class="result-mini-warn">Résultat indicatif · Chaque bien est unique<br><span style="font-size:.7rem;opacity:.6">Biens résidentiels uniquement</span></div>
           </div>
           <div id="result-fourch" style="display:none;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;border-radius:7px;overflow:hidden">
             <div style="background:rgba(255,255,255,.05);padding:8px 10px;text-align:center">
@@ -524,7 +525,7 @@ const ABASE={Papeete:_IC(540000),Pirae:_IC(515000),Punaauia:_IC(440000),Faaa:_IC
   Arue:_IC(415000),Paea:_IC(305000),Mahina:_IC(290000),Papara:_IC(210000),
   Taravao:_IC(260000),Presquile:_IC(185000),Papenoo:_IC(170000),
   Moorea_M:_IC(500000),Moorea_H:_IC(375000),Moorea_A:_IC(275000)};
-const AGMULT={standard:1.00,residence:1.10,standing:1.20};
+const AGMULT={basique:1.00,standard:1.20,standing:1.43};
 const ET_V={rdc:-0.05,rdc_j:-0.02,milieu:0,haut:0.08,pent:0.18};
 const VT_A=0.008; // vétusté appart 0.8%/an plafond 40%
 const etatAMult={parfait:0.30,renove:0.05,bon:0.70,moyen:1.0,renover:1.30,mauvais:99};
@@ -615,7 +616,7 @@ function calc(){
       const nuis=parseFloat($('a-nuis')?.value)||0;
       const locAdj=Math.min(qrt+vue,0.45);
       const bpm2=ABASE[cv]||_IC(300000);
-      const gm=AGMULT[gam]||1;
+      const gm=AGMULT[gam]||AGMULT['standard']||1;
       const sfV=s<25?1.20:s<35?1.12:s<50?1.05:s<70?1.00:s<90?0.93:s<120?0.75:0.65;
       const pm2=bpm2*gm*(1-vetAe)*sfV*(1+(ET_V[etage]||0))*(1+locAdj)*(1+nuis);
       const cen=sp*pm2;
