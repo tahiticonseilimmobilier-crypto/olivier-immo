@@ -247,4 +247,18 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
       <div class="feat-tags">${feat.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
       <a href="/blog/${feat.slug}" class="feat-read">Lire l'article complet →</a>
     </div>`;
-  document.getElementById('articles-grid').innerHTML=ARTICL
+  document.getElementById('articles-grid').innerHTML=ARTICLES.map(a=>`
+    <a href="/blog/${a.slug}" class="card">
+      <div class="card-img" style="background-image:url('${a.imgCard}')">
+        <div class="card-cat">${a.cat}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">${a.date} · ${a.lecture}</div>
+        <h3 class="card-title">${a.titre}</h3>
+        <p class="card-excerpt">${a.extrait}</p>
+        <span class="card-link">Lire →</span>
+      </div>
+    </a>`).join('');
+})();
+</script>
+<button class="scroll-t
