@@ -194,29 +194,31 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
         </div>
         <div class="grid-2">
           <div class="field"><label>Quartier / Localisation</label>
-      <select id="t-qrt" onchange="calc()">
-        <option value="-0.12">Quartier populaire</option>
-        <option value="0" selected>Standard (référence)</option>
-        <option value="0.10">Résidentiel calme / prisé</option>
-        <option value="0.20">Accès mer / touristique</option>
-        <option value="0.35">Bord de mer / lagon</option>
-      </select>
-    </div>
-    <div class="field"><label>Vue</label>
-      <select id="t-vue" onchange="calc()">
-        <option value="0" selected>Sans vue particulière</option>
-        <option value="0.08">Vue montagne</option>
-        <option value="0.18">Vue mer partielle</option>
-        <option value="0.30">Vue mer directe</option>
-        <option value="0.50">Vue lagon directe</option>
-      </select>
-    </div>
+            <select id="t-qrt" onchange="calc()">
+              <option value="-0.12">Quartier populaire</option>
+              <option value="0" selected>Standard (référence)</option>
+              <option value="0.10">Résidentiel calme / prisé</option>
+              <option value="0.20">Accès mer / touristique</option>
+              <option value="0.35">Bord de mer / lagon</option>
+            </select>
+          </div>
+          <div class="field"><label>Vue</label>
+            <select id="t-vue" onchange="calc()">
+              <option value="0" selected>Sans vue particulière</option>
+              <option value="0.08">Vue montagne</option>
+              <option value="0.18">Vue mer partielle</option>
+              <option value="0.30">Vue mer directe</option>
+              <option value="0.50">Vue lagon directe</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2">
           <div class="field"><label>Topographie</label>
             <select id="t-topo" onchange="calc()">
-              <option value="0.03">Terrain plat (+3%)</option>
-              <option value="0" selected>Légère pente (standard)</option>
-              <option value="-0.10">Pente forte (−10%)</option>
-              <option value="-0.06">Zone à risque — inondation / glissement (−6%)</option>
+              <option value="0.03">Terrain plat</option>
+              <option value="0" selected>Légère pente (référence)</option>
+              <option value="-0.10">Pente forte</option>
+              <option value="-0.06">Zone à risque — inondation / glissement</option>
             </select>
           </div>
         </div>
@@ -318,36 +320,65 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
               <optgroup label="ÎLES"><option value="ILES">Îles éloignées</option></optgroup>
             </select>
           </div>
-          <div class="field"><label>Surface (m²)</label>
-            <input type="number" id="a-surf" value="70" min="20" oninput="calc()">
+          <div class="field"><label>Gamme de résidence</label>
+            <select id="a-gamme" onchange="calc()">
+              <option value="standard" selected>Immeuble basique</option>
+              <option value="residence">Résidence standard</option>
+              <option value="standing">Résidence standing</option>
+            </select>
           </div>
         </div>
         <div class="grid-2">
-          <div class="field"><label>Gamme de résidence</label>
-            <select id="a-gamme" onchange="calc()">
-              <option value="standard" selected>Intermédiaire — immeuble courant</option>
-              <option value="residence">Standard — bien entretenu, résidence normale</option>
-              <option value="standing">Standing — piscine, gardiennage, prestations</option>
+          <div class="field"><label>Surface habitable (m²)</label>
+            <input type="number" id="a-surf" value="70" min="20" oninput="calc()">
+          </div>
+          <div class="field"><label>Terrasse / Balcon (m²)</label>
+            <input type="number" id="a-terr" value="0" min="0" oninput="calc()">
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Année de construction</label>
+            <input type="number" id="a-an" value="2010" min="1960" max="2026" oninput="calc()">
+          </div>
+          <div class="field"><label>État général</label>
+            <select id="a-etat" onchange="calc()">
+              <option value="parfait">✨ Neuf / parfait</option>
+              <option value="renove">🔨 Rénové récemment</option>
+              <option value="bon">👍 Bon état</option>
+              <option value="moyen" selected>😐 État moyen</option>
+              <option value="renover">🔧 À rénover</option>
+              <option value="mauvais">💀 Mauvais état</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Étage</label>
+            <select id="a-et" onchange="calc()">
+              <option value="bas">Rez-de-chaussée / bas</option>
+              <option value="milieu" selected>Étages intermédiaires</option>
+              <option value="haut">Étages hauts / vue dégagée</option>
             </select>
           </div>
           <div class="field"><label>Quartier / Localisation</label>
-      <select id="a-qrt" onchange="calc()">
-        <option value="-0.12">Quartier populaire</option>
-        <option value="0" selected>Standard (référence)</option>
-        <option value="0.10">Résidentiel calme / prisé</option>
-        <option value="0.20">Accès mer / touristique</option>
-        <option value="0.35">Bord de mer / lagon</option>
-      </select>
-    </div>
-    <div class="field"><label>Vue</label>
-      <select id="a-vue" onchange="calc()">
-        <option value="0" selected>Sans vue particulière</option>
-        <option value="0.08">Vue montagne</option>
-        <option value="0.18">Vue mer partielle</option>
-        <option value="0.30">Vue mer directe</option>
-        <option value="0.50">Vue lagon directe</option>
-      </select>
-    </div>
+            <select id="a-qrt" onchange="calc()">
+              <option value="-0.12">Quartier populaire</option>
+              <option value="0" selected>Standard (référence)</option>
+              <option value="0.10">Résidentiel calme / prisé</option>
+              <option value="0.20">Accès mer / touristique</option>
+              <option value="0.35">Bord de mer / lagon</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Vue</label>
+            <select id="a-vue" onchange="calc()">
+              <option value="0" selected>Sans vue particulière</option>
+              <option value="0.08">Vue montagne</option>
+              <option value="0.18">Vue mer partielle</option>
+              <option value="0.30">Vue mer directe</option>
+              <option value="0.50">Vue lagon directe</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -435,7 +466,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
   </div>
 
   <div class="steps">
-    <div class="step"><div class="step-num">1</div><div class="step-title">Contact</div><div class="step-text">Formulaire, WhatsApp ou téléphone — réponse sous 24h</div></div>
+    <div class="step"><div class="step-num">1</div><div class="step-title">Contact</div><div class="step-text">Formulaire, <a href="https://wa.me/68987225643?text=Bonjour%20Olivier%2C%20je%20souhaite%20une%20estimation%20pour%20%3A%0A%0AType%20de%20bien%20%3A%20%0ACommune%20%3A%20%0AObjet%20%3A%20vente%20/%20location%20/%20achat%0ABudget%20/%20valeur%20estim%C3%A9e%20%3A%20%0AEmail%20de%20contact%20%3A%20" target="_blank">WhatsApp</a> ou téléphone — réponse sous 24h</div></div>
     <div class="step"><div class="step-num">2</div><div class="step-title">Visite / Dossier</div><div class="step-text">Tahiti/Moorea : déplacement sur place · Îles : analyse plans et documents</div></div>
     <div class="step"><div class="step-num">3</div><div class="step-title">Analyse</div><div class="step-text">Comparaison marché local · Application méthode professionnelle</div></div>
     <div class="step"><div class="step-num">4</div><div class="step-title">Rapport</div><div class="step-text">Document certifié signé · Utilisable immédiatement</div></div>
@@ -474,7 +505,10 @@ const ABASE={Papeete:_IC(540000),Pirae:_IC(515000),Punaauia:_IC(440000),Faaa:_IC
   Arue:_IC(415000),Paea:_IC(305000),Mahina:_IC(290000),Papara:_IC(210000),
   Taravao:_IC(260000),Presquile:_IC(185000),Papenoo:_IC(170000),
   Moorea_M:_IC(500000),Moorea_H:_IC(375000),Moorea_A:_IC(275000)};
-const AGMULT={standard:1.00,residence:1.15,standing:1.28};
+const AGMULT={standard:1.00,residence:1.10,standing:1.20};
+const ET_V={bas:-0.03,milieu:0,haut:0.07};
+const VT_A=0.008; // vétusté appart 0.8%/an plafond 40%
+const etatAMult={parfait:0.30,renove:0.05,bon:0.70,moyen:1.0,renover:1.30,mauvais:99};
 const VT_M={bois:0.012,metal:0.009,beton:0.008,archi:0.007};
 
 let cur='terrain';
@@ -548,14 +582,23 @@ function calc(){
     if(!iles){
       const gam=$('a-gamme')?.value||'standard';
       const s=parseFloat($('a-surf').value)||70;
+      const terr=parseFloat($('a-terr')?.value)||0;
+      const sp=s+terr*0.15; // surface pondérée
+      const anA=parseInt($('a-an')?.value)||2010;
+      const ageA=Math.max(0,new Date().getFullYear()-anA);
+      const vetA=Math.min(ageA*VT_A,0.40);
+      const etatAV=$('a-etat')?.value||'moyen';
+      const vetAe=etatAV==='mauvais'?0.30:Math.min(vetA*(etatAMult[etatAV]||1),0.40);
+      const etage=$('a-et')?.value||'milieu';
       const qrt=parseFloat($('a-qrt')?.value)||0;
       const vue=parseFloat($('a-vue')?.value)||0;
+      const locAdj=Math.min(qrt+vue,0.45);
       const bpm2=ABASE[cv]||_IC(300000);
       const gm=AGMULT[gam]||1;
       const sfV=s<25?1.20:s<35?1.12:s<50?1.05:s<70?1.00:s<90?0.93:s<120?0.75:0.65;
-      const pm2=bpm2*gm*sfV*(1+vue+qrt);
-      const cen=s*pm2;
-      showFourch(cen*0.87, cen, cen*1.13, 'Appartement — '+fmt(Math.round(pm2/1000)*1000)+' XPF/m²');
+      const pm2=bpm2*gm*(1-vetAe)*sfV*(1+ET_V[etage]||0)*(1+locAdj);
+      const cen=sp*pm2;
+      showFourch(cen*0.85, cen, cen*1.15, 'Appartement — '+fmt(Math.round(pm2/1000)*1000)+' XPF/m²');
     }
   }
   $('calc-iles').style.display=iles?'block':'none';
