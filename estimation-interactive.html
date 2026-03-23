@@ -273,6 +273,11 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
               <input type="number" id="mt-surf" value="500" min="50" oninput="calc()">
             </div>
           </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+            <label style="display:flex;align-items:center;gap:6px;font-size:.82rem;cursor:pointer"><input type="checkbox" id="ei-mpi" onchange="calc()"> 🏊 Piscine</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:.82rem;cursor:pointer"><input type="checkbox" id="ei-mcl" onchange="calc()"> ❄️ Climatisation</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:.82rem;cursor:pointer"><input type="checkbox" id="ei-mso" onchange="calc()"> ☀️ Solaire</label>
+          </div>
           <div class="grid-2">
             <div class="field"><label>Quartier / Localisation</label>
               <select id="m-qrt" onchange="calc()">
@@ -382,6 +387,21 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
               <option value="0.30">Vue mer directe</option>
               <option value="0.50">Vue lagon directe</option>
             </select>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+            <label style="display:flex;align-items:center;gap:6px;font-size:.82rem;cursor:pointer"><input type="checkbox" id="ei-api" onchange="calc()"> 🏊 Piscine</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:.82rem;cursor:pointer"><input type="checkbox" id="ei-ase" onchange="calc()"> 🔒 Sécurisée</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:.82rem;cursor:pointer"><input type="checkbox" id="ei-asc" onchange="calc()"> 🛗 Ascenseur</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:.82rem;cursor:pointer"><input type="checkbox" id="ei-acl" onchange="calc()"> ❄️ Climatisé</label>
+          </div>
+          <div class="grid-2" style="margin-top:8px">
+            <div class="field"><label>🚗 Parking</label>
+              <select id="ei-apk" onchange="calc()">
+                <option value="0" selected>Aucune place</option>
+                <option value="1">1 place</option>
+                <option value="2">2 places</option>
+              </select>
+            </div>
           </div>
           <div class="field"><label>Décote éventuelle</label>
             <select id="a-nuis" onchange="calc()">
@@ -581,7 +601,13 @@ function calc(){
     const vetE=etatM==='mauvais'?0.30:Math.min(vet*(mVetMult[etatM]||1),0.40);
     const sp=(parseFloat($('m-hab').value)||0)+(parseFloat($('m-util').value)||0)*0.5;
     const pm2c=(cmin+cmax)/2*(1-vetE);
-    const valC=sp*pm2c;
+    const mPisc=document.getElementById('ei-mpi')?.checked;
+    const mClim=document.getElementById('ei-mcl')?.checked;
+    const mSol=document.getElementById('ei-mso')?.checked;
+    let valC=sp*pm2c;
+    if(mPisc) valC+=_II(4500000);
+    if(mClim) valC+=_II(600000);
+    if(mSol)  valC+=_II(900000);
     const tcv=($('mt-commune')?.value||'35000,40000,45000').split(',').map(n=>_II(parseInt(n)));
     const tsurf=parseFloat($('mt-surf')?.value)||0;
     const mQrt=parseFloat($('m-qrt')?.value)||0;
@@ -609,12 +635,22 @@ function calc(){
       const qrt=parseFloat($('a-qrt')?.value)||0;
       const vue=parseFloat($('a-vue')?.value)||0;
       const nuis=parseFloat($('a-nuis')?.value)||0;
+      const aPisc=document.getElementById('ei-api')?.checked;
+      const aSec=document.getElementById('ei-ase')?.checked;
+      const aAsc=document.getElementById('ei-asc')?.checked;
+      const aCl=document.getElementById('ei-acl')?.checked;
+      const aPk=parseInt(document.getElementById('ei-apk')?.value)||0;
       const locAdj=Math.min(qrt+vue,0.45);
       const bpm2=ABASE[cv]||_IC(300000);
       const gm=AGMULT[gam]||AGMULT['standard']||1;
       const sfV=s<25?1.20:s<35?1.12:s<50?1.05:s<70?1.00:s<90?0.93:s<120?0.75:0.65;
       const pm2=bpm2*gm*(1-vetAe)*sfV*(1+(ET_V[etage]||0))*(1+locAdj)*(1+nuis);
-      const cen=sp*pm2;
+      let cen=sp*pm2;
+      if(aPisc) cen+=_II(3000000);
+      if(aSec)  cen+=_II(1000000);
+      if(aAsc)  cen+=_II(1250000);
+      if(aCl)   cen+=_II(400000);
+      cen+=aPk*(gam==='standing'?_II(1250000):_II(800000));
       showFourch(cen*0.85, cen, cen*1.15, 'Appartement — '+fmt(Math.round(pm2/1000)*1000)+' XPF/m²');
     }
   }
