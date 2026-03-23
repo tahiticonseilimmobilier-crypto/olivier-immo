@@ -273,6 +273,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
                 <option value="10000,15000,20000">Vairao / Tautira / Côte Est</option>
                 <option value="22000,30000,45000">Moorea – Maharepa</option>
                 <option value="20000,25000,30000">Moorea – Haapiti / Paopao</option>
+                <option value="ILES">Îles éloignées</option>
               </select>
             </div>
             <div class="field"><label>Terrain (m²)</label>
@@ -574,6 +575,9 @@ function calc(){
     }
 
   } else if(cur==='maison'){
+    const mtCom=$('mt-commune')?.value||'35000,40000,45000';
+    if(mtCom==='ILES'){iles=true;}
+    if(iles){$('calc-iles').style.display='block';$('calc-result-wrap').style.display='none';return;}
     const typeVal=$('m-type').value;
     const typeMap={bois:[_IC(105000),_IC(150000)],metal:[_IC(130000),_IC(175000)],
                    beton:[_IC(155000),_IC(205000)],archi:[_IC(200000),_IC(280000)]};
