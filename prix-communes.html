@@ -359,7 +359,6 @@ const _fmt = n => n.toLocaleString('fr-FR') + ' XPF';
 function applyInflation() {
   const annee = 2026 + _AN;
   document.querySelectorAll('.yr-note,#pc-yr').forEach(el=>el.textContent=annee);
-  const annee = 2026 + _AN;
   // Mettre à jour le badge année
   const badge = document.getElementById('annee-badge');
   if (badge) badge.textContent = `Données ${annee} · Calibrées par Olivier BLAISE · Cabinet LEVY`;
