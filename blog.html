@@ -147,7 +147,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
       <h2>Votre projet immobilier en Polynésie ?</h2>
       <p>Estimation officielle, vente, achat ou location — je vous accompagne sur Tahiti, Moorea et toute la Polynésie française.</p>
       <a href="/" class="cta-btn">Demander mon estimation →</a>
-      <div class="cta-tel"><a href="tel:+68989225643" style="color:inherit;text-decoration:none">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643?text=Bonjour%20Olivier%2C%20je%20souhaite%20une%20estimation%20pour%20%3A%0A%0AType%20de%20bien%20%3A%20%0ACommune%20%3A%20%0AObjet%20%3A%20vente%20/%20location%20/%20achat%0ABudget%20/%20valeur%20estim%C3%A9e%20%3A%20%0AEmail%20de%20contact%20%3A%20" style="color:#25D366;font-weight:600;text-decoration:none" target="_blank">💬 WhatsApp 87 22 56 43</a> · <a href="mailto:olivier@levytahiti.com">olivier@levytahiti.com</a></div>
+      <div class="cta-tel"><a href="tel:+68989225643" style="color:white;font-weight:600;text-decoration:none">📞 89 22 56 43</a> · <a href="https://wa.me/68987225643?text=Bonjour%20Olivier%2C%20je%20souhaite%20une%20estimation%20pour%20%3A%0A%0AType%20de%20bien%20%3A%20%0ACommune%20%3A%20%0AObjet%20%3A%20vente%20/%20location%20/%20achat%0ABudget%20/%20valeur%20estim%C3%A9e%20%3A%20%0AEmail%20de%20contact%20%3A%20" style="color:#25D366;font-weight:600;text-decoration:none" target="_blank">💬 WhatsApp 87 22 56 43</a> · <a href="mailto:olivier@levytahiti.com" style="color:rgba(255,255,255,.7);text-decoration:none">olivier@levytahiti.com</a></div>
     </div>
   </div>
 </div>
@@ -247,10 +247,4 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
       <div class="feat-tags">${feat.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
       <a href="/blog/${feat.slug}" class="feat-read">Lire l'article complet →</a>
     </div>`;
-  document.getElementById('articles-grid').innerHTML=ARTICLES.map(a=>`
-    <a href="/blog/${a.slug}" class="card">
-      <div class="card-img" style="background-image:url('${a.imgCard}')">
-        <div class="card-cat">${a.cat}</div>
-      </div>
-      <div class="card-body">
-        <div class="card-date">
+  document.getElementById('articles-grid').innerHTML=ARTICL
