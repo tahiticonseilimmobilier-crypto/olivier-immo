@@ -97,7 +97,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
   <div class="hero-tag">Marché immobilier · Polynésie française</div>
   <h1>Prix immobilier par commune</h1>
   <p class="sub">Terrains, maisons et appartements à Tahiti et Moorea — fourchettes de prix réels calibrées sur le marché actif.</p>
-  <div class="annee" id="annee-badge">Données 2026 · Calibrées par Olivier BLAISE · Cabinet LEVY</div>
+  <div class="annee" id="annee-badge">Données <span id="pc-yr">2026</span> · Calibrées par Olivier BLAISE · Cabinet LEVY</div>
 </div>
 
 <div class="container">
@@ -330,7 +330,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
     <h2>Besoin d'une valeur précise ?</h2>
     <p>Ces fourchettes sont un point de départ. Pour vendre, emprunter ou hériter, seule une estimation officielle a de la valeur.</p>
     <a href="/" class="cta-btn">Demander mon estimation →</a>
-    <span class="cta-tel">📞 <a href="tel:+68989225643" style="color:inherit;text-decoration:none">89 22 56 43</a> · WhatsApp <a href="https://wa.me/68987225643" style="color:inherit;text-decoration:none">87 22 56 43</a></span>
+    <span class="cta-tel">📞 <a href="tel:+68989225643" style="color:inherit;text-decoration:none">89 22 56 43</a> · WhatsApp <a href="https://wa.me/68987225643?text=Bonjour%20Olivier%2C%20je%20souhaite%20une%20estimation%20pour%20%3A%0A%0AType%20de%20bien%20%3A%20%0ACommune%20%3A%20%0AObjet%20%3A%20vente%20/%20location%20/%20achat%0ABudget%20/%20valeur%20estim%C3%A9e%20%3A%20%0AEmail%20de%20contact%20%3A%20" style="color:inherit;text-decoration:none">87 22 56 43</a></span>
   </div>
 
 </div>
@@ -357,6 +357,8 @@ const _fmt = n => n.toLocaleString('fr-FR') + ' XPF';
 
 // Appliquer l'inflation sur toutes les cellules avec data-base
 function applyInflation() {
+  const annee = 2026 + _AN;
+  document.querySelectorAll('.yr-note,#pc-yr').forEach(el=>el.textContent=annee);
   const annee = 2026 + _AN;
   // Mettre à jour le badge année
   const badge = document.getElementById('annee-badge');

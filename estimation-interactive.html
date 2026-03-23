@@ -397,7 +397,7 @@ footer{background:#080b10;padding:28px 40px;display:flex;align-items:center;just
               <div class="result-mini-val" id="result-val">—</div>
               <div class="result-mini-lbl" id="result-lbl">Valeur indicative</div>
             </div>
-            <div class="result-mini-warn">Résultat indicatif<br>Chaque bien est unique</div>
+            <div class="result-mini-warn">Résultat indicatif · Chaque bien est unique</div>
           </div>
           <div id="result-fourch" style="display:none;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;border-radius:7px;overflow:hidden">
             <div style="background:rgba(255,255,255,.05);padding:8px 10px;text-align:center">
@@ -499,6 +499,7 @@ const fMF=n=>(Math.round(n/100000)/10).toFixed(1);
 const _AN=Math.max(0,new Date().getFullYear()-2026);
 const _II=v=>Math.round(v*(1+0.04*_AN));
 const _IC=v=>Math.round(v*(1+0.03*_AN));
+const _IL=v=>Math.round(v*(1+0.015*_AN));
 
 // ABASE appartement — calibré Cabinet LEVY + annonces 2026
 const ABASE={Papeete:_IC(540000),Pirae:_IC(515000),Punaauia:_IC(440000),Faaa:_IC(335000),
